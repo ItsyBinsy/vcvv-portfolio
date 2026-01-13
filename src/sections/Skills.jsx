@@ -44,7 +44,14 @@ const Skills = () => {
           return;
         }
 
-        setDebugStatus('▶️ Running');
+        // Check if we can actually scroll
+        const canScroll = container.scrollWidth > container.clientWidth;
+        if (!canScroll) {
+          setDebugStatus('❌ Cannot scroll');
+          return;
+        }
+
+        setDebugStatus(`▶️ ${Math.round(container.scrollLeft)}px`);
         // Smooth continuous scroll - relaxed viewing speed
         container.scrollLeft += 0.5; // Slower, more comfortable speed
 
@@ -167,14 +174,43 @@ const Skills = () => {
           }}
           onTouchStart={() => {
             userScrollingRef.current = true;
+            setDebugStatus('👆 Touch start');
           }}
           onTouchEnd={() => {
+            setDebugStatus('⏳ Resuming...');
             // Resume auto-scroll after user stops touching
             if (scrollTimeoutRef.current) {
               clearTimeout(scrollTimeoutRef.current);
             }
             scrollTimeoutRef.current = setTimeout(() => {
               userScrollingRef.current = false;
+              setDebugStatus('🔄 Restarting');
+
+              // Restart the animation loop
+              const container = scrollContainerRef.current;
+              if (container && animationFrameRef.current === null) {
+                const animate = () => {
+                  if (!container || !container.isConnected || userScrollingRef.current) return;
+
+                  // Check if we can actually scroll
+                  const canScroll = container.scrollWidth > container.clientWidth;
+                  if (!canScroll) {
+                    setDebugStatus('❌ Cannot scroll');
+                    return;
+                  }
+
+                  setDebugStatus(`▶️ ${Math.round(container.scrollLeft)}px`);
+                  container.scrollLeft += 0.5;
+
+                  const maxScroll = container.scrollWidth / 2;
+                  if (container.scrollLeft >= maxScroll) {
+                    container.scrollLeft = 0;
+                  }
+
+                  animationFrameRef.current = requestAnimationFrame(animate);
+                };
+                animationFrameRef.current = requestAnimationFrame(animate);
+              }
             }, 1000);
           }}
         >
