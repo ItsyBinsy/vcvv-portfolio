@@ -22,12 +22,18 @@ const About = () => {
   };
 
   const navigateModal = (direction) => {
-    let newIndex = selectedCardIndex;
-    if (direction === 'prev' && selectedCardIndex > 0) {
-      newIndex = selectedCardIndex - 1;
-    } else if (direction === 'next' && selectedCardIndex < aboutData.cards.length - 1) {
-      newIndex = selectedCardIndex + 1;
+    // Strict boundary check - prevent navigation beyond limits
+    if (direction === 'prev' && selectedCardIndex === 0) {
+      return; // Already at first card
     }
+    if (direction === 'next' && selectedCardIndex === aboutData.cards.length - 1) {
+      return; // Already at last card
+    }
+
+    const newIndex = direction === 'prev'
+      ? selectedCardIndex - 1
+      : selectedCardIndex + 1;
+
     setSelectedCardIndex(newIndex);
     setSelectedCard(aboutData.cards[newIndex]);
   };
@@ -139,7 +145,7 @@ const About = () => {
                 disabled={selectedCardIndex === 0}
                 className={`flex items-center gap-2 px-4 py-2 rounded-lg font-semibold text-sm transition-all duration-200 ${
                   selectedCardIndex === 0
-                    ? 'text-gray-400 dark:text-gray-600 cursor-not-allowed'
+                    ? 'text-gray-400 dark:text-gray-600 cursor-not-allowed pointer-events-none opacity-50'
                     : 'text-yellow-600 dark:text-yellow-400 hover:bg-yellow-50 dark:hover:bg-yellow-900/20'
                 }`}
               >
@@ -171,7 +177,7 @@ const About = () => {
                 disabled={selectedCardIndex === aboutData.cards.length - 1}
                 className={`flex items-center gap-2 px-4 py-2 rounded-lg font-semibold text-sm transition-all duration-200 ${
                   selectedCardIndex === aboutData.cards.length - 1
-                    ? 'text-gray-400 dark:text-gray-600 cursor-not-allowed'
+                    ? 'text-gray-400 dark:text-gray-600 cursor-not-allowed pointer-events-none opacity-50'
                     : 'text-yellow-600 dark:text-yellow-400 hover:bg-yellow-50 dark:hover:bg-yellow-900/20'
                 }`}
               >
