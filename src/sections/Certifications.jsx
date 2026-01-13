@@ -7,7 +7,6 @@ import { MdVerified } from 'react-icons/md';
 
 const Certifications = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [isPaused, setIsPaused] = useState(false);
   const [currentIndex, setCurrentIndex] = useState(0);
   const scrollContainerRef = useRef(null);
   const animationFrameRef = useRef(null);
@@ -16,7 +15,7 @@ const Certifications = () => {
   // Continuous auto-scroll with scrollTo API
   useEffect(() => {
     const container = scrollContainerRef.current;
-    if (isPaused || !container) return;
+    if (!container) return;
 
     // Small delay to ensure DOM is fully rendered
     const startDelay = setTimeout(() => {
@@ -64,7 +63,7 @@ const Certifications = () => {
         cancelAnimationFrame(animationFrameRef.current);
       }
     };
-  }, [isPaused]);
+  }, []);
 
   // Track current index based on scroll position
   useEffect(() => {
@@ -95,25 +94,60 @@ const Certifications = () => {
     const container = scrollContainerRef.current;
     if (container) {
       // Temporarily pause auto-scroll
-      setIsPaused(true);
-      
+      userScrollingRef.current = true;
+      if (animationFrameRef.current) {
+        cancelAnimationFrame(animationFrameRef.current);
+        animationFrameRef.current = null;
+      }
+
       const cards = container.querySelectorAll('[data-cert-index]');
       const targetCard = cards[index];
-      
+
       if (targetCard) {
         const containerRect = container.getBoundingClientRect();
         const cardRect = targetCard.getBoundingClientRect();
         const scrollLeft = container.scrollLeft;
         const targetScrollPosition = scrollLeft + (cardRect.left - containerRect.left);
-        
+
         container.scrollTo({
           left: targetScrollPosition,
           behavior: 'smooth'
         });
-        
+
         // Resume auto-scroll after 2 seconds
         setTimeout(() => {
-          setIsPaused(false);
+          userScrollingRef.current = false;
+
+          // Restart animation from new position
+          const scrollDistance = container.scrollWidth / 2;
+          const currentScroll = container.scrollLeft;
+          const duration = scrollDistance * 10;
+          const initialProgress = (currentScroll % scrollDistance) / scrollDistance;
+          const initialElapsed = initialProgress * duration;
+          let startTime = null;
+
+          const animate = (timestamp) => {
+            if (!container || !container.isConnected || userScrollingRef.current) return;
+
+            if (!startTime) startTime = timestamp - initialElapsed;
+            const elapsed = timestamp - startTime;
+            const progress = (elapsed % duration) / duration;
+            const scrollPos = progress * scrollDistance;
+            const currentScroll = container.scrollLeft;
+
+            if (currentScroll >= scrollDistance - 1) {
+              container.scrollLeft = 0;
+              startTime = timestamp;
+            } else {
+              container.scrollTo({
+                left: scrollPos,
+                behavior: 'instant'
+              });
+            }
+
+            animationFrameRef.current = requestAnimationFrame(animate);
+          };
+          animationFrameRef.current = requestAnimationFrame(animate);
         }, 2000);
       }
     }
