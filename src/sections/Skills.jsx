@@ -19,7 +19,7 @@ const Skills = () => {
   // Use featured skills for carousel
   const featuredSkills = skillsData.featured;
 
-  // Continuous auto-scroll with requestAnimationFrame
+  // Continuous auto-scroll with CSS animation + JS fallback
   useEffect(() => {
     const container = scrollContainerRef.current;
     if (isPaused || !container) return;
@@ -35,7 +35,12 @@ const Skills = () => {
       console.log('Skills: Starting auto-scroll animation');
       setDebugStatus('▶️ Running');
 
-      const animate = () => {
+      // Try CSS transform approach for mobile
+      const scrollDistance = container.scrollWidth / 2;
+      let startTime = null;
+      const duration = scrollDistance * 10; // 10ms per pixel = slow scroll
+
+      const animate = (timestamp) => {
         if (!container || !container.isConnected || userScrollingRef.current) {
           if (userScrollingRef.current) {
             console.log('Skills: User is scrolling, pausing animation');
@@ -44,24 +49,18 @@ const Skills = () => {
           return;
         }
 
-        // Check if we can actually scroll
-        const canScroll = container.scrollWidth > container.clientWidth;
-        if (!canScroll) {
-          setDebugStatus('❌ Cannot scroll');
-          return;
-        }
+        if (!startTime) startTime = timestamp;
+        const elapsed = timestamp - startTime;
+        const progress = (elapsed % duration) / duration;
+        const scrollPos = progress * scrollDistance;
 
-        setDebugStatus(`▶️ ${Math.round(container.scrollLeft)}px`);
-        // Smooth continuous scroll - relaxed viewing speed
-        container.scrollLeft += 0.5; // Slower, more comfortable speed
+        // Use scrollTo for better mobile support
+        container.scrollTo({
+          left: scrollPos,
+          behavior: 'instant'
+        });
 
-        // Get the halfway point (where original items end and duplicates start)
-        const maxScroll = container.scrollWidth / 2;
-
-        // Reset when reaching halfway point (seamless loop)
-        if (container.scrollLeft >= maxScroll) {
-          container.scrollLeft = 0;
-        }
+        setDebugStatus(`▶️ ${Math.round(scrollPos)}px`);
 
         animationFrameRef.current = requestAnimationFrame(animate);
       };
@@ -189,23 +188,24 @@ const Skills = () => {
               // Restart the animation loop
               const container = scrollContainerRef.current;
               if (container && animationFrameRef.current === null) {
-                const animate = () => {
+                const scrollDistance = container.scrollWidth / 2;
+                let startTime = null;
+                const duration = scrollDistance * 10;
+
+                const animate = (timestamp) => {
                   if (!container || !container.isConnected || userScrollingRef.current) return;
 
-                  // Check if we can actually scroll
-                  const canScroll = container.scrollWidth > container.clientWidth;
-                  if (!canScroll) {
-                    setDebugStatus('❌ Cannot scroll');
-                    return;
-                  }
+                  if (!startTime) startTime = timestamp;
+                  const elapsed = timestamp - startTime;
+                  const progress = (elapsed % duration) / duration;
+                  const scrollPos = progress * scrollDistance;
 
-                  setDebugStatus(`▶️ ${Math.round(container.scrollLeft)}px`);
-                  container.scrollLeft += 0.5;
+                  container.scrollTo({
+                    left: scrollPos,
+                    behavior: 'instant'
+                  });
 
-                  const maxScroll = container.scrollWidth / 2;
-                  if (container.scrollLeft >= maxScroll) {
-                    container.scrollLeft = 0;
-                  }
+                  setDebugStatus(`▶️ ${Math.round(scrollPos)}px`);
 
                   animationFrameRef.current = requestAnimationFrame(animate);
                 };
