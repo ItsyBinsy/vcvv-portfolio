@@ -10,7 +10,7 @@ export const heroData = {
   expertise: "Expertise in Web & Mobile Development",
   image: {
     light: "/images/ME2.jpg",  // Light mode image
-    dark: "/images/ME.jpg"      // Dark mode image
+    dark: "/images/ME.png"      // Dark mode image
   },
   buttons: [
     { label: "Download CV", type: "outline" },
