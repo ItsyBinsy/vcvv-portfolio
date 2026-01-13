@@ -127,7 +127,12 @@ const Skills = () => {
       {/* Carousel Container */}
       <div
         className="relative"
-        onMouseEnter={() => setIsPaused(true)}
+        onMouseEnter={() => {
+          // Only pause on desktop (hover), not on mobile touch
+          if (window.matchMedia('(hover: hover)').matches) {
+            setIsPaused(true);
+          }
+        }}
         onMouseLeave={() => setIsPaused(false)}
       >
         {/* Infinite Scroll Container */}
