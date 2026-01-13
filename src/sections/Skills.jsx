@@ -13,7 +13,6 @@ const Skills = () => {
   const scrollContainerRef = useRef(null);
   const animationFrameRef = useRef(null);
   const userScrollingRef = useRef(false);
-  const scrollTimeoutRef = useRef(null);
 
   // Use featured skills for carousel
   const featuredSkills = skillsData.featured;
@@ -43,7 +42,6 @@ const Skills = () => {
 
         // Check if we're close to the reset point
         const currentScroll = container.scrollLeft;
-        const distanceToReset = Math.abs(currentScroll - scrollDistance);
 
         // Only reset if we've scrolled past halfway (avoid blink during animation)
         if (currentScroll >= scrollDistance - 1) {
@@ -147,10 +145,56 @@ const Skills = () => {
         onMouseEnter={() => {
           // Only pause on desktop (hover), not on mobile touch
           if (window.matchMedia('(hover: hover)').matches) {
-            setIsPaused(true);
+            userScrollingRef.current = true;
+            if (animationFrameRef.current) {
+              cancelAnimationFrame(animationFrameRef.current);
+              animationFrameRef.current = null;
+            }
           }
         }}
-        onMouseLeave={() => setIsPaused(false)}
+        onMouseLeave={() => {
+          if (window.matchMedia('(hover: hover)').matches) {
+            userScrollingRef.current = false;
+
+            // Restart animation from current position immediately
+            const container = scrollContainerRef.current;
+            if (container) {
+              const scrollDistance = container.scrollWidth / 2;
+              const currentScroll = container.scrollLeft;
+              const duration = scrollDistance * 10;
+
+              // Calculate how far we are in the animation cycle
+              const initialProgress = (currentScroll % scrollDistance) / scrollDistance;
+              const initialElapsed = initialProgress * duration;
+
+              let startTime = null;
+
+              const animate = (timestamp) => {
+                if (!container || !container.isConnected || userScrollingRef.current) return;
+
+                if (!startTime) startTime = timestamp - initialElapsed;
+                const elapsed = timestamp - startTime;
+                const progress = (elapsed % duration) / duration;
+                const scrollPos = progress * scrollDistance;
+
+                const currentScroll = container.scrollLeft;
+
+                if (currentScroll >= scrollDistance - 1) {
+                  container.scrollLeft = 0;
+                  startTime = timestamp;
+                } else {
+                  container.scrollTo({
+                    left: scrollPos,
+                    behavior: 'instant'
+                  });
+                }
+
+                animationFrameRef.current = requestAnimationFrame(animate);
+              };
+              animationFrameRef.current = requestAnimationFrame(animate);
+            }
+          }
+        }}
       >
         {/* Infinite Scroll Container */}
         <div
@@ -164,57 +208,51 @@ const Skills = () => {
           }}
           onTouchStart={() => {
             userScrollingRef.current = true;
+            if (animationFrameRef.current) {
+              cancelAnimationFrame(animationFrameRef.current);
+              animationFrameRef.current = null;
+            }
           }}
           onTouchEnd={() => {
-            // Resume auto-scroll after user stops touching
-            if (scrollTimeoutRef.current) {
-              clearTimeout(scrollTimeoutRef.current);
-            }
-            scrollTimeoutRef.current = setTimeout(() => {
-              userScrollingRef.current = false;
+            userScrollingRef.current = false;
 
-              // Cancel any existing animation frame before restarting
-              if (animationFrameRef.current) {
-                cancelAnimationFrame(animationFrameRef.current);
-                animationFrameRef.current = null;
-              }
+            // Restart animation from current position immediately
+            const container = scrollContainerRef.current;
+            if (container) {
+              const scrollDistance = container.scrollWidth / 2;
+              const currentScroll = container.scrollLeft;
+              const duration = scrollDistance * 10;
 
-              // Restart the animation loop
-              const container = scrollContainerRef.current;
-              if (container) {
-                const scrollDistance = container.scrollWidth / 2;
-                let startTime = null;
-                const duration = scrollDistance * 10;
+              // Calculate how far we are in the animation cycle
+              const initialProgress = (currentScroll % scrollDistance) / scrollDistance;
+              const initialElapsed = initialProgress * duration;
 
-                const animate = (timestamp) => {
-                  if (!container || !container.isConnected || userScrollingRef.current) return;
+              let startTime = null;
 
-                  if (!startTime) startTime = timestamp;
-                  const elapsed = timestamp - startTime;
-                  const progress = (elapsed % duration) / duration;
-                  const scrollPos = progress * scrollDistance;
+              const animate = (timestamp) => {
+                if (!container || !container.isConnected || userScrollingRef.current) return;
 
-                  // Check if we're close to the reset point
-                  const currentScroll = container.scrollLeft;
+                if (!startTime) startTime = timestamp - initialElapsed;
+                const elapsed = timestamp - startTime;
+                const progress = (elapsed % duration) / duration;
+                const scrollPos = progress * scrollDistance;
 
-                  // Only reset if we've scrolled past halfway (avoid blink during animation)
-                  if (currentScroll >= scrollDistance - 1) {
-                    // Reset without animation
-                    container.scrollLeft = 0;
-                    startTime = timestamp; // Reset timer too
-                  } else {
-                    // Use scrollTo for better mobile support
-                    container.scrollTo({
-                      left: scrollPos,
-                      behavior: 'instant'
-                    });
-                  }
+                const currentScroll = container.scrollLeft;
 
-                  animationFrameRef.current = requestAnimationFrame(animate);
-                };
+                if (currentScroll >= scrollDistance - 1) {
+                  container.scrollLeft = 0;
+                  startTime = timestamp;
+                } else {
+                  container.scrollTo({
+                    left: scrollPos,
+                    behavior: 'instant'
+                  });
+                }
+
                 animationFrameRef.current = requestAnimationFrame(animate);
-              }
-            }, 1000);
+              };
+              animationFrameRef.current = requestAnimationFrame(animate);
+            }
           }}
         >
           {/* First set of items */}
