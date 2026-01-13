@@ -8,7 +8,10 @@ export const heroData = {
   education: "Bachelor of Science in Information Technology",
   university: "University of Santo Tomas",
   expertise: "Expertise in Web & Mobile Development",
-  image: "/images/ME.jpg",
+  image: {
+    light: "/images/ME2.jpg",  // Light mode image
+    dark: "/images/ME.jpg"      // Dark mode image
+  },
   buttons: [
     { label: "Download CV", type: "outline" },
     { label: "See Projects", type: "solid", link: "#projects" },

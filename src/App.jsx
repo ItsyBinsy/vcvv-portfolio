@@ -45,9 +45,6 @@ function App() {
           <p className="text-gray-500 dark:text-gray-500 text-xs">
             © 2026 Vince Carl Viaña. Built with React & Tailwind CSS.
           </p>
-          <p className="text-gray-400 dark:text-gray-600 text-xs mt-1">
-            "Consider it done" isn't just a tagline — it's a promise.
-          </p>
         </div>
       </div>
     </div>

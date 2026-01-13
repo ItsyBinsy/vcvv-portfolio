@@ -2,8 +2,11 @@ import { useState } from 'react';
 import BentoCard from '../components/BentoCard';
 import TypingAnimation from '../components/TypingAnimation';
 import { heroData } from '../utils/data';
+import { useDarkMode } from '../context/DarkModeContext';
 
 const Hero = () => {
+  const { isDarkMode } = useDarkMode();
+
   // Different titles to rotate through
   const titles = [
     "Full-Stack Developer",
@@ -33,9 +36,9 @@ const Hero = () => {
             }}
           >
             <img
-              src={heroData.image}
+              src={isDarkMode ? heroData.image.dark : heroData.image.light}
               alt={heroData.name}
-              className="w-full h-full object-cover"
+              className="w-full h-full object-cover transition-opacity duration-300"
             />
           </div>
         </div>
