@@ -27,7 +27,7 @@ const SkillCard = ({ name, icon, description }) => {
         ref={cardRef}
         onMouseEnter={() => setIsHovered(true)}
         onMouseLeave={() => setIsHovered(false)}
-        className="group relative flex-shrink-0 w-40 h-36 bg-white dark:bg-[#0A0A0A] rounded-xl border border-gray-200 dark:border-gray-900 p-4 flex flex-col items-center justify-center transition-colors duration-300"
+        className="group relative flex-shrink-0 w-40 min-w-40 h-36 bg-white dark:bg-[#0A0A0A] rounded-xl border border-gray-200 dark:border-gray-900 p-4 flex flex-col items-center justify-center transition-colors duration-300"
       >
         {/* Icon */}
         {IconComponent && (
