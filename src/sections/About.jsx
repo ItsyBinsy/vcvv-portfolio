@@ -22,17 +22,19 @@ const About = () => {
   };
 
   const navigateModal = (direction) => {
-    // Strict boundary check - prevent navigation beyond limits
-    if (direction === 'prev' && selectedCardIndex === 0) {
-      return; // Already at first card
+    // Infinite loop navigation - wrap around at boundaries
+    let newIndex;
+    if (direction === 'prev') {
+      // If at first card, go to last card
+      newIndex = selectedCardIndex === 0
+        ? aboutData.cards.length - 1
+        : selectedCardIndex - 1;
+    } else {
+      // If at last card, go to first card
+      newIndex = selectedCardIndex === aboutData.cards.length - 1
+        ? 0
+        : selectedCardIndex + 1;
     }
-    if (direction === 'next' && selectedCardIndex === aboutData.cards.length - 1) {
-      return; // Already at last card
-    }
-
-    const newIndex = direction === 'prev'
-      ? selectedCardIndex - 1
-      : selectedCardIndex + 1;
 
     setSelectedCardIndex(newIndex);
     setSelectedCard(aboutData.cards[newIndex]);
@@ -142,12 +144,7 @@ const About = () => {
             <div className="flex justify-between items-center pt-4 border-t border-gray-200 dark:border-gray-900">
               <button
                 onClick={() => navigateModal('prev')}
-                disabled={selectedCardIndex === 0}
-                className={`flex items-center gap-2 px-4 py-2 rounded-lg font-semibold text-sm transition-all duration-200 ${
-                  selectedCardIndex === 0
-                    ? 'text-gray-400 dark:text-gray-600 cursor-not-allowed pointer-events-none opacity-50'
-                    : 'text-yellow-600 dark:text-yellow-400 hover:bg-yellow-50 dark:hover:bg-yellow-900/20'
-                }`}
+                className="flex items-center gap-2 px-4 py-2 rounded-lg font-semibold text-sm transition-all duration-200 text-yellow-600 dark:text-yellow-400 hover:bg-yellow-50 dark:hover:bg-yellow-900/20"
               >
                 <MdChevronLeft className="text-lg" />
                 Previous
@@ -174,12 +171,7 @@ const About = () => {
 
               <button
                 onClick={() => navigateModal('next')}
-                disabled={selectedCardIndex === aboutData.cards.length - 1}
-                className={`flex items-center gap-2 px-4 py-2 rounded-lg font-semibold text-sm transition-all duration-200 ${
-                  selectedCardIndex === aboutData.cards.length - 1
-                    ? 'text-gray-400 dark:text-gray-600 cursor-not-allowed pointer-events-none opacity-50'
-                    : 'text-yellow-600 dark:text-yellow-400 hover:bg-yellow-50 dark:hover:bg-yellow-900/20'
-                }`}
+                className="flex items-center gap-2 px-4 py-2 rounded-lg font-semibold text-sm transition-all duration-200 text-yellow-600 dark:text-yellow-400 hover:bg-yellow-50 dark:hover:bg-yellow-900/20"
               >
                 Next
                 <MdChevronRight className="text-lg" />
