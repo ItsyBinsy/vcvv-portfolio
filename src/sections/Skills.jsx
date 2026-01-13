@@ -10,6 +10,7 @@ const Skills = () => {
   const [isPaused, setIsPaused] = useState(false);
   const [currentIndex, setCurrentIndex] = useState(0);
   const [activeTab, setActiveTab] = useState(0);
+  const [debugStatus, setDebugStatus] = useState('⏸️ Not started');
   const scrollContainerRef = useRef(null);
   const animationFrameRef = useRef(null);
   const userScrollingRef = useRef(false);
@@ -27,19 +28,23 @@ const Skills = () => {
     const startDelay = setTimeout(() => {
       if (container.scrollWidth === 0) {
         console.log('Skills: Container width is 0, skipping animation');
+        setDebugStatus('❌ Width 0');
         return;
       }
 
       console.log('Skills: Starting auto-scroll animation');
+      setDebugStatus('▶️ Running');
 
       const animate = () => {
         if (!container || !container.isConnected || userScrollingRef.current) {
           if (userScrollingRef.current) {
             console.log('Skills: User is scrolling, pausing animation');
+            setDebugStatus('👆 User touch');
           }
           return;
         }
 
+        setDebugStatus('▶️ Running');
         // Smooth continuous scroll - relaxed viewing speed
         container.scrollLeft += 0.5; // Slower, more comfortable speed
 
@@ -120,6 +125,11 @@ const Skills = () => {
 
   return (
     <BentoCard size="medium" hover={true}>
+      {/* Debug Status Badge - Mobile Only */}
+      <div className="md:hidden fixed top-4 right-4 z-50 bg-black/80 text-white px-3 py-1 rounded-full text-xs font-mono">
+        {debugStatus}
+      </div>
+
       {/* Title on card */}
       <div className="flex items-center justify-between mb-2 md:mb-3">
         <div className="flex items-center gap-2">
