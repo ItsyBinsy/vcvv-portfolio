@@ -78,10 +78,10 @@ const About = () => {
         {/* Left Arrow */}
         <button
           onClick={() => scroll('left')}
-          className="absolute left-0 top-1/2 -translate-y-1/2 -translate-x-2 z-10 w-8 h-8 rounded-full bg-white dark:bg-[#0A0A0A] border-2 border-gray-300 dark:border-gray-800 flex items-center justify-center hover:bg-yellow-500 hover:border-yellow-500 hover:text-white transition-all duration-300 shadow-lg"
+          className="absolute left-0 top-1/2 -translate-y-1/2 -translate-x-1 z-10 w-6 h-6 md:w-7 md:h-7 rounded-full bg-white dark:bg-[#0A0A0A] border border-gray-300 dark:border-gray-800 flex items-center justify-center hover:bg-yellow-500 hover:border-yellow-500 hover:text-white transition-all duration-300 shadow-md"
           aria-label="Scroll left"
         >
-          <MdChevronLeft className="text-xl dark:text-white" />
+          <MdChevronLeft className="text-base md:text-lg dark:text-white" />
         </button>
 
         {/* About Cards Scroll Container */}
@@ -132,10 +132,10 @@ const About = () => {
         {/* Right Arrow */}
         <button
           onClick={() => scroll('right')}
-          className="absolute right-0 top-1/2 -translate-y-1/2 translate-x-2 z-10 w-8 h-8 rounded-full bg-white dark:bg-[#0A0A0A] border-2 border-gray-300 dark:border-gray-800 flex items-center justify-center hover:bg-yellow-500 hover:border-yellow-500 hover:text-white transition-all duration-300 shadow-lg"
+          className="absolute right-0 top-1/2 -translate-y-1/2 translate-x-1 z-10 w-6 h-6 md:w-7 md:h-7 rounded-full bg-white dark:bg-[#0A0A0A] border border-gray-300 dark:border-gray-800 flex items-center justify-center hover:bg-yellow-500 hover:border-yellow-500 hover:text-white transition-all duration-300 shadow-md"
           aria-label="Scroll right"
         >
-          <MdChevronRight className="text-xl dark:text-white" />
+          <MdChevronRight className="text-base md:text-lg dark:text-white" />
         </button>
       </div>
 
