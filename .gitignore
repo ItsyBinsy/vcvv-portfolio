@@ -22,3 +22,14 @@ dist-ssr
 *.njsproj
 *.sln
 *.sw?
+
+# Claude Code cache and debug files
+.claude/
+.claude.json
+.claude.json.backup
+stats-cache.json
+.credentials.json
+tmpclaude-*
+
+# Backup files
+*.backup
