@@ -11,6 +11,8 @@ const Certifications = () => {
   const [currentIndex, setCurrentIndex] = useState(0);
   const scrollContainerRef = useRef(null);
   const animationFrameRef = useRef(null);
+  const userScrollingRef = useRef(false);
+  const scrollTimeoutRef = useRef(null);
 
   // Continuous auto-scroll with requestAnimationFrame
   useEffect(() => {
@@ -24,7 +26,7 @@ const Certifications = () => {
       }
 
       const animate = () => {
-        if (!container || !container.isConnected) return;
+        if (!container || !container.isConnected || userScrollingRef.current) return;
 
         // Smooth continuous scroll - relaxed viewing speed
         container.scrollLeft += 0.5; // Slower, more comfortable speed
@@ -144,6 +146,18 @@ const Certifications = () => {
           style={{
             scrollbarWidth: 'none',
             msOverflowStyle: 'none',
+          }}
+          onTouchStart={() => {
+            userScrollingRef.current = true;
+          }}
+          onTouchEnd={() => {
+            // Resume auto-scroll after user stops touching
+            if (scrollTimeoutRef.current) {
+              clearTimeout(scrollTimeoutRef.current);
+            }
+            scrollTimeoutRef.current = setTimeout(() => {
+              userScrollingRef.current = false;
+            }, 1000);
           }}
         >
           {/* First set of items */}
