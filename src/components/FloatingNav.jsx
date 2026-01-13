@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useRef } from 'react';
 import { MdLightMode, MdDarkMode } from 'react-icons/md';
 import { RiFacebookLine, RiLinkedinLine } from 'react-icons/ri';
 import { SiGmail } from 'react-icons/si';
@@ -7,12 +7,28 @@ import { useDarkMode } from '../context/DarkModeContext';
 const FloatingNav = () => {
   const [activeIcon, setActiveIcon] = useState(null);
   const { isDarkMode, toggleDarkMode } = useDarkMode();
+  const touchTimerRef = useRef(null);
 
   const navItems = [
     { id: 'email', icon: SiGmail, link: 'https://mail.google.com/mail/?view=cm&to=vincecvviana@gmail.com' },
     { id: 'facebook', icon: RiFacebookLine, link: 'https://www.facebook.com/vincecvv' },
     { id: 'linkedin', icon: RiLinkedinLine, link: 'https://www.linkedin.com/in/vincecvv/' }
   ];
+
+  // Handle touch interactions on mobile with auto-dismiss
+  const handleTouchStart = (index) => {
+    setActiveIcon(index);
+
+    // Clear existing timer
+    if (touchTimerRef.current) {
+      clearTimeout(touchTimerRef.current);
+    }
+
+    // Auto-dismiss after 1.5 seconds
+    touchTimerRef.current = setTimeout(() => {
+      setActiveIcon(null);
+    }, 1500);
+  };
 
   // SLIME PHYSICS! Stretchy, playful, satisfying blob morphing
   const getBlobStyle = () => {
@@ -77,6 +93,7 @@ const FloatingNav = () => {
                 rel="noopener noreferrer"
                 onMouseEnter={() => setActiveIcon(index)}
                 onMouseLeave={() => setActiveIcon(null)}
+                onTouchStart={() => handleTouchStart(index)}
                 className="relative w-11 h-11 rounded-full flex items-center justify-center text-gray-700 hover:text-gray-900 dark:text-gray-300 dark:hover:text-white transition-all duration-500"
                 style={{
                   transform: activeIcon === index
@@ -106,6 +123,7 @@ const FloatingNav = () => {
             onClick={toggleDarkMode}
             onMouseEnter={() => setActiveIcon(navItems.length)}
             onMouseLeave={() => setActiveIcon(null)}
+            onTouchStart={() => handleTouchStart(navItems.length)}
             className="relative w-11 h-11 rounded-full flex items-center justify-center text-gray-700 hover:text-gray-900 dark:text-gray-300 dark:hover:text-white transition-all duration-500"
             style={{
               transform: activeIcon === navItems.length
