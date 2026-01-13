@@ -37,11 +37,21 @@ const Certifications = () => {
         const progress = (elapsed % duration) / duration;
         const scrollPos = progress * scrollDistance;
 
-        // Use scrollTo for better mobile support
-        container.scrollTo({
-          left: scrollPos,
-          behavior: 'instant'
-        });
+        // Check if we're close to the reset point
+        const currentScroll = container.scrollLeft;
+
+        // Only reset if we've scrolled past halfway (avoid blink during animation)
+        if (currentScroll >= scrollDistance - 1) {
+          // Reset without animation
+          container.scrollLeft = 0;
+          startTime = timestamp; // Reset timer too
+        } else {
+          // Use scrollTo for better mobile support
+          container.scrollTo({
+            left: scrollPos,
+            behavior: 'instant'
+          });
+        }
 
         animationFrameRef.current = requestAnimationFrame(animate);
       };
@@ -164,9 +174,15 @@ const Certifications = () => {
             scrollTimeoutRef.current = setTimeout(() => {
               userScrollingRef.current = false;
 
+              // Cancel any existing animation frame before restarting
+              if (animationFrameRef.current) {
+                cancelAnimationFrame(animationFrameRef.current);
+                animationFrameRef.current = null;
+              }
+
               // Restart the animation loop
               const container = scrollContainerRef.current;
-              if (container && animationFrameRef.current === null) {
+              if (container) {
                 const scrollDistance = container.scrollWidth / 2;
                 let startTime = null;
                 const duration = scrollDistance * 10;
@@ -179,10 +195,21 @@ const Certifications = () => {
                   const progress = (elapsed % duration) / duration;
                   const scrollPos = progress * scrollDistance;
 
-                  container.scrollTo({
-                    left: scrollPos,
-                    behavior: 'instant'
-                  });
+                  // Check if we're close to the reset point
+                  const currentScroll = container.scrollLeft;
+
+                  // Only reset if we've scrolled past halfway (avoid blink during animation)
+                  if (currentScroll >= scrollDistance - 1) {
+                    // Reset without animation
+                    container.scrollLeft = 0;
+                    startTime = timestamp; // Reset timer too
+                  } else {
+                    // Use scrollTo for better mobile support
+                    container.scrollTo({
+                      left: scrollPos,
+                      behavior: 'instant'
+                    });
+                  }
 
                   animationFrameRef.current = requestAnimationFrame(animate);
                 };
