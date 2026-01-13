@@ -26,11 +26,19 @@ const Skills = () => {
     // Small delay to ensure DOM is fully rendered
     const startDelay = setTimeout(() => {
       if (container.scrollWidth === 0) {
+        console.log('Skills: Container width is 0, skipping animation');
         return;
       }
 
+      console.log('Skills: Starting auto-scroll animation');
+
       const animate = () => {
-        if (!container || !container.isConnected || userScrollingRef.current) return;
+        if (!container || !container.isConnected || userScrollingRef.current) {
+          if (userScrollingRef.current) {
+            console.log('Skills: User is scrolling, pausing animation');
+          }
+          return;
+        }
 
         // Smooth continuous scroll - relaxed viewing speed
         container.scrollLeft += 0.5; // Slower, more comfortable speed
@@ -144,6 +152,8 @@ const Skills = () => {
           style={{
             scrollbarWidth: 'none',
             msOverflowStyle: 'none',
+            WebkitOverflowScrolling: 'touch',
+            touchAction: 'pan-x',
           }}
           onTouchStart={() => {
             userScrollingRef.current = true;

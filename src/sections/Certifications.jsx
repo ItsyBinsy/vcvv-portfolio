@@ -146,6 +146,8 @@ const Certifications = () => {
           style={{
             scrollbarWidth: 'none',
             msOverflowStyle: 'none',
+            WebkitOverflowScrolling: 'touch',
+            touchAction: 'pan-x',
           }}
           onTouchStart={() => {
             userScrollingRef.current = true;
