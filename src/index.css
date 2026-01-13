@@ -1,0 +1,63 @@
+@import "tailwindcss";
+
+/* Tailwind CSS v4 Dark Mode Configuration */
+@variant dark (&:where(.dark, .dark *));
+
+/* Hide scrollbar but keep functionality */
+.scrollbar-hide {
+  -ms-overflow-style: none;  /* IE and Edge */
+  scrollbar-width: none;  /* Firefox */
+}
+
+.scrollbar-hide::-webkit-scrollbar {
+  display: none;  /* Chrome, Safari and Opera */
+}
+
+/* Typing Animation - Blinking Cursor */
+@keyframes blink {
+  0%, 50% {
+    opacity: 1;
+  }
+  51%, 100% {
+    opacity: 0;
+  }
+}
+
+.animate-blink {
+  animation: blink 1s infinite;
+  color: #EAB308; /* Yellow-500 for the cursor */
+  font-weight: normal;
+  margin-left: 2px;
+}
+
+/* Infinite Scroll Animations */
+@keyframes infinite-scroll {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-50%);
+  }
+}
+
+@keyframes infinite-scroll-skills {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-50%);
+  }
+}
+
+.animate-infinite-scroll {
+  animation: infinite-scroll 30s linear infinite;
+}
+
+.animate-infinite-scroll-skills {
+  animation: infinite-scroll-skills 25s linear infinite;
+}
+
+/* Pause animation without resetting position */
+.pause-animation {
+  animation-play-state: paused !important;
+}
