@@ -1,13 +1,15 @@
 const CertCard = ({ name, issuer, badge, link }) => {
   const CardContent = () => (
-    <div className="flex-shrink-0 w-48 h-52 bg-white dark:bg-[#0A0A0A] rounded-xl border border-gray-200 dark:border-gray-900 overflow-hidden group cursor-pointer hover:shadow-lg transition-all duration-300">
+    <div className="flex-shrink-0 w-48 min-w-48 h-52 bg-white dark:bg-[#0A0A0A] rounded-xl border border-gray-200 dark:border-gray-900 overflow-hidden group cursor-pointer hover:shadow-lg transition-all duration-300">
       {/* Certificate Image - Takes most space */}
       {badge && (
         <div className="w-full h-36 bg-gray-50 dark:bg-black flex items-center justify-center p-3">
           <img
             src={badge}
             alt={name}
+            loading="eager"
             className="w-full h-full object-contain group-hover:scale-105 transition-transform duration-300"
+            style={{ imageRendering: 'auto' }}
           />
         </div>
       )}

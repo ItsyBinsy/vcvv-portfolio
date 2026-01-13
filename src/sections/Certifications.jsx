@@ -38,8 +38,8 @@ const Certifications = () => {
         // Check if we're close to the reset point
         const currentScroll = container.scrollLeft;
 
-        // Only reset if we've scrolled past halfway (avoid blink during animation)
-        if (currentScroll >= scrollDistance - 1) {
+        // Only reset if we've scrolled past halfway with smaller threshold
+        if (currentScroll >= scrollDistance - 5) {
           // Reset without animation
           container.scrollLeft = 0;
           startTime = timestamp; // Reset timer too
@@ -135,7 +135,7 @@ const Certifications = () => {
             const scrollPos = progress * scrollDistance;
             const currentScroll = container.scrollLeft;
 
-            if (currentScroll >= scrollDistance - 1) {
+            if (currentScroll >= scrollDistance - 5) {
               container.scrollLeft = 0;
               startTime = timestamp;
             } else {
@@ -215,7 +215,7 @@ const Certifications = () => {
 
                 const currentScroll = container.scrollLeft;
 
-                if (currentScroll >= scrollDistance - 1) {
+                if (currentScroll >= scrollDistance - 5) {
                   container.scrollLeft = 0;
                   startTime = timestamp;
                 } else {
@@ -241,6 +241,8 @@ const Certifications = () => {
             msOverflowStyle: 'none',
             WebkitOverflowScrolling: 'touch',
             touchAction: 'pan-x',
+            willChange: 'scroll-position',
+            transform: 'translateZ(0)',
           }}
           onTouchStart={() => {
             userScrollingRef.current = true;
@@ -275,7 +277,7 @@ const Certifications = () => {
 
                 const currentScroll = container.scrollLeft;
 
-                if (currentScroll >= scrollDistance - 1) {
+                if (currentScroll >= scrollDistance - 5) {
                   container.scrollLeft = 0;
                   startTime = timestamp;
                 } else {
