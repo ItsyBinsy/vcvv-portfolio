@@ -9,14 +9,33 @@ const About = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [selectedCard, setSelectedCard] = useState(null);
   const [selectedCardIndex, setSelectedCardIndex] = useState(0);
+  const [currentCarouselIndex, setCurrentCarouselIndex] = useState(0);
 
   const scroll = (direction) => {
     const container = scrollContainerRef.current;
-    if (container) {
-      const scrollAmount = container.offsetWidth; // Scroll by container width
-      container.scrollBy({
-        left: direction === 'left' ? -scrollAmount : scrollAmount,
+    if (!container) return;
+
+    // Calculate new index with infinite wrapping
+    let newIndex;
+    if (direction === 'left') {
+      newIndex = currentCarouselIndex === 0
+        ? aboutData.cards.length - 1
+        : currentCarouselIndex - 1;
+    } else {
+      newIndex = currentCarouselIndex === aboutData.cards.length - 1
+        ? 0
+        : currentCarouselIndex + 1;
+    }
+
+    setCurrentCarouselIndex(newIndex);
+
+    // Scroll to the target card
+    const cards = container.children;
+    if (cards[newIndex]) {
+      cards[newIndex].scrollIntoView({
         behavior: 'smooth',
+        block: 'nearest',
+        inline: 'start'
       });
     }
   };
