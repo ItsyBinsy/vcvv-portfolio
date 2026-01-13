@@ -8,7 +8,7 @@ export const heroData = {
   education: "Bachelor of Science in Information Technology",
   university: "University of Santo Tomas",
   expertise: "Expertise in Web & Mobile Development",
-  image: "/src/assets/images/ME.jpg",
+  image: "/images/ME.jpg",
   buttons: [
     { label: "Download CV", type: "outline" },
     { label: "See Projects", type: "solid", link: "#projects" },
@@ -224,7 +224,7 @@ export const projectsData = [
       "Developed AI-powered study recommendations, achievement systems, and progress tracking features",
       "Managed deployment with Digital Ocean and version control with GitHub"
     ],
-    image: "/src/assets/images/STUDAI.png",
+    image: "/images/STUDAI.png",
     link: "#",
   },
   {
@@ -236,7 +236,7 @@ export const projectsData = [
       "Developed household registrations, resident profiles, employee records, infrastructure project tracking, and incident reporting modules",
       "Managed deployment with Digital Ocean and version control with GitHub"
     ],
-    image: "/src/assets/images/BARANGAY.png",
+    image: "/images/BARANGAY.png",
     link: "#",
   },
   {
@@ -248,7 +248,7 @@ export const projectsData = [
       "Developed blog system and direct booking integration",
       "Implemented quality assurance testing for cross-browser compatibility"
     ],
-    image: "/src/assets/images/EXPERIENCEMIMAROPA.png",
+    image: "/images/EXPERIENCEMIMAROPA.png",
     link: "#",
   },
   {
@@ -260,7 +260,7 @@ export const projectsData = [
       "Developed payroll report generation features",
       "Solved critical HR issues: inconsistent records, salary miscalculations, and processing delays"
     ],
-    image: "/src/assets/images/FAST.jpg",
+    image: "/images/FAST.jpg",
     link: "#",
   },
   {
@@ -272,7 +272,7 @@ export const projectsData = [
       "Developed booking system and customer inquiry features",
       "Managed version control and team collaboration using GitHub"
     ],
-    image: "/src/assets/images/STARCOLOROOF.png",
+    image: "/images/STARCOLOROOF.png",
     link: "#",
   },
 ];
@@ -283,42 +283,42 @@ export const certificationsData = [
     name: "PhilNITS Information Technology Passport (IP) Certification",
     issuer: "PhilNITS",
     date: "Nov 2025",
-    badge: "/src/assets/images/PHILNITS.png",
+    badge: "/images/PHILNITS.png",
     link: "#"
   },
   {
     name: "CSS Essentials",
     issuer: "Cisco",
     date: "Oct 2025",
-    badge: "/src/assets/images/CSS.png",
+    badge: "/images/CSS.png",
     link: "#"
   },
   {
     name: "Career Essentials in Generative AI by Microsoft and LinkedIn",
     issuer: "Microsoft",
     date: "Sep 2025",
-    badge: "/src/assets/images/AI.png", 
+    badge: "/images/AI.png", 
     link: "#"
   },
   {
     name: "HTML Essentials",
     issuer: "Cisco",
     date: "Sep 2025",
-    badge: "/src/assets/images/HTML.png",
+    badge: "/images/HTML.png",
     link: "#"
   },
   {
     name: "JavaScript Essentials 1",
     issuer: "Cisco",
     date: "Dec 2023",
-    badge: "/src/assets/images/JS.png",
+    badge: "/images/JS.png",
     link: "#"
   },
   {
     name: "CompTIA IT Fundamentals+ (ITF+) Certification",
     issuer: "CompTIA",
     date: "May 2023",
-    badge: "/src/assets/images/ITF.png",
+    badge: "/images/ITF.png",
     link: "#"
   },
 ];
