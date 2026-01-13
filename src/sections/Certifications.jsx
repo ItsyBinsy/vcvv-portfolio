@@ -70,6 +70,7 @@ const Certifications = () => {
     const container = scrollContainerRef.current;
     if (!container) return;
 
+    let lastIndex = -1;
     const updateCurrentIndex = () => {
       const cards = container.querySelectorAll('[data-cert-index]');
       if (cards.length === 0) return;
@@ -77,7 +78,12 @@ const Certifications = () => {
       const cardWidth = cards[0].offsetWidth;
       const scrollLeft = container.scrollLeft;
       const index = Math.round(scrollLeft / cardWidth) % certificationsData.length;
-      setCurrentIndex(index);
+
+      // Only update state if index actually changed
+      if (index !== lastIndex) {
+        lastIndex = index;
+        setCurrentIndex(index);
+      }
     };
 
     // Update on scroll
