@@ -14,30 +14,34 @@ const Certifications = () => {
   const userScrollingRef = useRef(false);
   const scrollTimeoutRef = useRef(null);
 
-  // Continuous auto-scroll with requestAnimationFrame
+  // Continuous auto-scroll with scrollTo API
   useEffect(() => {
     const container = scrollContainerRef.current;
     if (isPaused || !container) return;
-    
+
     // Small delay to ensure DOM is fully rendered
     const startDelay = setTimeout(() => {
       if (container.scrollWidth === 0) {
         return;
       }
 
-      const animate = () => {
+      const scrollDistance = container.scrollWidth / 2;
+      let startTime = null;
+      const duration = scrollDistance * 10; // 10ms per pixel = slow scroll
+
+      const animate = (timestamp) => {
         if (!container || !container.isConnected || userScrollingRef.current) return;
 
-        // Smooth continuous scroll - relaxed viewing speed
-        container.scrollLeft += 0.5; // Slower, more comfortable speed
+        if (!startTime) startTime = timestamp;
+        const elapsed = timestamp - startTime;
+        const progress = (elapsed % duration) / duration;
+        const scrollPos = progress * scrollDistance;
 
-        // Get the halfway point (where original items end and duplicates start)
-        const maxScroll = container.scrollWidth / 2;
-        
-        // Reset when reaching halfway point (seamless loop)
-        if (container.scrollLeft >= maxScroll) {
-          container.scrollLeft = 0;
-        }
+        // Use scrollTo for better mobile support
+        container.scrollTo({
+          left: scrollPos,
+          behavior: 'instant'
+        });
 
         animationFrameRef.current = requestAnimationFrame(animate);
       };
@@ -159,6 +163,31 @@ const Certifications = () => {
             }
             scrollTimeoutRef.current = setTimeout(() => {
               userScrollingRef.current = false;
+
+              // Restart the animation loop
+              const container = scrollContainerRef.current;
+              if (container && animationFrameRef.current === null) {
+                const scrollDistance = container.scrollWidth / 2;
+                let startTime = null;
+                const duration = scrollDistance * 10;
+
+                const animate = (timestamp) => {
+                  if (!container || !container.isConnected || userScrollingRef.current) return;
+
+                  if (!startTime) startTime = timestamp;
+                  const elapsed = timestamp - startTime;
+                  const progress = (elapsed % duration) / duration;
+                  const scrollPos = progress * scrollDistance;
+
+                  container.scrollTo({
+                    left: scrollPos,
+                    behavior: 'instant'
+                  });
+
+                  animationFrameRef.current = requestAnimationFrame(animate);
+                };
+                animationFrameRef.current = requestAnimationFrame(animate);
+              }
             }, 1000);
           }}
         >

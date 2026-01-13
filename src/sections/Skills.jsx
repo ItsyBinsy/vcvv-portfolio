@@ -10,7 +10,6 @@ const Skills = () => {
   const [isPaused, setIsPaused] = useState(false);
   const [currentIndex, setCurrentIndex] = useState(0);
   const [activeTab, setActiveTab] = useState(0);
-  const [debugStatus, setDebugStatus] = useState('⏸️ Not started');
   const scrollContainerRef = useRef(null);
   const animationFrameRef = useRef(null);
   const userScrollingRef = useRef(false);
@@ -27,27 +26,15 @@ const Skills = () => {
     // Small delay to ensure DOM is fully rendered
     const startDelay = setTimeout(() => {
       if (container.scrollWidth === 0) {
-        console.log('Skills: Container width is 0, skipping animation');
-        setDebugStatus('❌ Width 0');
         return;
       }
 
-      console.log('Skills: Starting auto-scroll animation');
-      setDebugStatus('▶️ Running');
-
-      // Try CSS transform approach for mobile
       const scrollDistance = container.scrollWidth / 2;
       let startTime = null;
       const duration = scrollDistance * 10; // 10ms per pixel = slow scroll
 
       const animate = (timestamp) => {
-        if (!container || !container.isConnected || userScrollingRef.current) {
-          if (userScrollingRef.current) {
-            console.log('Skills: User is scrolling, pausing animation');
-            setDebugStatus('👆 User touch');
-          }
-          return;
-        }
+        if (!container || !container.isConnected || userScrollingRef.current) return;
 
         if (!startTime) startTime = timestamp;
         const elapsed = timestamp - startTime;
@@ -59,8 +46,6 @@ const Skills = () => {
           left: scrollPos,
           behavior: 'instant'
         });
-
-        setDebugStatus(`▶️ ${Math.round(scrollPos)}px`);
 
         animationFrameRef.current = requestAnimationFrame(animate);
       };
@@ -131,11 +116,6 @@ const Skills = () => {
 
   return (
     <BentoCard size="medium" hover={true}>
-      {/* Debug Status Badge - Mobile Only */}
-      <div className="md:hidden fixed top-4 right-4 z-50 bg-black/80 text-white px-3 py-1 rounded-full text-xs font-mono">
-        {debugStatus}
-      </div>
-
       {/* Title on card */}
       <div className="flex items-center justify-between mb-2 md:mb-3">
         <div className="flex items-center gap-2">
@@ -173,17 +153,14 @@ const Skills = () => {
           }}
           onTouchStart={() => {
             userScrollingRef.current = true;
-            setDebugStatus('👆 Touch start');
           }}
           onTouchEnd={() => {
-            setDebugStatus('⏳ Resuming...');
             // Resume auto-scroll after user stops touching
             if (scrollTimeoutRef.current) {
               clearTimeout(scrollTimeoutRef.current);
             }
             scrollTimeoutRef.current = setTimeout(() => {
               userScrollingRef.current = false;
-              setDebugStatus('🔄 Restarting');
 
               // Restart the animation loop
               const container = scrollContainerRef.current;
@@ -204,8 +181,6 @@ const Skills = () => {
                     left: scrollPos,
                     behavior: 'instant'
                   });
-
-                  setDebugStatus(`▶️ ${Math.round(scrollPos)}px`);
 
                   animationFrameRef.current = requestAnimationFrame(animate);
                 };
