@@ -8,6 +8,7 @@ const FloatingNav = () => {
   const [activeIcon, setActiveIcon] = useState(null);
   const { isDarkMode, toggleDarkMode } = useDarkMode();
   const touchTimerRef = useRef(null);
+  const navContainerRef = useRef(null);
 
   const navItems = [
     { id: 'email', icon: SiGmail, link: 'https://mail.google.com/mail/?view=cm&to=vincecvviana@gmail.com' },
@@ -28,6 +29,49 @@ const FloatingNav = () => {
     touchTimerRef.current = setTimeout(() => {
       setActiveIcon(null);
     }, 1500);
+  };
+
+  // Track finger movement across navbar on mobile
+  const handleTouchMove = (e) => {
+    if (!navContainerRef.current) return;
+
+    // Get touch position
+    const touch = e.touches[0];
+    const containerRect = navContainerRef.current.getBoundingClientRect();
+
+    // Find which icon is under the finger
+    const icons = navContainerRef.current.querySelectorAll('a, button');
+    let foundIndex = null;
+
+    icons.forEach((icon, index) => {
+      const iconRect = icon.getBoundingClientRect();
+      if (
+        touch.clientX >= iconRect.left &&
+        touch.clientX <= iconRect.right &&
+        touch.clientY >= iconRect.top &&
+        touch.clientY <= iconRect.bottom
+      ) {
+        foundIndex = index;
+      }
+    });
+
+    // Update active icon if finger is over one
+    if (foundIndex !== null) {
+      setActiveIcon(foundIndex);
+
+      // Clear existing timer
+      if (touchTimerRef.current) {
+        clearTimeout(touchTimerRef.current);
+      }
+    }
+  };
+
+  // Clear active state when touch ends
+  const handleTouchEnd = () => {
+    // Auto-dismiss after 1 second
+    touchTimerRef.current = setTimeout(() => {
+      setActiveIcon(null);
+    }, 1000);
   };
 
   // SLIME PHYSICS! Stretchy, playful, satisfying blob morphing
@@ -79,7 +123,12 @@ const FloatingNav = () => {
         }}
       >
         {/* Navigation Items */}
-        <div className="relative flex items-center gap-1">
+        <div
+          ref={navContainerRef}
+          className="relative flex items-center gap-1"
+          onTouchMove={handleTouchMove}
+          onTouchEnd={handleTouchEnd}
+        >
           {navItems.map((item, index) => {
             const Icon = item.icon;
             const distance = activeIcon !== null ? Math.abs(activeIcon - index) : 3;
