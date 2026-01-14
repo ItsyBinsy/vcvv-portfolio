@@ -153,6 +153,12 @@ export const skillsData = {
           description:
             "Developed full-featured web applications with elegant PHP framework and MVC architecture.",
         },
+        {
+          name: "ASP.NET",
+          icon: "SiDotnet",
+          description:
+            "Developed server-side web applications using MVC architecture with C# and .NET framework.",
+        },
       ],
     },
     {
@@ -228,6 +234,18 @@ export const projectsData = [
       "Managed deployment with Digital Ocean and version control with GitHub"
     ],
     image: "/images/STUDAI.png",
+    link: "#",
+  },
+  {
+    title: "Viva La Vigan - Tourism & Cultural Heritage Platform",
+    role: "Full-Stack Developer",
+    tech: ["AngularJS", "ASP.NET MVC", "MySQL", "Materialize"],
+    highlights: [
+      "Built role-based content management system with three-tier access control (User, Writer, Admin) and application approval workflow",
+      "Developed tourism showcase features including attractions gallery, experience posts, writer dashboard for content submission, and admin moderation panel",
+      "Implemented user authentication with status-based login (pending, approved, rejected) and dynamic role-based dashboard routing"
+    ],
+    image: "/images/LVV.png",
     link: "#",
   },
   {
