@@ -17,10 +17,10 @@ const Chatbot = ({ isOpen, onClose }) => {
 
   // Quick reply suggestions
   const quickReplies = [
-    { text: "💻 View Skills", query: "What are your technical skills?" },
-    { text: "🚀 See Projects", query: "Tell me about your projects" },
-    { text: "📧 Contact Info", query: "How can I contact you?" },
-    { text: "� Download CV", query: "How do I get your CV?" }
+    { text: "View Skills", query: "What are your technical skills?" },
+    { text: "See Projects", query: "Tell me about your projects" },
+    { text: "Contact Info", query: "How can I contact you?" },
+    { text: "Download CV", query: "How do I get your CV?" }
   ];
 
   // Load chat history from localStorage on mount
