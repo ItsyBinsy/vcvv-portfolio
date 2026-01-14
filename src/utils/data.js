@@ -58,16 +58,16 @@ export const skillsData = {
         "Developed component-based interfaces with state management, applied in portfolio features, client projects, and coursework.",
     },
     {
-      name: "Tailwind CSS",
-      icon: "SiTailwindcss",
-      description:
-        "Built modern, utility-first UIs for rapid prototyping and deployment, applied in portfolio, class projects, and client pages.",
-    },
-    {
       name: "Node.js",
       icon: "SiNodedotjs",
       description:
         "Built backend services and RESTful APIs with efficient server-side JavaScript runtime.",
+    },
+    {
+      name: "Express.js",
+      icon: "SiExpress",
+      description:
+        "Created scalable web applications and APIs with minimalist Node.js framework.",
     },
     {
       name: "Laravel",
@@ -86,6 +86,84 @@ export const skillsData = {
       icon: "SiMysql",
       description:
         "Designed databases and handled data persistence with CRUD operations, applied in academic systems and personal practice projects.",
+    },
+    {
+      name: "JavaScript",
+      icon: "SiJavascript",
+      description:
+        "Enhanced user interaction with validation, dynamic components, and logic handling, applied in client projects and academic builds.",
+    },
+    {
+      name: "Tailwind CSS",
+      icon: "SiTailwindcss",
+      description:
+        "Built modern, utility-first UIs for rapid prototyping and deployment, applied in portfolio, class projects, and client pages.",
+    },
+    {
+      name: "AngularJS",
+      icon: "SiAngular",
+      description:
+        "Practiced building SPAs with data binding and modular code, applied in coursework projects and client demos.",
+    },
+    {
+      name: "Bootstrap",
+      icon: "SiBootstrap",
+      description:
+        "Accelerated development with grid systems and prebuilt components, applied in coursework dashboards and class projects.",
+    },
+    {
+      name: "Materialize",
+      icon: "SiMaterialdesign",
+      description:
+        "Built responsive Material Design interfaces with component library, applied in tourism platform and client projects.",
+    },
+    {
+      name: "Android Studio",
+      icon: "SiAndroidstudio",
+      description:
+        "Created mobile interfaces and event-driven apps, applied in coursework mobile projects and small client apps.",
+    },
+    {
+      name: "Kotlin",
+      icon: "SiKotlin",
+      description:
+        "Developed modern Android applications with concise and expressive programming language.",
+    },
+    {
+      name: "Git",
+      icon: "SiGit",
+      description:
+        "Managed version control with branching, commits, and collaboration workflows.",
+    },
+    {
+      name: "GitHub",
+      icon: "SiGithub",
+      description:
+        "Collaborated on projects with pull requests, code reviews, and repository management.",
+    },
+    {
+      name: "HTML5",
+      icon: "SiHtml5",
+      description:
+        "Structured semantic layouts for pages and forms, applied in portfolio sites, client projects, and academic coursework.",
+    },
+    {
+      name: "CSS3",
+      icon: "SiCss3",
+      description:
+        "Styled responsive designs with consistent typography and spacing, applied across coursework, client projects, and portfolio work.",
+    },
+    {
+      name: "Figma",
+      icon: "SiFigma",
+      description:
+        "Designed user interfaces and prototypes with collaborative design tool.",
+    },
+    {
+      name: "Photoshop",
+      icon: "SiAdobephotoshop",
+      description:
+        "Created and edited graphics, mockups, and visual assets for web and mobile projects.",
     },
   ],
 
@@ -135,6 +213,12 @@ export const skillsData = {
           icon: "SiBootstrap",
           description:
             "Accelerated development with grid systems and prebuilt components, applied in coursework dashboards and class projects.",
+        },
+        {
+          name: "Materialize",
+          icon: "SiMaterialdesign",
+          description:
+            "Built responsive Material Design interfaces with component library, applied in tourism platform and client projects.",
         },
       ],
     },
@@ -243,27 +327,15 @@ export const projectsData = [
     link: "#",
   },
   {
-    title: "Viva La Vigan - Tourism & Cultural Heritage Platform",
+    title: "Star Coloroof - Roofing Products E-Commerce Platform",
     role: "Full-Stack Developer",
-    tech: ["AngularJS", "ASP.NET MVC", "MySQL", "Materialize"],
+    tech: ["ReactJS", "Tailwind CSS", "Node.js", "REST APIs", "GitHub"],
     highlights: [
-      "Built role-based content management system with three-tier access control (User, Writer, Admin) and application approval workflow",
-      "Developed tourism showcase features including attractions gallery, experience posts, writer dashboard for content submission, and admin moderation panel",
-      "Implemented user authentication with status-based login (pending, approved, rejected) and dynamic role-based dashboard routing"
+      "Built online storefront with product catalog, detailed specifications, and shopping cart",
+      "Developed booking system and customer inquiry features",
+      "Managed version control and team collaboration using GitHub"
     ],
-    image: "/images/LVV.png",
-    link: "#",
-  },
-  {
-    title: "Barangay 24/7 - Digital Barangay Management Platform",
-    role: "Full-Stack Developer",
-    tech: ["Laravel", "Bootstrap", "MySQL", "DigitalOcean", "GitHub"],
-    highlights: [
-      "Built role-based management system with three-tier access control (Administrator, Employee, Resident)",
-      "Developed household registrations, resident profiles, employee records, infrastructure project tracking, and incident reporting modules",
-      "Managed deployment with Digital Ocean and version control with GitHub"
-    ],
-    image: "/images/BARANGAY.png",
+    image: "/images/STARCOLOROOF.png",
     link: "#",
   },
   {
@@ -291,15 +363,27 @@ export const projectsData = [
     link: "#",
   },
   {
-    title: "Star Coloroof - Roofing Products E-Commerce Platform",
+    title: "Barangay 24/7 - Digital Barangay Management Platform",
     role: "Full-Stack Developer",
-    tech: ["ReactJS", "Tailwind CSS", "Node.js", "REST APIs", "GitHub"],
+    tech: ["Laravel", "Bootstrap", "MySQL", "DigitalOcean", "GitHub"],
     highlights: [
-      "Built online storefront with product catalog, detailed specifications, and shopping cart",
-      "Developed booking system and customer inquiry features",
-      "Managed version control and team collaboration using GitHub"
+      "Built role-based management system with three-tier access control (Administrator, Employee, Resident)",
+      "Developed household registrations, resident profiles, employee records, infrastructure project tracking, and incident reporting modules",
+      "Managed deployment with Digital Ocean and version control with GitHub"
     ],
-    image: "/images/STARCOLOROOF.png",
+    image: "/images/BARANGAY.png",
+    link: "#",
+  },
+  {
+    title: "Viva La Vigan - Tourism & Cultural Heritage Platform",
+    role: "Full-Stack Developer",
+    tech: ["AngularJS", "ASP.NET MVC", "MySQL", "Materialize"],
+    highlights: [
+      "Built role-based content management system with three-tier access control (User, Writer, Admin) and application approval workflow",
+      "Developed tourism showcase features including attractions gallery, experience posts, writer dashboard for content submission, and admin moderation panel",
+      "Implemented user authentication with status-based login (pending, approved, rejected) and dynamic role-based dashboard routing"
+    ],
+    image: "/images/LVV.png",
     link: "#",
   },
 ];
