@@ -5,11 +5,12 @@ const Chatbot = ({ isOpen, onClose }) => {
   const [messages, setMessages] = useState([
     {
       type: 'bot',
-      text: "Hi! I'm Vince's portfolio assistant. Ask me about his skills, projects, or experience! 👋"
+      text: "Hi! I'm Vince's AI assistant. I can answer any questions about his skills, projects, or experience! 👋"
     }
   ]);
   const [input, setInput] = useState('');
   const [isTyping, setIsTyping] = useState(false);
+  const [error, setError] = useState(null);
   const messagesEndRef = useRef(null);
 
   const scrollToBottom = () => {
@@ -20,69 +21,49 @@ const Chatbot = ({ isOpen, onClose }) => {
     scrollToBottom();
   }, [messages]);
 
-  const findAnswer = (question) => {
-    const lowerQuestion = question.toLowerCase();
+  const getAIResponse = async (userMessage) => {
+    try {
+      // Get API URL based on environment
+      const apiUrl = import.meta.env.VITE_API_URL || '/api/chat';
+      
+      const response = await fetch(apiUrl, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          message: userMessage,
+          history: messages.slice(1) // Exclude initial greeting
+        }),
+      });
 
-    // Skills questions
-    if (lowerQuestion.includes('skill') || lowerQuestion.includes('tech') || lowerQuestion.includes('know')) {
-      if (lowerQuestion.includes('react')) {
-        return "Yes! Vince is proficient in ReactJS. He's developed component-based interfaces with state management, applied in portfolio features, client projects, and coursework. You can see it in action in projects like StudAI and Star Coloroof! 🚀";
+      if (!response.ok) {
+        throw new Error(`API error: ${response.status}`);
       }
-      if (lowerQuestion.includes('backend') || lowerQuestion.includes('node') || lowerQuestion.includes('laravel')) {
-        return "Vince has strong backend skills! He's experienced with Node.js, Express.js, Laravel, and ASP.NET. He's built scalable APIs and full-featured web applications using these technologies. 💪";
-      }
-      return `Vince has 19+ technical skills including:\n\n**Frontend:** ReactJS, AngularJS, HTML5, CSS3, JavaScript, Tailwind CSS, Bootstrap\n**Backend:** Node.js, Express.js, Laravel, ASP.NET\n**Mobile:** Android Studio, Kotlin\n**Database:** MySQL\n**Tools:** Git, GitHub, Figma, Photoshop\n\nWant to know more about any specific skill? 🛠️`;
-    }
 
-    // Projects questions
-    if (lowerQuestion.includes('project') || lowerQuestion.includes('work') || lowerQuestion.includes('built')) {
-      if (lowerQuestion.includes('studai')) {
-        return "StudAI is Vince's AI-Powered Study Companion! Built with ReactJS, Laravel, and Firebase, it features:\n\n• Quiz modules with 3 game modes\n• Real-time multiplayer quiz battles\n• AI-powered study recommendations\n• Achievement systems & progress tracking\n\nIt's deployed on Digital Ocean with GitHub for version control. Pretty impressive, right? 🎓";
-      }
-      if (lowerQuestion.includes('coloroof') || lowerQuestion.includes('star')) {
-        return "Star Coloroof is a Roofing Products E-Commerce Platform! Vince built it using ReactJS, Tailwind CSS, and Node.js. It includes:\n\n• Online storefront with product catalog\n• Shopping cart functionality\n• Booking system\n• Customer inquiry features\n\nA complete e-commerce solution! 🏠";
-      }
-      return `Vince has worked on 7 impressive projects:\n\n1. **StudAI** - AI-Powered Study Companion\n2. **Star Coloroof** - E-Commerce Platform\n3. **ExperienceMIMAROPA** - Tourism Platform\n4. **FAST Payroll** - Automated Payroll System\n5. **Barangay 24/7** - Digital Management Platform\n6. **Viva La Vigan** - Tourism & Cultural Heritage\n7. **Mobile App Collection** - Netflix, Instagram & Maya inspired\n\nWant to know more about any specific project? 📱`;
+      const data = await response.json();
+      return data.message;
+    } catch (err) {
+      console.error('Error getting AI response:', err);
+      setError('Sorry, I encountered an error. Please try again!');
+      return "I apologize, but I'm having trouble connecting right now. You can reach Vince directly at vinceoviana@gmail.com or +63 977 625 1107. 📧";
     }
-
-    // Certifications
-    if (lowerQuestion.includes('cert') || lowerQuestion.includes('achieve')) {
-      return "Vince has earned the **PhilNITS Information Technology Passport (IP) Certification** in November 2025! This demonstrates his solid foundation in IT fundamentals and professional competence. 🏆";
-    }
-
-    // Contact questions
-    if (lowerQuestion.includes('contact') || lowerQuestion.includes('email') || lowerQuestion.includes('reach')) {
-      return "You can reach Vince at:\n\n📧 **Email:** vincecvviana@gmail.com\n📱 **Phone:** +63 995 085 1003\n🔗 **LinkedIn:** linkedin.com/in/vincecvv\n👤 **Facebook:** facebook.com/vincecvv\n\nFeel free to connect! 💬";
-    }
-
-    // Education
-    if (lowerQuestion.includes('education') || lowerQuestion.includes('study') || lowerQuestion.includes('school') || lowerQuestion.includes('university')) {
-      return "Vince is pursuing a **Bachelor of Science in Information Technology** at the **University of Santo Tomas**. He's specializing in Web and Mobile App Development! 🎓";
-    }
-
-    // Experience/Role
-    if (lowerQuestion.includes('experience') || lowerQuestion.includes('developer') || lowerQuestion.includes('role')) {
-      return "Vince is a **Full-Stack Developer** and **Student Developer**! He's also worked as a **Social Media Manager**. He has hands-on experience building complete web and mobile applications from frontend to backend. 💻";
-    }
-
-    // Default response
-    return "I can help you learn about:\n\n• Vince's **skills** and technologies\n• His **projects** and work experience\n• **Certifications** and achievements\n• How to **contact** him\n• His **education** background\n\nWhat would you like to know? 🤔";
   };
 
-  const handleSend = () => {
+  const handleSend = async () => {
     if (!input.trim()) return;
 
     const userMessage = { type: 'user', text: input };
     setMessages(prev => [...prev, userMessage]);
     setInput('');
     setIsTyping(true);
+    setError(null);
 
-    // Simulate typing delay
-    setTimeout(() => {
-      const botResponse = findAnswer(input);
-      setMessages(prev => [...prev, { type: 'bot', text: botResponse }]);
-      setIsTyping(false);
-    }, 1000);
+    // Get AI response
+    const aiResponse = await getAIResponse(input);
+    
+    setMessages(prev => [...prev, { type: 'bot', text: aiResponse }]);
+    setIsTyping(false);
   };
 
   const handleKeyPress = (e) => {

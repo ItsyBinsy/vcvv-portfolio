@@ -16,7 +16,7 @@ function App() {
       {/* Floating Navigation */}
       <FloatingNav onChatToggle={() => setIsChatOpen(!isChatOpen)} />
 
-      {/* Chatbot */}
+      {/* AI-Powered Chatbot */}
       <Chatbot isOpen={isChatOpen} onClose={() => setIsChatOpen(false)} />
       {/* Bento Grid Container */}
       <div className="max-w-5xl mx-auto">
