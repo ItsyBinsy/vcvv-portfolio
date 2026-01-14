@@ -2,7 +2,7 @@ const ProjectCard = ({ title, role, period, tech, highlights, image, link, image
   const isLeft = imagePosition === 'left';
 
   return (
-    <div className={`flex flex-col ${isLeft ? 'md:flex-row' : 'md:flex-row-reverse'} gap-4 items-start p-4 bg-gray-50 dark:bg-black rounded-xl border border-gray-200 dark:border-gray-900 transition-colors duration-300`}>
+    <div className={`flex flex-col ${isLeft ? 'md:flex-row' : 'md:flex-row-reverse'} gap-4 items-start p-4 bg-gray-50 dark:bg-[#2C2C2E] rounded-xl border border-gray-200 dark:border-gray-700 transition-colors duration-300`}>
         {/* Project Image */}
         <div className="w-full md:w-2/5 flex-shrink-0">
           <img

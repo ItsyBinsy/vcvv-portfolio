@@ -8,7 +8,7 @@ import FloatingNav from './components/FloatingNav';
 
 function App() {
   return (
-    <div className="min-h-screen p-3 md:p-8 pb-24 md:pb-8 bg-[#FFFEF9] dark:bg-black transition-colors duration-300">
+    <div className="min-h-screen p-3 md:p-8 pb-24 md:pb-8 bg-gray-50 dark:bg-[#000000] transition-colors duration-300">
       {/* Floating Navigation */}
       <FloatingNav />
       {/* Bento Grid Container */}
@@ -41,8 +41,8 @@ function App() {
         </div>
 
         {/* Footer */}
-        <div className="text-center mt-6 pt-6 border-t border-gray-200 dark:border-gray-800">
-          <p className="text-gray-500 dark:text-gray-500 text-xs">
+        <div className="text-center mt-6 pt-6 border-t border-gray-200 dark:border-gray-700">
+          <p className="text-gray-500 dark:text-gray-400 text-xs">
             © 2026 Vince Carl Viaña. Built with React & Tailwind CSS.
           </p>
         </div>

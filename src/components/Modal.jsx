@@ -32,16 +32,16 @@ const Modal = ({ isOpen, onClose, title, children }) => {
       onClick={onClose}
     >
       <div
-        className="relative w-full max-w-4xl bg-white dark:bg-[#0A0A0A] rounded-xl md:rounded-2xl shadow-2xl flex flex-col overflow-hidden"
+        className="relative w-full max-w-4xl bg-white dark:bg-[#1C1C1E] rounded-xl md:rounded-2xl shadow-2xl flex flex-col overflow-hidden"
         style={{ maxHeight: '85vh' }}
         onClick={(e) => e.stopPropagation()}
       >
         {/* Header */}
-        <div className="flex items-center justify-between p-2.5 md:p-6 border-b border-gray-200 dark:border-gray-900 flex-shrink-0">
+        <div className="flex items-center justify-between p-2.5 md:p-6 border-b border-gray-200 dark:border-gray-700 flex-shrink-0">
           <h2 className="text-base md:text-2xl font-bold text-gray-900 dark:text-white">{title}</h2>
           <button
             onClick={onClose}
-            className="p-1 md:p-2 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-900 transition-colors duration-200"
+            className="p-1 md:p-2 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors duration-200"
             aria-label="Close modal"
           >
             <MdClose className="text-lg md:text-2xl text-gray-600 dark:text-gray-300" />
