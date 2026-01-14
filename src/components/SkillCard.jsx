@@ -1,10 +1,10 @@
-import * as SimpleIcons from 'react-icons/si';
 import { useState, useRef, useEffect } from 'react';
 import { createPortal } from 'react-dom';
+import { iconMap } from '../utils/iconMap';
 
 const SkillCard = ({ name, icon, description }) => {
-  // Dynamically get the icon component
-  const IconComponent = SimpleIcons[icon];
+  // Dynamically get the icon component from our optimized icon map
+  const IconComponent = iconMap[icon];
   const [isHovered, setIsHovered] = useState(false);
   const [tooltipStyle, setTooltipStyle] = useState({});
   const cardRef = useRef(null);
