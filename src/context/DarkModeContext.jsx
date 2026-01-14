@@ -23,15 +23,12 @@ export const DarkModeProvider = ({ children }) => {
 
   // Update localStorage and document class when dark mode changes
   useEffect(() => {
-    console.log('Dark Mode State:', isDarkMode); // Debug log
     localStorage.setItem('darkMode', isDarkMode);
 
     if (isDarkMode) {
       document.documentElement.classList.add('dark');
-      console.log('Added dark class to html'); // Debug log
     } else {
       document.documentElement.classList.remove('dark');
-      console.log('Removed dark class from html'); // Debug log
     }
   }, [isDarkMode]);
 
