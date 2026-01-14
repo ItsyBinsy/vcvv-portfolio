@@ -1,4 +1,42 @@
 // Vercel Serverless Function - OpenAI Chatbot API
+
+// In-memory rate limiter (resets on cold start, good for serverless)
+const rateLimit = new Map();
+
+function checkRateLimit(ip) {
+  const now = Date.now();
+  const minuteWindow = 60000; // 1 minute
+  const hourWindow = 3600000; // 1 hour
+  const maxPerMinute = 10;
+  const maxPerHour = 50;
+  
+  if (!rateLimit.has(ip)) {
+    rateLimit.set(ip, { minute: [], hour: [] });
+  }
+  
+  const limits = rateLimit.get(ip);
+  
+  // Clean old requests
+  limits.minute = limits.minute.filter(time => now - time < minuteWindow);
+  limits.hour = limits.hour.filter(time => now - time < hourWindow);
+  
+  // Check limits
+  if (limits.minute.length >= maxPerMinute) {
+    return { allowed: false, reason: 'minute', resetIn: 60 };
+  }
+  
+  if (limits.hour.length >= maxPerHour) {
+    return { allowed: false, reason: 'hour', resetIn: 3600 };
+  }
+  
+  // Add current request
+  limits.minute.push(now);
+  limits.hour.push(now);
+  rateLimit.set(ip, limits);
+  
+  return { allowed: true };
+}
+
 export default async function handler(req, res) {
   // Enable CORS
   res.setHeader('Access-Control-Allow-Credentials', true);
@@ -13,6 +51,18 @@ export default async function handler(req, res) {
 
   if (req.method !== 'POST') {
     return res.status(405).json({ error: 'Method not allowed' });
+  }
+
+  // Rate limiting check
+  const ip = req.headers['x-forwarded-for'] || req.headers['x-real-ip'] || 'anonymous';
+  const rateLimitResult = checkRateLimit(ip);
+  
+  if (!rateLimitResult.allowed) {
+    const timeUnit = rateLimitResult.reason === 'minute' ? 'minute' : 'hour';
+    return res.status(429).json({ 
+      error: `Rate limit exceeded. Please wait a ${timeUnit} before sending more messages.`,
+      resetIn: rateLimitResult.resetIn
+    });
   }
 
   try {

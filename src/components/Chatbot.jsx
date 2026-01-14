@@ -12,6 +12,7 @@ const Chatbot = ({ isOpen, onClose }) => {
   const [unreadCount, setUnreadCount] = useState(0);
   const [copiedMessageId, setCopiedMessageId] = useState(null);
   const [showClearAlert, setShowClearAlert] = useState(false);
+  const [lastMessageTime, setLastMessageTime] = useState(0);
   const messagesEndRef = useRef(null);
   const chatContainerRef = useRef(null);
 
@@ -89,6 +90,12 @@ const Chatbot = ({ isOpen, onClose }) => {
       });
 
       if (!response.ok) {
+        // Handle rate limit error specifically
+        if (response.status === 429) {
+          const errorData = await response.json();
+          setError(errorData.error || 'Too many messages. Please slow down a bit!');
+          return "Whoa, you're asking a lot of questions! 😅 Please wait a moment before continuing our chat.";
+        }
         throw new Error(`API error: ${response.status}`);
       }
 
@@ -103,6 +110,19 @@ const Chatbot = ({ isOpen, onClose }) => {
 
   const handleSend = async (messageText = input) => {
     if (!messageText.trim()) return;
+
+    // Client-side rate limiting (3 seconds cooldown)
+    const now = Date.now();
+    const cooldown = 3000; // 3 seconds between messages
+    
+    if (now - lastMessageTime < cooldown) {
+      const waitTime = Math.ceil((cooldown - (now - lastMessageTime)) / 1000);
+      setError(`Please wait ${waitTime} second${waitTime > 1 ? 's' : ''} before sending another message.`);
+      setTimeout(() => setError(null), 2000);
+      return;
+    }
+    
+    setLastMessageTime(now);
 
     const userMessage = { 
       type: 'user', 
