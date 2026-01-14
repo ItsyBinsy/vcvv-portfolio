@@ -207,9 +207,9 @@ const Chatbot = ({ isOpen, onClose }) => {
             <div className="flex items-center gap-3">
               <div className="w-10 h-10 bg-white rounded-full flex items-center justify-center overflow-hidden">
                 <img 
-                  src="/images/ME.png" 
-                  alt="Vince" 
-                  className="w-full h-full object-cover"
+                  src="/images/baymax.jpg" 
+                  alt="Vince's AI Assistant" 
+                  className="w-full h-full object-cover object-top"
                   onError={(e) => {
                     e.target.style.display = 'none';
                     e.target.nextElementSibling.style.display = 'flex';
