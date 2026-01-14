@@ -76,6 +76,12 @@ export const skillsData = {
         "Developed full-featured web applications with elegant PHP framework and MVC architecture.",
     },
     {
+      name: "ASP.NET",
+      icon: "SiDotnet",
+      description:
+        "Developed server-side web applications using MVC architecture with C# and .NET framework.",
+    },
+    {
       name: "MySQL",
       icon: "SiMysql",
       description:
