@@ -387,7 +387,7 @@ export const projectsData = [
     link: "#",
   },
   {
-    title: "Mobile App Collection - Netflix, Instagram & PayMaya Inspired",
+    title: "Mobile App Collection - Netflix, Instagram & Maya Inspired",
     role: "Frontend Developer",
     tech: ["Android Studio", "Kotlin", "XML Layouts"],
     highlights: [
