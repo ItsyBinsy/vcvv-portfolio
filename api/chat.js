@@ -104,8 +104,8 @@ Design:
 - Multiple DICT Digital Skills Certifications
 
 **Contact Information:**
-- Email: vinceoviana@gmail.com
-- Phone: +63 977 625 1107
+- Email: vincecvviana@gmail.com
+- Phone: +63 938 472 9243
 - LinkedIn, GitHub, Facebook profiles available
 
 **Education:**

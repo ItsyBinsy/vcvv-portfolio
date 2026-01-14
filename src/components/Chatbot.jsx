@@ -97,7 +97,7 @@ const Chatbot = ({ isOpen, onClose }) => {
     } catch (err) {
       console.error('Error getting AI response:', err);
       setError('Sorry, I encountered an error. Please try again!');
-      return "I apologize, but I'm having trouble connecting right now. You can reach Vince directly at vinceoviana@gmail.com or +63 977 625 1107. 📧";
+      return "I apologize, but I'm having trouble connecting right now. You can reach Vince directly at vincecvviana@gmail.com or +63 938 472 9243. 📧";
     }
   };
 

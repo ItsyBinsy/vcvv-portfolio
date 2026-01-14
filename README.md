@@ -51,5 +51,6 @@ See [AI_CHATBOT_GUIDE.md](./AI_CHATBOT_GUIDE.md) for full instructions.
 ## 👤 Author
 
 **Vince Carl Viaña**
-- Email: vinceoviana@gmail.com
+- Email: vincecvviana@gmail.com
+- Phone: +63 938 472 9243
 - GitHub: [@ItsyBinsy](https://github.com/ItsyBinsy)

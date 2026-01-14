@@ -463,8 +463,8 @@ export const contactData = {
       type: "phone",
       icon: "MdPhone",
       label: "Phone",
-      value: "+63 977 625 1107",
-      link: "tel:+639776251107",
+      value: "+63 938 472 9243",
+      link: "tel:+639384729243",
       buttonText: "Call Me",
     },
     {
