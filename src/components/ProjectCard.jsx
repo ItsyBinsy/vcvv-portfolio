@@ -8,7 +8,7 @@ const ProjectCard = ({ title, role, period, tech, highlights, image, link, image
           <img
             src={image}
             alt={title}
-            className="w-full h-48 object-cover rounded-lg shadow-md"
+            className="w-full h-48 object-cover object-top rounded-lg shadow-md"
             loading="lazy"
           />
         </div>
