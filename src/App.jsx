@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import Hero from './sections/Hero';
 import About from './sections/About';
 import Skills from './sections/Skills';
@@ -5,12 +6,18 @@ import Projects from './sections/Projects';
 import Certifications from './sections/Certifications';
 import Contact from './sections/Contact';
 import FloatingNav from './components/FloatingNav';
+import Chatbot from './components/Chatbot';
 
 function App() {
+  const [isChatOpen, setIsChatOpen] = useState(false);
+
   return (
     <div className="min-h-screen p-3 md:p-8 pb-24 md:pb-8 bg-gray-50 dark:bg-[#000000] transition-colors duration-300">
       {/* Floating Navigation */}
-      <FloatingNav />
+      <FloatingNav onChatToggle={() => setIsChatOpen(!isChatOpen)} />
+
+      {/* Chatbot */}
+      <Chatbot isOpen={isChatOpen} onClose={() => setIsChatOpen(false)} />
       {/* Bento Grid Container */}
       <div className="max-w-5xl mx-auto">
         {/* TRUE Bento Puzzle Grid - 16 columns (Tighter gaps on mobile) */}

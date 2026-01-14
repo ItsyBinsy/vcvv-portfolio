@@ -1,10 +1,10 @@
 import { useState, useRef } from 'react';
-import { MdLightMode, MdDarkMode } from 'react-icons/md';
+import { MdLightMode, MdDarkMode, MdChat } from 'react-icons/md';
 import { RiFacebookLine, RiLinkedinLine } from 'react-icons/ri';
 import { SiGmail } from 'react-icons/si';
 import { useDarkMode } from '../context/DarkModeContext';
 
-const FloatingNav = () => {
+const FloatingNav = ({ onChatToggle }) => {
   const [activeIcon, setActiveIcon] = useState(null);
   const { isDarkMode, toggleDarkMode } = useDarkMode();
   const touchTimerRef = useRef(null);
@@ -167,15 +167,32 @@ const FloatingNav = () => {
             }}
           />
 
-          {/* Dark Mode Toggle */}
+          {/* Chatbot Toggle */}
           <button
-            onClick={toggleDarkMode}
+            onClick={onChatToggle}
             onMouseEnter={() => setActiveIcon(navItems.length)}
             onMouseLeave={() => setActiveIcon(null)}
             onTouchStart={() => handleTouchStart(navItems.length)}
             className="relative w-11 h-11 rounded-full flex items-center justify-center text-gray-700 hover:text-gray-900 dark:text-gray-300 dark:hover:text-white transition-all duration-500"
             style={{
               transform: activeIcon === navItems.length
+                ? 'translateY(-3px) scale(1.15)'
+                : 'scale(1)',
+              transition: 'all 0.5s cubic-bezier(0.34, 1.56, 0.64, 1)',
+            }}
+          >
+            <MdChat className="text-lg" />
+          </button>
+
+          {/* Dark Mode Toggle */}
+          <button
+            onClick={toggleDarkMode}
+            onMouseEnter={() => setActiveIcon(navItems.length + 1)}
+            onMouseLeave={() => setActiveIcon(null)}
+            onTouchStart={() => handleTouchStart(navItems.length + 1)}
+            className="relative w-11 h-11 rounded-full flex items-center justify-center text-gray-700 hover:text-gray-900 dark:text-gray-300 dark:hover:text-white transition-all duration-500"
+            style={{
+              transform: activeIcon === navItems.length + 1
                 ? 'translateY(-3px) scale(1.15) rotate(15deg)'
                 : 'scale(1) rotate(0deg)',
               transition: 'all 0.5s cubic-bezier(0.34, 1.56, 0.64, 1)',
