@@ -386,6 +386,18 @@ export const projectsData = [
     image: "/images/LVV.png",
     link: "#",
   },
+  {
+    title: "Mobile App Collection - Netflix, Instagram & PayMaya Inspired",
+    role: "Frontend Developer",
+    tech: ["Android Studio", "Kotlin", "XML Layouts"],
+    highlights: [
+      "Built multiple mobile applications showcasing diverse UI patterns including streaming platforms, social media feeds, and digital wallet interfaces",
+      "Implemented visual-first navigation with category-based content browsing, responsive grid layouts, and Netflix-inspired design patterns",
+      "Developed user profile management with follower tracking, account features, messaging systems, and referral rewards functionality"
+    ],
+    image: "/images/ANDROID.png",
+    link: "#",
+  },
 ];
 
 // Certifications Section Data
