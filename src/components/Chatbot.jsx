@@ -1,5 +1,5 @@
 import { useState, useRef, useEffect } from 'react';
-import { MdClose, MdSend } from 'react-icons/md';
+import { MdClose, MdSend, MdChat } from 'react-icons/md';
 
 const Chatbot = ({ isOpen, onClose }) => {
   const [messages, setMessages] = useState([
