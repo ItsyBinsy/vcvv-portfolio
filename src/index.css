@@ -61,3 +61,47 @@
 .pause-animation {
   animation-play-state: paused !important;
 }
+
+/* Custom Modal Scrollbar - Light and Dark Mode */
+.modal-scrollbar {
+  /* Firefox */
+  scrollbar-width: thin;
+  scrollbar-color: #D1D5DB #F3F4F6; /* gray-300 thumb, gray-100 track */
+}
+
+/* Dark mode scrollbar for Firefox */
+.dark .modal-scrollbar {
+  scrollbar-color: #374151 #111827; /* gray-700 thumb, gray-900 track */
+}
+
+/* Webkit browsers (Chrome, Safari, Edge) */
+.modal-scrollbar::-webkit-scrollbar {
+  width: 8px;
+}
+
+.modal-scrollbar::-webkit-scrollbar-track {
+  background: #F3F4F6; /* gray-100 */
+  border-radius: 4px;
+}
+
+.modal-scrollbar::-webkit-scrollbar-thumb {
+  background: #D1D5DB; /* gray-300 */
+  border-radius: 4px;
+}
+
+.modal-scrollbar::-webkit-scrollbar-thumb:hover {
+  background: #9CA3AF; /* gray-400 */
+}
+
+/* Dark mode scrollbar for Webkit */
+.dark .modal-scrollbar::-webkit-scrollbar-track {
+  background: #111827; /* gray-900 */
+}
+
+.dark .modal-scrollbar::-webkit-scrollbar-thumb {
+  background: #374151; /* gray-700 */
+}
+
+.dark .modal-scrollbar::-webkit-scrollbar-thumb:hover {
+  background: #4B5563; /* gray-600 */
+}
