@@ -1,6 +1,6 @@
 import { useState, useRef } from 'react';
-import { MdLightMode, MdDarkMode, MdChat } from 'react-icons/md';
-import { RiFacebookLine, RiLinkedinLine } from 'react-icons/ri';
+import { MdLightMode, MdDarkMode } from 'react-icons/md';
+import { RiFacebookLine, RiLinkedinLine, RiRobot2Line } from 'react-icons/ri';
 import { SiGmail } from 'react-icons/si';
 import { useDarkMode } from '../context/DarkModeContext';
 
@@ -167,7 +167,7 @@ const FloatingNav = ({ onChatToggle }) => {
             }}
           />
 
-          {/* Chatbot Toggle */}
+          {/* AI Chatbot Toggle */}
           <button
             onClick={onChatToggle}
             onMouseEnter={() => setActiveIcon(navItems.length)}
@@ -181,7 +181,7 @@ const FloatingNav = ({ onChatToggle }) => {
               transition: 'all 0.5s cubic-bezier(0.34, 1.56, 0.64, 1)',
             }}
           >
-            <MdChat className="text-lg" />
+            <RiRobot2Line className="text-xl" />
           </button>
 
           {/* Dark Mode Toggle */}

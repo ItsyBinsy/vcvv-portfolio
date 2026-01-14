@@ -1,18 +1,52 @@
 import { useState, useRef, useEffect } from 'react';
-import { MdClose, MdSend, MdChat } from 'react-icons/md';
+import { MdClose, MdSend, MdMinimize, MdContentCopy, MdCheck } from 'react-icons/md';
+import { RiRobot2Line } from 'react-icons/ri';
+import ReactMarkdown from 'react-markdown';
 
 const Chatbot = ({ isOpen, onClose }) => {
-  const [messages, setMessages] = useState([
-    {
-      type: 'bot',
-      text: "Hi! I'm Vince's AI assistant. I can answer any questions about his skills, projects, or experience! 👋"
-    }
-  ]);
+  const [messages, setMessages] = useState([]);
   const [input, setInput] = useState('');
   const [isTyping, setIsTyping] = useState(false);
   const [error, setError] = useState(null);
+  const [isMinimized, setIsMinimized] = useState(false);
+  const [unreadCount, setUnreadCount] = useState(0);
+  const [copiedMessageId, setCopiedMessageId] = useState(null);
   const messagesEndRef = useRef(null);
+  const chatContainerRef = useRef(null);
 
+  // Quick reply suggestions
+  const quickReplies = [
+    { text: "💻 View Skills", query: "What are your technical skills?" },
+    { text: "🚀 See Projects", query: "Tell me about your projects" },
+    { text: "📧 Contact Info", query: "How can I contact you?" },
+    { text: "� Download CV", query: "How do I get your CV?" }
+  ];
+
+  // Load chat history from localStorage on mount
+  useEffect(() => {
+    const savedMessages = localStorage.getItem('chatHistory');
+    if (savedMessages) {
+      setMessages(JSON.parse(savedMessages));
+    } else {
+      // Initial greeting
+      setMessages([
+        {
+          type: 'bot',
+          text: "Hi! I'm Vince's AI assistant. I can answer any questions about his skills, projects, or experience! 👋\n\nTry asking me anything, or click a suggestion below:",
+          timestamp: new Date().toISOString()
+        }
+      ]);
+    }
+  }, []);
+
+  // Save chat history to localStorage whenever messages change
+  useEffect(() => {
+    if (messages.length > 0) {
+      localStorage.setItem('chatHistory', JSON.stringify(messages));
+    }
+  }, [messages]);
+
+  // Scroll to bottom when messages change
   const scrollToBottom = () => {
     messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
   };
@@ -21,9 +55,25 @@ const Chatbot = ({ isOpen, onClose }) => {
     scrollToBottom();
   }, [messages]);
 
+  // Track unread messages when minimized
+  useEffect(() => {
+    if (isMinimized && messages.length > 0) {
+      const lastMessage = messages[messages.length - 1];
+      if (lastMessage.type === 'bot') {
+        setUnreadCount(prev => prev + 1);
+      }
+    }
+  }, [messages, isMinimized]);
+
+  // Play notification sound
+  const playNotificationSound = () => {
+    const audio = new Audio('data:audio/wav;base64,UklGRnoGAABXQVZFZm10IBAAAAABAAEAQB8AAEAfAAABAAgAZGF0YQoGAACBhYqFbF1fdJivrJBhNjVgodDbq2EcBj+a2/LDciUFLIHO8tiJNwgZaLvt559NEAxQp+PwtmMcBjiR1/LMeSwFJHfH8N2QQAoUXrTp66hVFApGn+DyvmwhBSuBzvLZiTYIG2m98OScTgwOUKnn77ZiGwU7k9n0yXYpBSh+zPLaizsKFlyw6OqlUxELSKXh8bllHAU2jdXzzn0vBSaAzvDajDwLGGy9 7+SaSwwNU6vm8LBfGwU9l9v0xXIoBSh/zfDajTwKFl606OijUBELSaXi8bllHAU2jdXzzn0vBSaAzvDajDwLGGy97+SaSwwNU6vm8LBfGwU9l9v0xXIoBSh/zfDajTwKFl606OijUBELSaXi8bllHAU2jdXzzn0vBSaAzvDajDwLGGy97+SaSwwNU6vm8LBfGwU9l9v0xXIoBSh/zfDajTwKFl606OijUBELSaXi8bllHAU2jdXzzn0vBSaAzvDajDwLGGy97+SaSwwNU6vm8LBfGwU9l9v0xXIoBSh/zfDajTwKFl606OijUBELSaXi8bllHAU2jdXzzn0vBSaAzvDajDwLGGy97+SaSwwNU6vm8LBfGwU9l9v0xXIoBSh/zfDajTwKFl606OijUBELSaXi8bllHAU2jdXzzn0vBSaAzvDajDwLGGy97+SaSwwNU6vm8LBfGwU9l9v0xXIoBSh/zfDajTwKFl606OijUBELSaXi8bllHAU2jdXzzn0vBSaAzvDajDwLGGy97+SaSwwNU6vm8LBfGwU9l9v0xXIoBSh/zfDajTwKFl606OijUBELSaXi8bllHAU2jdXzzn0vBSaAzvDajDwLGGy97+SaSwwNU6vm8LBfGwU9l9v0xXIoBSh/zfDajTwKFl606OijUBELSaXi8bllHAU2jdXzzn0vBSaAzvDajDwLGGy97+SaSwwNU6vm8LBfGwU9l9v0xXIoBSh/zfDajTwKFl606OijUBELSaXi8bllHAU2jdXzzn0vBSaAzvDajDwLGGy97+SaSwwNU6vm8LBfGwU9l9v0xXIoBSh/zfDajTwKFl606OijUBELSaXi8bllHAU2jdXzzn0vBSaAzvDajDwLGGy97+SaSwwNU6vm8LBfGwU9l9v0xXIoBSh/zfDajTwKFl606OijUBELSaXi8bllHAU2jdXzzn0vBSaAzvDajDwLGGy97+SaSwwNU6vm8LBfGwU9l9v0xXIoBSh/zfDajTwKFl606OijUBELSaXi8bllHAU2jdXzzn0vBSaAzvDajDwLGGy97+SaSwwNU6vm8LBfGwU9l9v0xXIoBSh/zfDajTwKFl606OijUBELSaXi8bllHAU2jdXzzn0vBSaAzvDajDwLGGy97+SaSwwNU6vm8LBfGwU9l9v0xXIoBSh/zfDajTwKFl606OijUBELSaXi8bllHAU2jdXzzn0vBSaAzvDajDwLGGy97+SaSwwNU6vm8LBfGwU9l9v0xXIoBSh/zfDajTwKFl606OijUBELSaXi8bllHAU2jdXzzn0vBSaAzvDajDwLGGy97+SaSwwNU6vm8LBfGwU9l9v0xXIoBSh/zfDajTwKFl606OijUBELSaXi8bllHAU2jdXzzn0vBSaAzvDajDwLGGy97+SaSwwNU6vm8LBfGw==');
+    audio.volume = 0.3;
+    audio.play().catch(() => {}); // Ignore errors if autoplay is blocked
+  };
+
   const getAIResponse = async (userMessage) => {
     try {
-      // Get API URL based on environment
       const apiUrl = import.meta.env.VITE_API_URL || '/api/chat';
       
       const response = await fetch(apiUrl, {
@@ -33,7 +83,7 @@ const Chatbot = ({ isOpen, onClose }) => {
         },
         body: JSON.stringify({
           message: userMessage,
-          history: messages.slice(1) // Exclude initial greeting
+          history: messages.filter(m => m.type !== 'quickReply') // Exclude quick reply UI from history
         }),
       });
 
@@ -50,20 +100,39 @@ const Chatbot = ({ isOpen, onClose }) => {
     }
   };
 
-  const handleSend = async () => {
-    if (!input.trim()) return;
+  const handleSend = async (messageText = input) => {
+    if (!messageText.trim()) return;
 
-    const userMessage = { type: 'user', text: input };
+    const userMessage = { 
+      type: 'user', 
+      text: messageText,
+      timestamp: new Date().toISOString()
+    };
     setMessages(prev => [...prev, userMessage]);
     setInput('');
     setIsTyping(true);
     setError(null);
 
     // Get AI response
-    const aiResponse = await getAIResponse(input);
+    const aiResponse = await getAIResponse(messageText);
     
-    setMessages(prev => [...prev, { type: 'bot', text: aiResponse }]);
+    const botMessage = { 
+      type: 'bot', 
+      text: aiResponse,
+      timestamp: new Date().toISOString()
+    };
+    
+    setMessages(prev => [...prev, botMessage]);
     setIsTyping(false);
+    
+    // Play notification sound if minimized
+    if (isMinimized) {
+      playNotificationSound();
+    }
+  };
+
+  const handleQuickReply = (query) => {
+    handleSend(query);
   };
 
   const handleKeyPress = (e) => {
@@ -73,49 +142,182 @@ const Chatbot = ({ isOpen, onClose }) => {
     }
   };
 
+  const handleMinimize = () => {
+    setIsMinimized(true);
+  };
+
+  const handleMaximize = () => {
+    setIsMinimized(false);
+    setUnreadCount(0);
+  };
+
+  const copyToClipboard = (text, messageId) => {
+    navigator.clipboard.writeText(text).then(() => {
+      setCopiedMessageId(messageId);
+      setTimeout(() => setCopiedMessageId(null), 2000);
+    });
+  };
+
+  const clearHistory = () => {
+    if (confirm('Clear chat history? This cannot be undone.')) {
+      localStorage.removeItem('chatHistory');
+      setMessages([
+        {
+          type: 'bot',
+          text: "Hi! I'm Vince's AI assistant. I can answer any questions about his skills, projects, or experience! 👋\n\nTry asking me anything, or click a suggestion below:",
+          timestamp: new Date().toISOString()
+        }
+      ]);
+    }
+  };
+
+  const formatTimestamp = (timestamp) => {
+    const date = new Date(timestamp);
+    const now = new Date();
+    const diff = now - date;
+    
+    if (diff < 60000) return 'Just now';
+    if (diff < 3600000) return `${Math.floor(diff / 60000)}m ago`;
+    if (diff < 86400000) return date.toLocaleTimeString('en-US', { hour: 'numeric', minute: '2-digit' });
+    return date.toLocaleDateString('en-US', { month: 'short', day: 'numeric' });
+  };
+
   return (
     <>
-      {/* Chat Window */}
-      {isOpen && (
+      {/* Minimized Chat Bubble */}
+      {isOpen && isMinimized && (
+        <div 
+          onClick={handleMaximize}
+          className="fixed bottom-20 right-4 md:bottom-8 md:right-8 w-16 h-16 bg-yellow-500 hover:bg-yellow-600 rounded-full shadow-2xl flex items-center justify-center cursor-pointer transition-all duration-300 z-40 animate-bounce"
+        >
+          <RiRobot2Line className="text-white text-2xl" />
+          {unreadCount > 0 && (
+            <div className="absolute -top-2 -right-2 w-6 h-6 bg-red-500 rounded-full flex items-center justify-center text-white text-xs font-bold">
+              {unreadCount}
+            </div>
+          )}
+        </div>
+      )}
+
+      {/* Full Chat Window */}
+      {isOpen && !isMinimized && (
         <div className="fixed bottom-20 right-4 md:bottom-8 md:right-8 w-[calc(100vw-2rem)] md:w-96 h-[32rem] bg-white dark:bg-[#1C1C1E] rounded-2xl shadow-2xl border-2 border-gray-200 dark:border-gray-700 flex flex-col z-40 transition-all duration-300">
           {/* Header */}
           <div className="flex items-center justify-between p-4 border-b border-gray-200 dark:border-gray-700 bg-yellow-500 rounded-t-2xl">
             <div className="flex items-center gap-3">
-              <div className="w-10 h-10 bg-white rounded-full flex items-center justify-center">
-                <MdChat className="text-yellow-500 text-xl" />
+              <div className="w-10 h-10 bg-white rounded-full flex items-center justify-center overflow-hidden">
+                <img 
+                  src="/images/ME.png" 
+                  alt="Vince" 
+                  className="w-full h-full object-cover"
+                  onError={(e) => {
+                    e.target.style.display = 'none';
+                    e.target.nextElementSibling.style.display = 'flex';
+                  }}
+                />
+                <RiRobot2Line className="text-yellow-500 text-xl hidden" />
               </div>
               <div>
-                <h3 className="text-white font-bold text-sm">Vince's Assistant</h3>
-                <p className="text-yellow-100 text-xs">Online</p>
+                <h3 className="text-white font-bold text-sm">Vince's AI Assistant</h3>
+                <p className="text-yellow-100 text-xs flex items-center gap-1">
+                  <span className="w-2 h-2 bg-green-400 rounded-full animate-pulse"></span>
+                  Online 24/7
+                </p>
               </div>
             </div>
-            <button
-              onClick={onClose}
-              className="p-2 hover:bg-yellow-600 rounded-lg transition-colors"
-              aria-label="Close chat"
-            >
-              <MdClose className="text-white text-xl" />
-            </button>
+            <div className="flex items-center gap-2">
+              <button
+                onClick={handleMinimize}
+                className="p-2 hover:bg-yellow-600 rounded-lg transition-colors"
+                aria-label="Minimize chat"
+                title="Minimize"
+              >
+                <MdMinimize className="text-white text-xl" />
+              </button>
+              <button
+                onClick={onClose}
+                className="p-2 hover:bg-yellow-600 rounded-lg transition-colors"
+                aria-label="Close chat"
+                title="Close"
+              >
+                <MdClose className="text-white text-xl" />
+              </button>
+            </div>
           </div>
 
           {/* Messages */}
-          <div className="flex-1 overflow-y-auto p-4 space-y-4 modal-scrollbar">
+          <div ref={chatContainerRef} className="flex-1 overflow-y-auto p-4 space-y-4 modal-scrollbar">
             {messages.map((msg, index) => (
               <div
                 key={index}
                 className={`flex ${msg.type === 'user' ? 'justify-end' : 'justify-start'}`}
               >
-                <div
-                  className={`max-w-[80%] p-3 rounded-2xl ${
-                    msg.type === 'user'
-                      ? 'bg-yellow-500 text-white'
-                      : 'bg-gray-100 dark:bg-[#2C2C2E] text-gray-900 dark:text-white'
-                  }`}
-                >
-                  <p className="text-sm whitespace-pre-line">{msg.text}</p>
+                <div className={`max-w-[80%] ${msg.type === 'user' ? 'order-2' : ''}`}>
+                  <div
+                    className={`p-3 rounded-2xl ${
+                      msg.type === 'user'
+                        ? 'bg-yellow-500 text-white'
+                        : 'bg-gray-100 dark:bg-[#2C2C2E] text-gray-900 dark:text-white'
+                    }`}
+                  >
+                    {msg.type === 'bot' ? (
+                      <div className="prose prose-sm dark:prose-invert max-w-none">
+                        <ReactMarkdown
+                          components={{
+                            p: ({node, ...props}) => <p className="mb-2 last:mb-0" {...props} />,
+                            a: ({node, ...props}) => <a className="text-yellow-500 hover:underline" target="_blank" rel="noopener noreferrer" {...props} />,
+                            ul: ({node, ...props}) => <ul className="list-disc ml-4 mb-2" {...props} />,
+                            ol: ({node, ...props}) => <ol className="list-decimal ml-4 mb-2" {...props} />,
+                            code: ({node, inline, ...props}) => 
+                              inline ? 
+                                <code className="bg-gray-200 dark:bg-gray-700 px-1 py-0.5 rounded text-sm" {...props} /> :
+                                <code className="block bg-gray-200 dark:bg-gray-700 p-2 rounded text-sm overflow-x-auto" {...props} />
+                          }}
+                        >
+                          {msg.text}
+                        </ReactMarkdown>
+                      </div>
+                    ) : (
+                      <p className="text-sm whitespace-pre-line">{msg.text}</p>
+                    )}
+                  </div>
+                  
+                  <div className="flex items-center gap-2 mt-1 px-2">
+                    <span className="text-xs text-gray-400 dark:text-gray-500">
+                      {formatTimestamp(msg.timestamp)}
+                    </span>
+                    {msg.type === 'bot' && (
+                      <button
+                        onClick={() => copyToClipboard(msg.text, index)}
+                        className="text-gray-400 hover:text-gray-600 dark:hover:text-gray-300 transition-colors"
+                        title="Copy message"
+                      >
+                        {copiedMessageId === index ? (
+                          <MdCheck className="text-sm text-green-500" />
+                        ) : (
+                          <MdContentCopy className="text-xs" />
+                        )}
+                      </button>
+                    )}
+                  </div>
                 </div>
               </div>
             ))}
+
+            {/* Quick Reply Buttons - Show only after initial message */}
+            {messages.length <= 2 && (
+              <div className="flex flex-wrap gap-2 justify-center">
+                {quickReplies.map((reply, index) => (
+                  <button
+                    key={index}
+                    onClick={() => handleQuickReply(reply.query)}
+                    className="px-3 py-2 bg-yellow-500 hover:bg-yellow-600 text-white text-xs rounded-full transition-all duration-200 hover:scale-105"
+                  >
+                    {reply.text}
+                  </button>
+                ))}
+              </div>
+            )}
 
             {/* Typing indicator */}
             {isTyping && (
@@ -134,6 +336,14 @@ const Chatbot = ({ isOpen, onClose }) => {
 
           {/* Input */}
           <div className="p-4 border-t border-gray-200 dark:border-gray-700">
+            {messages.length > 2 && (
+              <button
+                onClick={clearHistory}
+                className="text-xs text-gray-400 hover:text-gray-600 dark:hover:text-gray-300 mb-2 transition-colors"
+              >
+                Clear history
+              </button>
+            )}
             <div className="flex gap-2">
               <input
                 type="text"
@@ -144,8 +354,9 @@ const Chatbot = ({ isOpen, onClose }) => {
                 className="flex-1 px-4 py-2 bg-gray-100 dark:bg-[#2C2C2E] text-gray-900 dark:text-white rounded-full border border-gray-300 dark:border-gray-600 focus:outline-none focus:border-yellow-500 transition-colors text-sm"
               />
               <button
-                onClick={handleSend}
-                className="w-10 h-10 bg-yellow-500 hover:bg-yellow-600 text-white rounded-full flex items-center justify-center transition-colors"
+                onClick={() => handleSend()}
+                disabled={!input.trim()}
+                className="w-10 h-10 bg-yellow-500 hover:bg-yellow-600 disabled:bg-gray-300 dark:disabled:bg-gray-600 text-white rounded-full flex items-center justify-center transition-colors disabled:cursor-not-allowed"
                 aria-label="Send message"
               >
                 <MdSend className="text-lg" />
