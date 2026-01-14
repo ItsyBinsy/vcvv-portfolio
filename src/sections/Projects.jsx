@@ -86,7 +86,7 @@ const Projects = () => {
               className={`transition-all duration-300 rounded-full cursor-pointer hover:bg-yellow-400 ${
                 index === currentIndex
                   ? 'w-6 md:w-8 h-1.5 md:h-2 bg-yellow-500'
-                  : 'w-1.5 md:w-2 h-1.5 md:h-2 bg-gray-300'
+                  : 'w-1.5 md:w-2 h-1.5 md:h-2 bg-gray-300 dark:bg-gray-800'
               }`}
               aria-label={`Go to project ${index + 1}`}
             />
