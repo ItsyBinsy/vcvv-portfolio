@@ -27,7 +27,7 @@ const Certifications = () => {
       let startTime = null;
       const duration = scrollDistance * 10; // 10ms per pixel = slow scroll
 
-      const animate = (timestamp) => {
+        const animate = (timestamp) => {
         if (!container || !container.isConnected || userScrollingRef.current) return;
 
         if (!startTime) startTime = timestamp;
@@ -39,9 +39,11 @@ const Certifications = () => {
         const currentScroll = container.scrollLeft;
 
         // Only reset if we've scrolled past halfway with smaller threshold
-        if (currentScroll >= scrollDistance - 5) {
-          // Reset without animation
-          container.scrollLeft = 0;
+        if (currentScroll >= scrollDistance - 10) {
+          // Use requestAnimationFrame for smoother reset
+          requestAnimationFrame(() => {
+            container.scrollLeft = 0;
+          });
           startTime = timestamp; // Reset timer too
         } else {
           // Use scrollTo for better mobile support
@@ -52,9 +54,7 @@ const Certifications = () => {
         }
 
         animationFrameRef.current = requestAnimationFrame(animate);
-      };
-
-      animationFrameRef.current = requestAnimationFrame(animate);
+      };      animationFrameRef.current = requestAnimationFrame(animate);
     }, 100);
 
     return () => {
@@ -82,7 +82,10 @@ const Certifications = () => {
       // Only update state if index actually changed
       if (index !== lastIndex) {
         lastIndex = index;
-        setCurrentIndex(index);
+        // Use requestAnimationFrame to batch state updates
+        requestAnimationFrame(() => {
+          setCurrentIndex(index);
+        });
       }
     };
 
@@ -335,7 +338,7 @@ const Certifications = () => {
             <button
               key={index}
               onClick={() => goToSlide(index)}
-              className={`transition-all duration-300 rounded-full cursor-pointer hover:bg-yellow-400 ${
+              className={`transition-[width,background-color] duration-300 ease-out rounded-full cursor-pointer hover:bg-yellow-400 will-change-[width] ${
                 index === currentIndex
                   ? 'w-6 md:w-8 h-1.5 md:h-2 bg-yellow-500'
                   : 'w-1.5 md:w-2 h-1.5 md:h-2 bg-gray-300 dark:bg-gray-800'
