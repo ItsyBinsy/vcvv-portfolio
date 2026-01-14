@@ -11,6 +11,7 @@ const Chatbot = ({ isOpen, onClose }) => {
   const [isMinimized, setIsMinimized] = useState(false);
   const [unreadCount, setUnreadCount] = useState(0);
   const [copiedMessageId, setCopiedMessageId] = useState(null);
+  const [showClearAlert, setShowClearAlert] = useState(false);
   const messagesEndRef = useRef(null);
   const chatContainerRef = useRef(null);
 
@@ -159,16 +160,19 @@ const Chatbot = ({ isOpen, onClose }) => {
   };
 
   const clearHistory = () => {
-    if (confirm('Clear chat history? This cannot be undone.')) {
-      localStorage.removeItem('chatHistory');
-      setMessages([
-        {
-          type: 'bot',
-          text: "Hi! I'm Vince's AI assistant. I can answer any questions about his skills, projects, or experience! 👋\n\nTry asking me anything, or click a suggestion below:",
-          timestamp: new Date().toISOString()
-        }
-      ]);
-    }
+    setShowClearAlert(true);
+  };
+
+  const confirmClearHistory = () => {
+    localStorage.removeItem('chatHistory');
+    setMessages([
+      {
+        type: 'bot',
+        text: "Hi! I'm Vince's AI assistant. I can answer any questions about his skills, projects, or experience! 👋\n\nTry asking me anything, or click a suggestion below:",
+        timestamp: new Date().toISOString()
+      }
+    ]);
+    setShowClearAlert(false);
   };
 
   const formatTimestamp = (timestamp) => {
@@ -228,7 +232,7 @@ const Chatbot = ({ isOpen, onClose }) => {
             <div className="flex items-center gap-2">
               <button
                 onClick={handleMinimize}
-                className="p-2 hover:bg-yellow-600 rounded-lg transition-colors"
+                className="p-2 hover:bg-yellow-600 rounded-lg transition-colors flex items-center justify-center"
                 aria-label="Minimize chat"
                 title="Minimize"
               >
@@ -236,7 +240,7 @@ const Chatbot = ({ isOpen, onClose }) => {
               </button>
               <button
                 onClick={onClose}
-                className="p-2 hover:bg-yellow-600 rounded-lg transition-colors"
+                className="p-2 hover:bg-yellow-600 rounded-lg transition-colors flex items-center justify-center"
                 aria-label="Close chat"
                 title="Close"
               >
@@ -360,6 +364,46 @@ const Chatbot = ({ isOpen, onClose }) => {
                 aria-label="Send message"
               >
                 <MdSend className="text-lg" />
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* Clear Chat Alert Modal */}
+      {showClearAlert && (
+        <div className="fixed inset-0 bg-black/50 backdrop-blur-sm flex items-center justify-center z-[10001] p-4 animate-fadeIn">
+          <div className="bg-white dark:bg-gray-800 rounded-2xl shadow-2xl max-w-sm w-full overflow-hidden animate-scaleIn">
+            {/* Alert Header */}
+            <div className="p-6 pb-4">
+              <div className="w-12 h-12 bg-red-100 dark:bg-red-900/30 rounded-full flex items-center justify-center mx-auto mb-4">
+                <svg className="w-6 h-6 text-red-600 dark:text-red-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
+                </svg>
+              </div>
+              
+              <h3 className="text-xl font-semibold text-gray-900 dark:text-white text-center mb-2">
+                Clear Chat History?
+              </h3>
+              
+              <p className="text-sm text-gray-600 dark:text-gray-400 text-center leading-relaxed">
+                This will permanently delete all messages in your conversation. This action cannot be undone.
+              </p>
+            </div>
+
+            {/* Alert Actions */}
+            <div className="flex flex-col gap-0 border-t border-gray-200 dark:border-gray-700">
+              <button
+                onClick={confirmClearHistory}
+                className="py-3.5 px-6 text-red-600 dark:text-red-400 font-semibold hover:bg-red-50 dark:hover:bg-red-900/20 transition-colors border-b border-gray-200 dark:border-gray-700"
+              >
+                Clear History
+              </button>
+              <button
+                onClick={() => setShowClearAlert(false)}
+                className="py-3.5 px-6 text-gray-900 dark:text-white font-semibold hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors"
+              >
+                Cancel
               </button>
             </div>
           </div>
