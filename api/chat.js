@@ -172,6 +172,11 @@ Tools & Design:
 - Facebook: https://www.facebook.com/vincecvv
 - LinkedIn: https://www.linkedin.com/in/vincecvv/
 
+**CV/Resume:**
+- CV is available for download at the top of the portfolio (Hero section)
+- Direct link: Look for "View CV →" button under Vince's name and title
+- When asked about CV, guide them: "You can download my CV by clicking the 'View CV' link at the top of the page, right under my name!"
+
 **IMPORTANT:** Vince does NOT have: GitHub profile (not listed in contact), Twitter, Instagram, or other social media for professional contact.
 
 **Education:**
