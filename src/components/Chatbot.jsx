@@ -335,7 +335,7 @@ const Chatbot = ({ isOpen, onClose }) => {
                   <button
                     key={index}
                     onClick={() => handleQuickReply(reply.query)}
-                    className="px-3 py-2 bg-yellow-500 hover:bg-yellow-600 text-white text-xs rounded-full transition-all duration-200 hover:scale-105"
+                    className="px-3 py-2 border-2 border-yellow-500 text-yellow-600 dark:text-yellow-400 hover:bg-yellow-50 dark:hover:bg-yellow-900/20 text-xs rounded-full transition-all duration-200 hover:scale-105"
                   >
                     {reply.text}
                   </button>
