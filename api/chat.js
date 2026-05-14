@@ -72,10 +72,10 @@ export default async function handler(req, res) {
       return res.status(400).json({ error: 'Message is required' });
     }
 
-    const OPENAI_API_KEY = process.env.OPENAI_API_KEY;
+    const GEMINI_API_KEY = process.env.GEMINI_API_KEY;
 
-    if (!OPENAI_API_KEY) {
-      console.error('OpenAI API key not configured');
+    if (!GEMINI_API_KEY) {
+      console.error('Gemini API key not configured');
       return res.status(500).json({ error: 'API key not configured' });
     }
 
@@ -214,50 +214,45 @@ Tools & Design:
 - When in doubt, say: "I don't have that specific information. You can contact Vince directly at vincecvviana@gmail.com or +63 938 472 9243 for details."
 - Maintain accuracy over creativity - better to admit not knowing than to hallucinate`;
 
-    // Build conversation history for context
-    const messages = [
-      { role: 'system', content: systemPrompt },
+    // Build conversation history for Gemini format
+    const contents = [
       ...history.map(msg => ({
-        role: msg.type === 'user' ? 'user' : 'assistant',
-        content: msg.text
+        role: msg.type === 'user' ? 'user' : 'model',
+        parts: [{ text: msg.text }]
       })),
-      { role: 'user', content: message }
+      { role: 'user', parts: [{ text: message }] }
     ];
 
-    // Call OpenAI API
-    const response = await fetch('https://api.openai.com/v1/chat/completions', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        'Authorization': `Bearer ${OPENAI_API_KEY}`
-      },
-      body: JSON.stringify({
-        model: 'gpt-4o-mini', // Fast and cheap model
-        messages: messages,
-        temperature: 0.7,
-        max_tokens: 500,
-        top_p: 1,
-        frequency_penalty: 0,
-        presence_penalty: 0
-      })
-    });
+    // Call Gemini API
+    const response = await fetch(
+      `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${GEMINI_API_KEY}`,
+      {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          system_instruction: { parts: [{ text: systemPrompt }] },
+          contents,
+          generationConfig: {
+            temperature: 0.7,
+            maxOutputTokens: 500
+          }
+        })
+      }
+    );
 
     if (!response.ok) {
       const error = await response.json();
-      console.error('OpenAI API error:', error);
-      return res.status(response.status).json({ 
+      console.error('Gemini API error:', error);
+      return res.status(response.status).json({
         error: 'Failed to get AI response',
-        details: error 
+        details: error
       });
     }
 
     const data = await response.json();
-    const aiMessage = data.choices[0].message.content;
+    const aiMessage = data.candidates[0].content.parts[0].text;
 
-    return res.status(200).json({ 
-      message: aiMessage,
-      usage: data.usage // Optional: track token usage
-    });
+    return res.status(200).json({ message: aiMessage });
 
   } catch (error) {
     console.error('Chat API error:', error);
