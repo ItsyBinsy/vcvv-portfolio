@@ -194,7 +194,7 @@ const Skills = ({ defaultOpen = false, onModalClose } = {}) => {
           )}
 
           {/* Icon grid */}
-          <div className="flex-1 overflow-y-auto modal-scrollbar px-4 pt-3 pb-2" style={{ minHeight: 0 }}>
+          <div className="flex-1 overflow-y-auto modal-scrollbar px-4 pt-3 pb-6" style={{ minHeight: 0 }}>
             {displaySkills.length === 0 ? (
               <div className="py-12 text-center text-sm text-gray-400">No skills match "{search}"</div>
             ) : (
