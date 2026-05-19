@@ -114,6 +114,7 @@ export const skillsData = {
         { name: "Firebase", icon: "SiFirebase", description: "Integrated real-time database, authentication, and cloud functions in full-stack applications." },
         { name: "HeidiSQL", icon: "SiMysql", description: "Managed and queried MySQL databases visually during development and debugging." },
         { name: "PostgreSQL", icon: "SiPostgresql", description: "Designed and queried relational databases using PostgreSQL, applied via Supabase and direct connections." },
+        { name: "SQL Server", icon: "SiMicrosoftsqlserver", description: "Used Microsoft SQL Server for data storage and querying in ASP.NET Core and Entity Framework Core projects." },
         { name: "Strapi", icon: "SiStrapi", description: "Set up headless CMS with custom content types and REST/GraphQL API endpoints." },
       ],
     },
