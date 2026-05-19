@@ -81,6 +81,7 @@ export const skillsData = {
         { name: "Tailwind CSS", icon: "SiTailwindcss", description: "Built modern utility-first UIs for rapid prototyping and deployment across portfolio, class, and client projects." },
         { name: "Bootstrap", icon: "SiBootstrap", description: "Accelerated development with grid systems and prebuilt components in coursework dashboards and class projects." },
         { name: "Materialize", icon: "SiMaterialdesign", description: "Built responsive Material Design interfaces applied in tourism platform and client projects." },
+        { name: "shadcn/ui", icon: "SiRadixui", description: "Used component library built on Radix UI and Tailwind for accessible, composable UI primitives." },
       ],
     },
     {
@@ -93,6 +94,7 @@ export const skillsData = {
         { name: "MVC Architecture", icon: "SiDotnet", description: "Applied Model-View-Controller pattern in Laravel, ASP.NET, and AngularJS projects for clean separation of concerns." },
         { name: "ASP.NET Core", icon: "SiDotnet", description: "Developed server-side web applications and REST APIs using MVC and CQRS architecture with C# and .NET framework." },
         { name: "Blazor WebAssembly", icon: "SiDotnet", description: "Built interactive web UIs running in the browser via WebAssembly using C# and the .NET ecosystem." },
+        { name: "GraphQL", icon: "SiGraphql", description: "Queried and consumed GraphQL APIs with typed schemas, reducing over-fetching in data-heavy applications." },
       ],
     },
     {
@@ -111,6 +113,7 @@ export const skillsData = {
         { name: "Supabase", icon: "SiSupabase", description: "Used for auth, real-time subscriptions, and PostgreSQL-backed storage in modern web apps." },
         { name: "Firebase", icon: "SiFirebase", description: "Integrated real-time database, authentication, and cloud functions in full-stack applications." },
         { name: "HeidiSQL", icon: "SiMysql", description: "Managed and queried MySQL databases visually during development and debugging." },
+        { name: "PostgreSQL", icon: "SiPostgresql", description: "Designed and queried relational databases using PostgreSQL, applied via Supabase and direct connections." },
         { name: "Strapi", icon: "SiStrapi", description: "Set up headless CMS with custom content types and REST/GraphQL API endpoints." },
       ],
     },
@@ -122,6 +125,8 @@ export const skillsData = {
         { name: "Azure DevOps", icon: "MdOutlineDevices", description: "Used for CI/CD pipelines, sprint planning, and project tracking in team environments." },
         { name: "Digital Ocean", icon: "SiDigitalocean", description: "Deployed and managed web applications on cloud droplets with DNS and server configuration." },
         { name: "Docker", icon: "SiDocker", description: "Containerized applications for consistent development and deployment environments." },
+        { name: "GitHub Copilot", icon: "SiGithubcopilot", description: "Leveraged AI-assisted code completion and suggestions to accelerate development workflows." },
+        { name: "Claude Code", icon: "MdOutlineTerminal", description: "Used AI-powered CLI for code generation, refactoring, and multi-file edits in complex projects." },
       ],
     },
     {

@@ -28,8 +28,12 @@ import {
   SiAdobephotoshop,
   SiDigitalocean,
   SiDocker,
+  SiPostgresql,
+  SiGraphql,
+  SiRadixui,
+  SiGithubcopilot,
 } from 'react-icons/si';
-import { MdOutlineCheckCircle, MdOutlineBugReport, MdOutlineDevices, MdOutlineEditNote } from 'react-icons/md';
+import { MdOutlineCheckCircle, MdOutlineBugReport, MdOutlineDevices, MdOutlineEditNote, MdOutlineTerminal } from 'react-icons/md';
 
 export const iconMap = {
   SiReact,
@@ -59,7 +63,12 @@ export const iconMap = {
   SiAdobephotoshop,
   SiDigitalocean,
   SiDocker,
+  SiPostgresql,
+  SiGraphql,
+  SiRadixui,
+  SiGithubcopilot,
   MdOutlineCheckCircle,
+  MdOutlineTerminal,
   MdOutlineBugReport,
   MdOutlineDevices,
   MdOutlineEditNote,
