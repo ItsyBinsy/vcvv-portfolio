@@ -17,7 +17,7 @@ function useManilaTime() {
   const [time, setTime] = useState('');
   useEffect(() => {
     const tick = () => setTime(new Date().toLocaleTimeString('en-PH', {
-      timeZone: 'Asia/Manila', hour: '2-digit', minute: '2-digit', second: '2-digit', hour12: false,
+      timeZone: 'Asia/Manila', hour: 'numeric', minute: '2-digit', hour12: true,
     }));
     tick();
     const id = setInterval(tick, 1000);
@@ -76,8 +76,11 @@ const HeroScreen = ({ onScrollDown }) => {
         </motion.div>
         <motion.div initial={{ opacity: 0, y: -10 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.3, duration: 0.5 }}>
           <div className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-black/30 backdrop-blur-md border border-white/20 text-white text-[10px] font-mono tracking-wider">
-            <span className="w-1 h-1 rounded-full bg-green-400 animate-pulse" />
-            PHT · {manilaTime}
+            <span className="relative flex h-1.5 w-1.5 flex-shrink-0">
+              <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-400 opacity-75" />
+              <span className="relative inline-flex rounded-full h-1.5 w-1.5 bg-green-400" />
+            </span>
+            Manila · {manilaTime} PHT
           </div>
         </motion.div>
       </div>
