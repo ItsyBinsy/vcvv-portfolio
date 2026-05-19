@@ -68,13 +68,14 @@ const Chatbot = ({ isOpen, onClose }) => {
           setError(err.error || 'Too many messages. Please slow down.');
           return "You're asking fast! Please wait a moment before continuing.";
         }
-        throw new Error(`API error: ${response.status}`);
+        const err = await response.json();
+        return err.error || "Having trouble connecting. Reach Vince at vincecvviana@gmail.com or +63 938 472 9243.";
       }
       const data = await response.json();
       return data.message;
     } catch (err) {
       setError('Connection error. Please try again.');
-      return "Having trouble connecting. Reach Vince at vincecvviana@gmail.com or +63 938 472 9243.";
+      return "Having trouble connecting. You can reach Vince directly via the Contact section or at vincecvviana@gmail.com.";
     }
   };
 

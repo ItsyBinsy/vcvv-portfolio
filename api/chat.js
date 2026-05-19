@@ -275,9 +275,8 @@ QA & Testing:
     if (!response.ok) {
       const error = await response.json();
       console.error('Gemini API error:', error);
-      return res.status(response.status).json({
-        error: 'Failed to get AI response',
-        details: error
+      return res.status(500).json({
+        error: 'Having trouble connecting. You can reach Vince directly via the Contact section or at vincecvviana@gmail.com.'
       });
     }
 
@@ -288,9 +287,8 @@ QA & Testing:
 
   } catch (error) {
     console.error('Chat API error:', error);
-    return res.status(500).json({ 
-      error: 'Internal server error',
-      details: error.message 
+    return res.status(500).json({
+      error: 'Having trouble connecting. You can reach Vince directly via the Contact section or at vincecvviana@gmail.com.'
     });
   }
 }
