@@ -1,9 +1,7 @@
 import { useState, useRef, useEffect } from 'react';
-import { MdClose, MdSend, MdMinimize, MdContentCopy, MdCheck } from 'react-icons/md';
+import { MdClose, MdSend, MdContentCopy, MdCheck, MdRemove } from 'react-icons/md';
 import { RiRobot2Line } from 'react-icons/ri';
 import ReactMarkdown from 'react-markdown';
-import { Input } from './ui/input';
-import { Button } from './ui/button';
 
 const Chatbot = ({ isOpen, onClose }) => {
   const [messages, setMessages] = useState([]);
@@ -16,417 +14,291 @@ const Chatbot = ({ isOpen, onClose }) => {
   const [showClearAlert, setShowClearAlert] = useState(false);
   const [lastMessageTime, setLastMessageTime] = useState(0);
   const messagesEndRef = useRef(null);
-  const chatContainerRef = useRef(null);
+  const inputRef = useRef(null);
 
-  // Quick reply suggestions
   const quickReplies = [
-    { text: "View Skills", query: "What are your technical skills?" },
-    { text: "See Projects", query: "Tell me about your projects" },
-    { text: "Contact Info", query: "How can I contact you?" },
-    { text: "Download CV", query: "How do I get your CV?" }
+    { text: "Skills", query: "What are your technical skills?" },
+    { text: "Projects", query: "Tell me about your projects" },
+    { text: "Contact", query: "How can I contact you?" },
+    { text: "CV", query: "How do I get your CV?" },
   ];
 
-  // Load chat history from localStorage on mount
   useEffect(() => {
-    const savedMessages = localStorage.getItem('chatHistory');
-    if (savedMessages) {
-      setMessages(JSON.parse(savedMessages));
+    const saved = localStorage.getItem('chatHistory');
+    if (saved) {
+      setMessages(JSON.parse(saved));
     } else {
-      // Initial greeting
-      setMessages([
-        {
-          type: 'bot',
-          text: "Hi! I'm Vince's AI assistant. I can answer any questions about his skills, projects, or experience! 👋\n\nTry asking me anything, or click a suggestion below:",
-          timestamp: new Date().toISOString()
-        }
-      ]);
+      setMessages([{
+        type: 'bot',
+        text: "Hi! I'm Vince's AI assistant. Ask me anything about his skills, projects, or experience.",
+        timestamp: new Date().toISOString(),
+      }]);
     }
   }, []);
 
-  // Save chat history to localStorage whenever messages change
   useEffect(() => {
-    if (messages.length > 0) {
-      localStorage.setItem('chatHistory', JSON.stringify(messages));
-    }
+    if (messages.length > 0) localStorage.setItem('chatHistory', JSON.stringify(messages));
   }, [messages]);
 
-  // Scroll to bottom when messages change
-  const scrollToBottom = () => {
+  useEffect(() => {
     messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
-  };
-
-  useEffect(() => {
-    scrollToBottom();
   }, [messages]);
 
-  // Track unread messages when minimized
   useEffect(() => {
-    if (isMinimized && messages.length > 0) {
-      const lastMessage = messages[messages.length - 1];
-      if (lastMessage.type === 'bot') {
-        setUnreadCount(prev => prev + 1);
-      }
+    if (isOpen && !isMinimized) setTimeout(() => inputRef.current?.focus(), 100);
+  }, [isOpen, isMinimized]);
+
+  useEffect(() => {
+    if (isMinimized && messages.length > 0 && messages[messages.length - 1].type === 'bot') {
+      setUnreadCount(prev => prev + 1);
     }
   }, [messages, isMinimized]);
-
-  // Play notification sound
-  const playNotificationSound = () => {
-    const audio = new Audio('data:audio/wav;base64,UklGRnoGAABXQVZFZm10IBAAAAABAAEAQB8AAEAfAAABAAgAZGF0YQoGAACBhYqFbF1fdJivrJBhNjVgodDbq2EcBj+a2/LDciUFLIHO8tiJNwgZaLvt559NEAxQp+PwtmMcBjiR1/LMeSwFJHfH8N2QQAoUXrTp66hVFApGn+DyvmwhBSuBzvLZiTYIG2m98OScTgwOUKnn77ZiGwU7k9n0yXYpBSh+zPLaizsKFlyw6OqlUxELSKXh8bllHAU2jdXzzn0vBSaAzvDajDwLGGy9 7+SaSwwNU6vm8LBfGwU9l9v0xXIoBSh/zfDajTwKFl606OijUBELSaXi8bllHAU2jdXzzn0vBSaAzvDajDwLGGy97+SaSwwNU6vm8LBfGwU9l9v0xXIoBSh/zfDajTwKFl606OijUBELSaXi8bllHAU2jdXzzn0vBSaAzvDajDwLGGy97+SaSwwNU6vm8LBfGwU9l9v0xXIoBSh/zfDajTwKFl606OijUBELSaXi8bllHAU2jdXzzn0vBSaAzvDajDwLGGy97+SaSwwNU6vm8LBfGwU9l9v0xXIoBSh/zfDajTwKFl606OijUBELSaXi8bllHAU2jdXzzn0vBSaAzvDajDwLGGy97+SaSwwNU6vm8LBfGwU9l9v0xXIoBSh/zfDajTwKFl606OijUBELSaXi8bllHAU2jdXzzn0vBSaAzvDajDwLGGy97+SaSwwNU6vm8LBfGwU9l9v0xXIoBSh/zfDajTwKFl606OijUBELSaXi8bllHAU2jdXzzn0vBSaAzvDajDwLGGy97+SaSwwNU6vm8LBfGwU9l9v0xXIoBSh/zfDajTwKFl606OijUBELSaXi8bllHAU2jdXzzn0vBSaAzvDajDwLGGy97+SaSwwNU6vm8LBfGwU9l9v0xXIoBSh/zfDajTwKFl606OijUBELSaXi8bllHAU2jdXzzn0vBSaAzvDajDwLGGy97+SaSwwNU6vm8LBfGwU9l9v0xXIoBSh/zfDajTwKFl606OijUBELSaXi8bllHAU2jdXzzn0vBSaAzvDajDwLGGy97+SaSwwNU6vm8LBfGwU9l9v0xXIoBSh/zfDajTwKFl606OijUBELSaXi8bllHAU2jdXzzn0vBSaAzvDajDwLGGy97+SaSwwNU6vm8LBfGwU9l9v0xXIoBSh/zfDajTwKFl606OijUBELSaXi8bllHAU2jdXzzn0vBSaAzvDajDwLGGy97+SaSwwNU6vm8LBfGwU9l9v0xXIoBSh/zfDajTwKFl606OijUBELSaXi8bllHAU2jdXzzn0vBSaAzvDajDwLGGy97+SaSwwNU6vm8LBfGwU9l9v0xXIoBSh/zfDajTwKFl606OijUBELSaXi8bllHAU2jdXzzn0vBSaAzvDajDwLGGy97+SaSwwNU6vm8LBfGwU9l9v0xXIoBSh/zfDajTwKFl606OijUBELSaXi8bllHAU2jdXzzn0vBSaAzvDajDwLGGy97+SaSwwNU6vm8LBfGwU9l9v0xXIoBSh/zfDajTwKFl606OijUBELSaXi8bllHAU2jdXzzn0vBSaAzvDajDwLGGy97+SaSwwNU6vm8LBfGwU9l9v0xXIoBSh/zfDajTwKFl606OijUBELSaXi8bllHAU2jdXzzn0vBSaAzvDajDwLGGy97+SaSwwNU6vm8LBfGw==');
-    audio.volume = 0.3;
-    audio.play().catch(() => {}); // Ignore errors if autoplay is blocked
-  };
 
   const getAIResponse = async (userMessage) => {
     try {
       const apiUrl = import.meta.env.VITE_API_URL || '/api/chat';
-      
       const response = await fetch(apiUrl, {
         method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          message: userMessage,
-          history: messages.filter(m => m.type !== 'quickReply') // Exclude quick reply UI from history
-        }),
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ message: userMessage, history: messages }),
       });
-
       if (!response.ok) {
-        // Handle rate limit error specifically
         if (response.status === 429) {
-          const errorData = await response.json();
-          setError(errorData.error || 'Too many messages. Please slow down a bit!');
-          return "Whoa, you're asking a lot of questions! 😅 Please wait a moment before continuing our chat.";
+          const err = await response.json();
+          setError(err.error || 'Too many messages. Please slow down.');
+          return "You're asking fast! Please wait a moment before continuing.";
         }
         throw new Error(`API error: ${response.status}`);
       }
-
       const data = await response.json();
       return data.message;
     } catch (err) {
-      console.error('Error getting AI response:', err);
-      setError('Sorry, I encountered an error. Please try again!');
-      return "I apologize, but I'm having trouble connecting right now. You can reach Vince directly at vincecvviana@gmail.com or +63 938 472 9243. 📧";
+      setError('Connection error. Please try again.');
+      return "Having trouble connecting. Reach Vince at vincecvviana@gmail.com or +63 938 472 9243.";
     }
   };
 
   const handleSend = async (messageText = input) => {
     if (!messageText.trim()) return;
-
-    // Client-side rate limiting (3 seconds cooldown)
     const now = Date.now();
-    const cooldown = 3000; // 3 seconds between messages
-    
-    if (now - lastMessageTime < cooldown) {
-      const waitTime = Math.ceil((cooldown - (now - lastMessageTime)) / 1000);
-      setError(`Please wait ${waitTime} second${waitTime > 1 ? 's' : ''} before sending another message.`);
+    if (now - lastMessageTime < 3000) {
+      const wait = Math.ceil((3000 - (now - lastMessageTime)) / 1000);
+      setError(`Wait ${wait}s before sending again.`);
       setTimeout(() => setError(null), 2000);
       return;
     }
-    
     setLastMessageTime(now);
-
-    const userMessage = { 
-      type: 'user', 
-      text: messageText,
-      timestamp: new Date().toISOString()
-    };
-    setMessages(prev => [...prev, userMessage]);
+    setMessages(prev => [...prev, { type: 'user', text: messageText, timestamp: new Date().toISOString() }]);
     setInput('');
     setIsTyping(true);
     setError(null);
-
-    // Get AI response
     const aiResponse = await getAIResponse(messageText);
-    
-    const botMessage = { 
-      type: 'bot', 
-      text: aiResponse,
-      timestamp: new Date().toISOString()
-    };
-    
-    setMessages(prev => [...prev, botMessage]);
+    setMessages(prev => [...prev, { type: 'bot', text: aiResponse, timestamp: new Date().toISOString() }]);
     setIsTyping(false);
-    
-    // Play notification sound if minimized
-    if (isMinimized) {
-      playNotificationSound();
-    }
   };
 
-  const handleQuickReply = (query) => {
-    handleSend(query);
+  const handleKeyDown = (e) => {
+    if (e.key === 'Enter' && !e.shiftKey) { e.preventDefault(); handleSend(); }
   };
 
-  const handleKeyPress = (e) => {
-    if (e.key === 'Enter' && !e.shiftKey) {
-      e.preventDefault();
-      handleSend();
-    }
-  };
-
-  const handleMinimize = () => {
-    setIsMinimized(true);
-  };
-
-  const handleMaximize = () => {
-    setIsMinimized(false);
-    setUnreadCount(0);
-  };
-
-  const copyToClipboard = (text, messageId) => {
+  const copyToClipboard = (text, id) => {
     navigator.clipboard.writeText(text).then(() => {
-      setCopiedMessageId(messageId);
+      setCopiedMessageId(id);
       setTimeout(() => setCopiedMessageId(null), 2000);
     });
   };
 
-  const clearHistory = () => {
-    setShowClearAlert(true);
-  };
-
-  const confirmClearHistory = () => {
+  const confirmClear = () => {
     localStorage.removeItem('chatHistory');
-    setMessages([
-      {
-        type: 'bot',
-        text: "Hi! I'm Vince's AI assistant. I can answer any questions about his skills, projects, or experience! 👋\n\nTry asking me anything, or click a suggestion below:",
-        timestamp: new Date().toISOString()
-      }
-    ]);
+    setMessages([{ type: 'bot', text: "Hi! I'm Vince's AI assistant. Ask me anything about his skills, projects, or experience.", timestamp: new Date().toISOString() }]);
     setShowClearAlert(false);
   };
 
-  const formatTimestamp = (timestamp) => {
-    const date = new Date(timestamp);
-    const now = new Date();
-    const diff = now - date;
-    
-    if (diff < 60000) return 'Just now';
+  const formatTime = (ts) => {
+    const d = new Date(ts), now = new Date(), diff = now - d;
+    if (diff < 60000) return 'just now';
     if (diff < 3600000) return `${Math.floor(diff / 60000)}m ago`;
-    if (diff < 86400000) return date.toLocaleTimeString('en-US', { hour: 'numeric', minute: '2-digit' });
-    return date.toLocaleDateString('en-US', { month: 'short', day: 'numeric' });
+    return d.toLocaleTimeString('en-US', { hour: 'numeric', minute: '2-digit' });
   };
+
+  if (!isOpen) return null;
 
   return (
     <>
-      {/* Minimized Chat Bubble */}
-      {isOpen && isMinimized && (
-        <div 
-          onClick={handleMaximize}
-          className="fixed bottom-20 right-4 md:bottom-8 md:right-8 w-16 h-16 bg-yellow-500 hover:bg-yellow-600 rounded-full shadow-2xl flex items-center justify-center cursor-pointer transition-all duration-300 z-40 animate-bounce"
+      {/* Minimized bubble */}
+      {isMinimized && (
+        <div
+          onClick={() => { setIsMinimized(false); setUnreadCount(0); }}
+          className="fixed bottom-20 right-4 md:bottom-8 md:right-8 w-14 h-14 rounded-full bg-yellow-500 hover:bg-yellow-400 shadow-2xl flex items-center justify-center cursor-pointer transition-all duration-200 z-40"
         >
           <RiRobot2Line className="text-white text-2xl" />
           {unreadCount > 0 && (
-            <div className="absolute -top-2 -right-2 w-6 h-6 bg-red-500 rounded-full flex items-center justify-center text-white text-xs font-bold">
+            <div className="absolute -top-1 -right-1 w-5 h-5 bg-red-500 rounded-full flex items-center justify-center text-white text-[10px] font-bold">
               {unreadCount}
             </div>
           )}
         </div>
       )}
 
-      {/* Full Chat Window */}
-      {isOpen && !isMinimized && (
-        <div className="fixed bottom-20 right-4 md:bottom-8 md:right-8 w-[calc(100vw-2rem)] md:w-96 h-[32rem] bg-white dark:bg-[#1C1C1E] rounded-2xl shadow-2xl border-2 border-gray-200 dark:border-gray-700 flex flex-col z-40 transition-all duration-300">
-          {/* Header */}
-          <div className="flex items-center justify-between p-4 border-b border-gray-200 dark:border-gray-700 bg-yellow-500 rounded-t-2xl">
-            <div className="flex items-center gap-3">
-              <div className="w-10 h-10 bg-white rounded-full flex items-center justify-center overflow-hidden">
-                <img 
-                  src="/images/baymax.jpg" 
-                  alt="Vince's AI Assistant" 
-                  className="w-full h-full object-cover object-top"
-                  onError={(e) => {
-                    e.target.style.display = 'none';
-                    e.target.nextElementSibling.style.display = 'flex';
-                  }}
-                />
-                <RiRobot2Line className="text-yellow-500 text-xl hidden" />
-              </div>
-              <div>
-                <h3 className="text-white font-bold text-sm">Vince's AI Assistant</h3>
-                <p className="text-yellow-100 text-xs flex items-center gap-1">
-                  <span className="w-2 h-2 bg-green-400 rounded-full animate-pulse"></span>
-                  Online 24/7
-                </p>
-              </div>
-            </div>
-            <div className="flex items-center gap-2">
-              <button
-                onClick={handleMinimize}
-                className="p-2 hover:bg-yellow-600 rounded-lg transition-colors flex items-center justify-center"
-                aria-label="Minimize chat"
-                title="Minimize"
-              >
-                <MdMinimize className="text-white text-xl" />
-              </button>
-              <button
-                onClick={onClose}
-                className="p-2 hover:bg-yellow-600 rounded-lg transition-colors flex items-center justify-center"
-                aria-label="Close chat"
-                title="Close"
-              >
-                <MdClose className="text-white text-xl" />
-              </button>
-            </div>
-          </div>
+      {/* Chat window */}
+      {!isMinimized && <div className="fixed bottom-20 right-4 md:bottom-8 md:right-8 w-[calc(100vw-2rem)] md:w-[22rem] h-[32rem] flex flex-col z-40 rounded-2xl overflow-hidden shadow-2xl border border-gray-200 dark:border-white/8 bg-white dark:bg-[#0d0d0d]">
 
-          {/* Messages */}
-          <div ref={chatContainerRef} className="flex-1 overflow-y-auto p-4 space-y-4 modal-scrollbar">
-            {messages.map((msg, index) => (
-              <div
-                key={index}
-                className={`flex ${msg.type === 'user' ? 'justify-end' : 'justify-start'}`}
-              >
-                <div className={`max-w-[80%] ${msg.type === 'user' ? 'order-2' : ''}`}>
-                  <div
-                    className={`p-3 rounded-2xl ${
-                      msg.type === 'user'
-                        ? 'bg-yellow-500 text-white'
-                        : 'bg-gray-100 dark:bg-[#2C2C2E] text-gray-900 dark:text-white'
-                    }`}
-                  >
-                    {msg.type === 'bot' ? (
-                      <div className="prose prose-sm dark:prose-invert max-w-none">
-                        <ReactMarkdown
-                          components={{
-                            p: ({node, ...props}) => <p className="mb-2 last:mb-0" {...props} />,
-                            a: ({node, ...props}) => <a className="text-yellow-500 hover:underline" target="_blank" rel="noopener noreferrer" {...props} />,
-                            ul: ({node, ...props}) => <ul className="list-disc ml-4 mb-2" {...props} />,
-                            ol: ({node, ...props}) => <ol className="list-decimal ml-4 mb-2" {...props} />,
-                            code: ({node, inline, ...props}) => 
-                              inline ? 
-                                <code className="bg-gray-200 dark:bg-gray-700 px-1 py-0.5 rounded text-sm" {...props} /> :
-                                <code className="block bg-gray-200 dark:bg-gray-700 p-2 rounded text-sm overflow-x-auto" {...props} />
-                          }}
-                        >
-                          {msg.text}
-                        </ReactMarkdown>
-                      </div>
-                    ) : (
-                      <p className="text-sm whitespace-pre-line">{msg.text}</p>
-                    )}
-                  </div>
-                  
-                  <div className="flex items-center gap-2 mt-1 px-2">
-                    <span className="text-xs text-gray-400 dark:text-gray-500">
-                      {formatTimestamp(msg.timestamp)}
-                    </span>
-                    {msg.type === 'bot' && (
-                      <button
-                        onClick={() => copyToClipboard(msg.text, index)}
-                        className="text-gray-400 hover:text-gray-600 dark:hover:text-gray-300 transition-colors"
-                        title="Copy message"
-                      >
-                        {copiedMessageId === index ? (
-                          <MdCheck className="text-sm text-green-500" />
-                        ) : (
-                          <MdContentCopy className="text-xs" />
-                        )}
-                      </button>
-                    )}
-                  </div>
-                </div>
-              </div>
-            ))}
-
-            {/* Quick Reply Buttons - Show only after initial message */}
-            {messages.length <= 2 && (
-              <div className="flex flex-wrap gap-2 justify-center">
-                {quickReplies.map((reply, index) => (
-                  <button
-                    key={index}
-                    onClick={() => handleQuickReply(reply.query)}
-                    className="px-3 py-2 border-2 border-yellow-500 text-yellow-600 dark:text-yellow-400 hover:bg-yellow-50 dark:hover:bg-yellow-900/20 text-xs rounded-full transition-all duration-200 hover:scale-105"
-                  >
-                    {reply.text}
-                  </button>
-                ))}
-              </div>
-            )}
-
-            {/* Typing indicator */}
-            {isTyping && (
-              <div className="flex justify-start">
-                <div className="bg-gray-100 dark:bg-[#2C2C2E] p-3 rounded-2xl">
-                  <div className="flex gap-1">
-                    <div className="w-2 h-2 bg-gray-400 rounded-full animate-bounce" style={{ animationDelay: '0ms' }}></div>
-                    <div className="w-2 h-2 bg-gray-400 rounded-full animate-bounce" style={{ animationDelay: '150ms' }}></div>
-                    <div className="w-2 h-2 bg-gray-400 rounded-full animate-bounce" style={{ animationDelay: '300ms' }}></div>
-                  </div>
-                </div>
-              </div>
-            )}
-            <div ref={messagesEndRef} />
-          </div>
-
-          {/* Input */}
-          <div className="p-4 border-t border-gray-200 dark:border-gray-700">
-            {messages.length > 2 && (
-              <button
-                onClick={clearHistory}
-                className="text-xs text-gray-400 hover:text-gray-600 dark:hover:text-gray-300 mb-2 transition-colors"
-              >
-                Clear history
-              </button>
-            )}
-            <div className="flex gap-2">
-              <Input
-                type="text"
-                value={input}
-                onChange={(e) => setInput(e.target.value)}
-                onKeyPress={handleKeyPress}
-                placeholder="Ask me anything..."
-                className="flex-1 rounded-full bg-gray-100 dark:bg-[#2C2C2E] border-gray-300 dark:border-gray-600 focus-visible:ring-yellow-500 text-sm"
+        {/* Header */}
+        <div className="flex items-center justify-between px-4 py-3 border-b border-gray-100 dark:border-white/6 flex-shrink-0">
+          <div className="flex items-center gap-2.5">
+            <div className="w-7 h-7 rounded-full overflow-hidden border border-gray-200 dark:border-white/10 flex-shrink-0">
+              <img
+                src="/images/baymax.jpg"
+                alt="Assistant"
+                className="w-full h-full object-cover object-top"
+                onError={e => { e.target.style.display = 'none'; e.target.nextElementSibling.style.display = 'flex'; }}
               />
-              <Button
-                onClick={() => handleSend()}
-                disabled={!input.trim()}
-                size="icon"
-                className="w-10 h-10 rounded-full bg-yellow-500 hover:bg-yellow-600 disabled:bg-gray-300 dark:disabled:bg-gray-600 text-white flex-shrink-0"
-                aria-label="Send message"
-              >
-                <MdSend className="text-lg" />
-              </Button>
-            </div>
-          </div>
-        </div>
-      )}
-
-      {/* Clear Chat Alert Modal */}
-      {showClearAlert && (
-        <div className="fixed inset-0 bg-black/50 backdrop-blur-sm flex items-center justify-center z-[10001] p-4 animate-fadeIn">
-          <div className="bg-white dark:bg-gray-800 rounded-2xl shadow-2xl max-w-sm w-full overflow-hidden animate-scaleIn">
-            {/* Alert Header */}
-            <div className="p-6 pb-4">
-              <div className="w-12 h-12 bg-red-100 dark:bg-red-900/30 rounded-full flex items-center justify-center mx-auto mb-4">
-                <svg className="w-6 h-6 text-red-600 dark:text-red-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
-                </svg>
+              <div className="w-full h-full bg-yellow-500/10 items-center justify-center hidden">
+                <RiRobot2Line className="text-yellow-500 text-sm" />
               </div>
-              
-              <h3 className="text-xl font-semibold text-gray-900 dark:text-white text-center mb-2">
-                Clear Chat History?
-              </h3>
-              
-              <p className="text-sm text-gray-600 dark:text-gray-400 text-center leading-relaxed">
-                This will permanently delete all messages in your conversation. This action cannot be undone.
+            </div>
+            <div>
+              <p className="text-xs font-bold text-gray-900 dark:text-white leading-tight">Vince's Assistant</p>
+              <p className="text-[10px] text-gray-400 dark:text-gray-500 flex items-center gap-1 leading-tight">
+                <span className="w-1.5 h-1.5 rounded-full bg-green-400 inline-block" />
+                Online
               </p>
             </div>
-
-            {/* Alert Actions */}
-            <div className="flex flex-col gap-0 border-t border-gray-200 dark:border-gray-700">
+          </div>
+          <div className="flex items-center gap-1">
+            {messages.length > 2 && (
               <button
-                onClick={confirmClearHistory}
-                className="py-3.5 px-6 text-red-600 dark:text-red-400 font-semibold hover:bg-red-50 dark:hover:bg-red-900/20 transition-colors border-b border-gray-200 dark:border-gray-700"
+                onClick={() => setShowClearAlert(true)}
+                className="text-[10px] text-gray-400 hover:text-gray-600 dark:hover:text-gray-300 px-2 py-1 rounded-lg hover:bg-gray-100 dark:hover:bg-white/6 transition-colors"
               >
-                Clear History
+                Clear
               </button>
-              <button
-                onClick={() => setShowClearAlert(false)}
-                className="py-3.5 px-6 text-gray-900 dark:text-white font-semibold hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors"
-              >
+            )}
+            <button
+              onClick={() => setIsMinimized(true)}
+              className="p-1.5 rounded-lg text-gray-400 hover:text-gray-700 dark:hover:text-white hover:bg-gray-100 dark:hover:bg-white/6 transition-colors"
+            >
+              <MdRemove className="text-base" />
+            </button>
+            <button
+              onClick={onClose}
+              className="p-1.5 rounded-lg text-gray-400 hover:text-gray-700 dark:hover:text-white hover:bg-gray-100 dark:hover:bg-white/6 transition-colors"
+            >
+              <MdClose className="text-base" />
+            </button>
+          </div>
+        </div>
+
+        {/* Messages */}
+        <div className="flex-1 overflow-y-auto px-4 py-3 space-y-3 modal-scrollbar">
+          {messages.map((msg, i) => (
+            <div key={i} className={`flex ${msg.type === 'user' ? 'justify-end' : 'justify-start'}`}>
+              <div className="max-w-[82%]">
+                <div className={`px-3 py-2 rounded-2xl text-sm leading-relaxed ${
+                  msg.type === 'user'
+                    ? 'bg-yellow-500 text-white rounded-br-sm'
+                    : 'bg-gray-100 dark:bg-white/6 text-gray-900 dark:text-white rounded-bl-sm'
+                }`}>
+                  {msg.type === 'bot' ? (
+                    <div className="prose prose-sm dark:prose-invert max-w-none text-[13px]">
+                      <ReactMarkdown
+                        components={{
+                          p: ({ node, ...props }) => <p className="mb-1.5 last:mb-0" {...props} />,
+                          a: ({ node, ...props }) => <a className="text-yellow-500 hover:underline" target="_blank" rel="noopener noreferrer" {...props} />,
+                          ul: ({ node, ...props }) => <ul className="list-disc ml-4 mb-1.5" {...props} />,
+                          ol: ({ node, ...props }) => <ol className="list-decimal ml-4 mb-1.5" {...props} />,
+                          code: ({ node, inline, ...props }) =>
+                            inline
+                              ? <code className="bg-black/10 dark:bg-white/10 px-1 py-0.5 rounded text-xs" {...props} />
+                              : <code className="block bg-black/10 dark:bg-white/10 p-2 rounded text-xs overflow-x-auto mt-1" {...props} />,
+                        }}
+                      >
+                        {msg.text}
+                      </ReactMarkdown>
+                    </div>
+                  ) : (
+                    <p className="text-[13px]">{msg.text}</p>
+                  )}
+                </div>
+                <div className="flex items-center gap-1.5 mt-0.5 px-1">
+                  <span className="text-[10px] text-gray-400 dark:text-gray-600">{formatTime(msg.timestamp)}</span>
+                  {msg.type === 'bot' && (
+                    <button onClick={() => copyToClipboard(msg.text, i)} className="text-gray-300 dark:text-gray-600 hover:text-gray-500 dark:hover:text-gray-400 transition-colors">
+                      {copiedMessageId === i ? <MdCheck className="text-xs text-green-500" /> : <MdContentCopy className="text-[10px]" />}
+                    </button>
+                  )}
+                </div>
+              </div>
+            </div>
+          ))}
+
+          {/* Quick replies */}
+          {messages.length <= 2 && (
+            <div className="flex flex-wrap gap-1.5">
+              {quickReplies.map((r, i) => (
+                <button
+                  key={i}
+                  onClick={() => handleSend(r.query)}
+                  className="px-3 py-1.5 rounded-full text-[11px] font-semibold border border-gray-200 dark:border-white/10 text-gray-600 dark:text-gray-400 hover:border-yellow-400 hover:text-yellow-600 dark:hover:text-yellow-400 transition-all duration-150"
+                >
+                  {r.text}
+                </button>
+              ))}
+            </div>
+          )}
+
+          {/* Typing indicator */}
+          {isTyping && (
+            <div className="flex justify-start">
+              <div className="bg-gray-100 dark:bg-white/6 px-3 py-2.5 rounded-2xl rounded-bl-sm flex gap-1 items-center">
+                {[0, 150, 300].map(d => (
+                  <div key={d} className="w-1.5 h-1.5 bg-gray-400 dark:bg-gray-500 rounded-full animate-bounce" style={{ animationDelay: `${d}ms` }} />
+                ))}
+              </div>
+            </div>
+          )}
+
+          {/* Error */}
+          {error && (
+            <p className="text-[11px] text-red-400 text-center px-2">{error}</p>
+          )}
+
+          <div ref={messagesEndRef} />
+        </div>
+
+        {/* Input */}
+        <div className="flex items-center gap-2 px-3 py-2.5 border-t border-gray-100 dark:border-white/6 flex-shrink-0">
+          <input
+            ref={inputRef}
+            type="text"
+            value={input}
+            onChange={e => setInput(e.target.value)}
+            onKeyDown={handleKeyDown}
+            placeholder="Ask me anything…"
+            className="flex-1 bg-transparent text-sm text-gray-900 dark:text-white placeholder:text-gray-400 dark:placeholder:text-gray-600 outline-none"
+          />
+          <button
+            onClick={() => handleSend()}
+            disabled={!input.trim()}
+            className="w-8 h-8 rounded-full bg-yellow-500 hover:bg-yellow-400 disabled:bg-gray-200 dark:disabled:bg-white/6 disabled:cursor-not-allowed flex items-center justify-center flex-shrink-0 transition-colors duration-150"
+          >
+            <MdSend className="text-white text-sm" />
+          </button>
+        </div>
+      </div>}
+
+      {/* Clear confirm */}
+      {showClearAlert && (
+        <div className="fixed inset-0 bg-black/40 backdrop-blur-sm flex items-center justify-center z-50 p-4">
+          <div className="bg-white dark:bg-[#0d0d0d] border border-gray-200 dark:border-white/8 rounded-2xl shadow-2xl max-w-xs w-full p-6">
+            <p className="text-sm font-bold text-gray-900 dark:text-white mb-1">Clear chat history?</p>
+            <p className="text-xs text-gray-400 dark:text-gray-500 mb-5">This cannot be undone.</p>
+            <div className="flex gap-2">
+              <button onClick={() => setShowClearAlert(false)} className="flex-1 py-2 rounded-xl border border-gray-200 dark:border-white/10 text-xs font-semibold text-gray-600 dark:text-gray-400 hover:bg-gray-50 dark:hover:bg-white/4 transition-colors">
                 Cancel
+              </button>
+              <button onClick={confirmClear} className="flex-1 py-2 rounded-xl bg-red-500 hover:bg-red-400 text-xs font-semibold text-white transition-colors">
+                Clear
               </button>
             </div>
           </div>
