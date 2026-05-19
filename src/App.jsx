@@ -191,7 +191,7 @@ const ProjectsPanel = ({ onOpenModal, hoveredPanel, setHoveredPanel }) => {
         )}
       </div>
 
-      <div className="grid grid-cols-2 gap-3">
+      <div className="grid grid-cols-2 gap-3 flex-1 min-h-0">
         {projectsData.slice(0, 2).map((project, i) => (
           <motion.div
             key={project.title}
@@ -201,13 +201,14 @@ const ProjectsPanel = ({ onOpenModal, hoveredPanel, setHoveredPanel }) => {
             transition={{ duration: 0.4, delay: 0.1 + i * 0.08, ease: [0.22, 1, 0.36, 1] }}
             onClick={onOpenModal}
           >
-            {/* Image — fixed ratio, never stretches regardless of panel height */}
-            <div className="w-full aspect-[16/9] flex-shrink-0 bg-gray-100 dark:bg-white/6 overflow-hidden">
+            {/* Image top half */}
+            <div className="w-full flex-1 min-h-0 bg-gray-100 dark:bg-white/6 overflow-hidden">
               {project.images?.[0]
                 ? <img src={project.images[0]} alt="" className="w-full h-full object-cover object-top" loading="lazy" />
                 : <div className="w-full h-full bg-gradient-to-br from-yellow-100 to-yellow-200 dark:from-yellow-900/30 dark:to-yellow-800/20" />
               }
             </div>
+            {/* Info bottom — fixed height so both cards have equal image area */}
             <div className="flex-shrink-0 px-3 py-2.5" style={{ height: '82px' }}>
               <p className="text-xs font-bold text-gray-800 dark:text-gray-200 leading-tight group-hover:text-gray-900 dark:group-hover:text-white transition-colors line-clamp-2">
                 {project.title}
@@ -417,14 +418,15 @@ const ContactPanel = ({ hoveredPanel, setHoveredPanel }) => (
 
 // ── Layout size hook ──────────────────────────────────────────────
 function useLayoutSize() {
-  const getSize = () => {
-    // Use outerWidth so browser zoom doesn't affect layout switching
-    const w = window.outerWidth;
+  const [size, setSize] = useState(() => {
+    const w = window.innerWidth;
     return w < 768 ? 'mobile' : w < 1024 ? 'tablet' : 'desktop';
-  };
-  const [size, setSize] = useState(getSize);
+  });
   useEffect(() => {
-    const handler = () => setSize(getSize());
+    const handler = () => {
+      const w = window.innerWidth;
+      setSize(w < 768 ? 'mobile' : w < 1024 ? 'tablet' : 'desktop');
+    };
     window.addEventListener('resize', handler);
     return () => window.removeEventListener('resize', handler);
   }, []);
