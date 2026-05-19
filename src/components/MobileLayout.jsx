@@ -66,7 +66,7 @@ const HeroScreen = ({ onScrollDown }) => {
       {/* Top bar — Available for Work left, PHT clock right */}
       <div className="relative z-10 flex items-center justify-between p-5 pt-8">
         <motion.div initial={{ opacity: 0, y: -10 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.3, duration: 0.5 }}>
-          <div className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-black/30 backdrop-blur-md border border-white/20 text-white text-[11px] font-semibold">
+          <div className="inline-flex items-center gap-1.5 text-white text-[11px] font-semibold" style={{ textShadow: '0 1px 6px rgba(0,0,0,0.9)' }}>
             <span className="relative flex h-1.5 w-1.5">
               <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-400 opacity-75" />
               <span className="relative inline-flex rounded-full h-1.5 w-1.5 bg-green-400" />
@@ -75,7 +75,7 @@ const HeroScreen = ({ onScrollDown }) => {
           </div>
         </motion.div>
         <motion.div initial={{ opacity: 0, y: -10 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.3, duration: 0.5 }}>
-          <div className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-black/30 backdrop-blur-md border border-white/20 text-white text-[10px] font-mono tracking-wider">
+          <div className="inline-flex items-center gap-1.5 text-white text-[10px] font-mono tracking-wider" style={{ textShadow: '0 1px 6px rgba(0,0,0,0.9)' }}>
             <span className="relative flex h-1.5 w-1.5 flex-shrink-0">
               <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-400 opacity-75" />
               <span className="relative inline-flex rounded-full h-1.5 w-1.5 bg-green-400" />
@@ -96,29 +96,26 @@ const HeroScreen = ({ onScrollDown }) => {
         transition={{ delay: 0.15, duration: 0.65, ease: [0.22, 1, 0.36, 1] }}
       >
         {/* Tagline */}
-        <p className="text-white/40 text-[10px] tracking-widest uppercase mb-2">{heroData.tagline}</p>
+        <p className="text-white/70 text-[10px] tracking-widest uppercase mb-1.5" style={{ textShadow: '0 1px 4px rgba(0,0,0,0.8)' }}>{heroData.tagline}</p>
 
         {/* Name */}
-        <h1 className="text-5xl font-extrabold text-white leading-[1.05] tracking-tight mb-4">
+        <h1 className="text-6xl font-extrabold text-white leading-[1.05] tracking-tight mb-3" style={{ textShadow: '0 2px 8px rgba(0,0,0,0.5)' }}>
           Vince Carl<br />Viaña
         </h1>
 
         {/* Role typing pill */}
-        <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-xl bg-white/10 backdrop-blur-sm border border-white/15 mb-6">
+        <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-xl bg-white/10 backdrop-blur-sm border border-white/15 mb-4">
           <span className="w-1.5 h-1.5 rounded-full bg-yellow-400 flex-shrink-0" />
           <span className="text-xs font-semibold text-white/90">
             <TypingAnimation texts={HERO_ROLES} typingSpeed={80} deletingSpeed={50} delayBetweenTexts={2000} />
           </span>
         </div>
 
-        {/* Divider */}
-        <div className="w-full h-px bg-white/10 mb-5" />
-
         {/* Edu + CV row */}
-        <div className="flex items-center justify-between gap-3 mb-5">
+        <div className="flex items-center justify-between gap-3 mb-5 pt-3 border-t border-white/10">
           <div>
-            <p className="text-white/35 text-[10px] leading-snug mb-0.5">{heroData.education}</p>
-            <p className="text-white/70 text-xs font-semibold leading-snug">{heroData.university}</p>
+            <p className="text-white/40 text-[10px] leading-snug mb-0.5">{heroData.education}</p>
+            <p className="text-white/80 text-xs font-semibold leading-snug">{heroData.university}</p>
           </div>
           <a
             href="/CV_VinceCarl_Viana.pdf"
@@ -134,12 +131,12 @@ const HeroScreen = ({ onScrollDown }) => {
         {/* Swipe up cue */}
         <motion.button
           onClick={onScrollDown}
-          className="w-full flex flex-col items-center gap-1 text-white/30 active:text-white/60 transition-colors"
-          animate={{ y: [0, 5, 0] }}
+          className="w-full flex flex-col items-center gap-2 text-white/30 active:text-white/60 transition-colors"
+          animate={{ y: [0, 6, 0] }}
           transition={{ repeat: Infinity, duration: 1.8, ease: 'easeInOut' }}
           aria-label="Scroll down"
         >
-          <MdKeyboardArrowDown className="w-6 h-6" />
+          <div className="w-px h-6 bg-gradient-to-b from-transparent to-white/40 rounded-full" />
           <span className="text-[10px] tracking-widest uppercase font-medium">swipe up</span>
         </motion.button>
       </motion.div>
