@@ -328,14 +328,6 @@ export const projectsData = [
 // Certifications Section Data
 export const certificationsData = [
   {
-    name: "Certificate of Appreciation – HR Information and Payroll System",
-    issuer: "First Analytical Services and Technical Cooperative",
-    date: "May 2025",
-    badge: "/images/FASTCERT.jpg",
-    preview: "/images/FASTCERT.jpg",
-    link: "#"
-  },
-  {
     name: "PhilNITS Information Technology Passport (IP) Certification",
     issuer: "PhilNITS",
     date: "Nov 2025",
@@ -365,6 +357,14 @@ export const certificationsData = [
     date: "Sep 2025",
     badge: "/images/HTML.png",
     preview: "/images/HTML.png",
+    link: "#"
+  },
+  {
+    name: "Certificate of Appreciation – HR Information and Payroll System",
+    issuer: "First Analytical Services and Technical Cooperative",
+    date: "May 2025",
+    badge: "/images/FASTCERT.jpg",
+    preview: "/images/FASTCERT.jpg",
     link: "#"
   },
   {
