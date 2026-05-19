@@ -138,6 +138,7 @@ export const skillsData = {
         { name: "Manual Testing", icon: "MdOutlineCheckCircle", description: "Conducted manual test cases covering functional, regression, and edge-case scenarios." },
         { name: "Cross-browser Compatibility", icon: "MdOutlineDevices", description: "Verified consistent rendering and behavior across Chrome, Firefox, Edge, and Safari." },
         { name: "UX Validation", icon: "MdOutlineCheckCircle", description: "Evaluated user flows and interaction patterns against usability heuristics and feedback." },
+        { name: "Postman", icon: "SiPostman", description: "Tested and documented REST APIs with request collections, environment variables, and response validation." },
         { name: "Python", icon: "SiPython", description: "Wrote automated test scripts and validation pipelines for AI model outputs in capstone research." },
         { name: "Bug Tracking", icon: "MdOutlineBugReport", description: "Logged, prioritized, and tracked issues using project management tools during QA cycles." },
         { name: "Copywriting", icon: "MdOutlineEditNote", description: "Wrote clear, concise web copy and social media content tailored to target audiences." },
