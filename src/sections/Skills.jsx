@@ -152,7 +152,7 @@ const Skills = ({ defaultOpen = false, onModalClose } = {}) => {
 
       {/* Icon-grid modal with expandable detail drawer */}
       <Dialog open={isModalOpen} onOpenChange={handleClose}>
-        <DialogContent className="w-[calc(100%-2rem)] max-w-2xl max-h-[85vh] gap-0 p-0 overflow-hidden dark:bg-[#0d0d0d] bg-white">
+        <DialogContent className="w-[calc(100%-2rem)] max-w-2xl h-[68vh] gap-0 p-0 overflow-hidden dark:bg-[#0d0d0d] bg-white flex flex-col">
           <DialogTitle className="sr-only">My Skillset</DialogTitle>
 
           {/* Search header — pr-10 reserves space for the dialog's absolute X button */}
@@ -195,8 +195,7 @@ const Skills = ({ defaultOpen = false, onModalClose } = {}) => {
 
           {/* Icon grid */}
           <div
-            className="overflow-y-auto modal-scrollbar px-4 pt-3 pb-4"
-            style={{ maxHeight: displaySkills.length > 12 ? '42vh' : 'none' }}
+            className="flex-1 overflow-y-auto modal-scrollbar px-4 pt-3 pb-4"
           >
             {displaySkills.length === 0 ? (
               <div className="py-12 text-center text-sm text-gray-400">No skills match "{search}"</div>
@@ -210,7 +209,7 @@ const Skills = ({ defaultOpen = false, onModalClose } = {}) => {
                     <button
                       key={`${skill.name}-${i}`}
                       onClick={() => setSelectedSkill(isSelected ? null : skill)}
-                      className={`relative flex flex-col items-center gap-2 p-3 rounded-xl border bg-gradient-to-br transition-all duration-200 text-left group ${
+                      className={`relative flex flex-col items-center justify-center gap-2 p-3 h-24 rounded-xl border bg-gradient-to-br transition-all duration-200 text-left group ${
                         isSelected
                           ? `${colorClass} ring-2 ring-offset-1 ring-yellow-400 dark:ring-offset-[#0d0d0d] scale-[0.97]`
                           : `bg-gray-50 dark:bg-white/4 border-gray-100 dark:border-white/6 hover:border-gray-200 dark:hover:border-white/12 hover:scale-[1.02] hover:shadow-md dark:hover:shadow-black/20`
