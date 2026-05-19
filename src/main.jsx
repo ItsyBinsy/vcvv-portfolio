@@ -1,6 +1,7 @@
 import { StrictMode } from 'react'
 import { createRoot } from 'react-dom/client'
 import Lenis from 'lenis'
+import { Analytics } from '@vercel/analytics/react'
 import './index.css'
 import App from './App.jsx'
 import { DarkModeProvider } from './context/DarkModeContext'
@@ -23,6 +24,7 @@ createRoot(document.getElementById('root')).render(
   <StrictMode>
     <DarkModeProvider>
       <App />
+      <Analytics />
     </DarkModeProvider>
   </StrictMode>,
 )
