@@ -173,7 +173,11 @@ export const projectsData = [
       "Built restaurant discovery with category filtering and real-time search across name, category, and star rating, plus community reviews with photo upload and auto-updating ratings on submission",
       "Implemented Firebase Authentication with Google Sign-In, Cloud Firestore for real-time data, Firebase Storage for image uploads, and bookmark and personal profile features"
     ],
-    images: ["/images/NAMNAM.png"],
+    images: [
+      "/images/NAM1.png",
+      "/images/NAM2.png",
+      "/images/NAM3.png",
+    ],
     link: null,
     github: "https://github.com/ItsyBinsy/namnam",
     isPrivate: false,
