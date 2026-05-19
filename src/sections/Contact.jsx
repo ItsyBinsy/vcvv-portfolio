@@ -1,6 +1,5 @@
-import BentoCard from '../components/BentoCard';
 import { contactData } from '../utils/data';
-import { MdContactMail, MdPhone } from 'react-icons/md';
+import { MdPhone } from 'react-icons/md';
 import { RiFacebookLine, RiLinkedinLine } from 'react-icons/ri';
 import { SiGmail } from 'react-icons/si';
 
@@ -13,14 +12,8 @@ const Contact = () => {
   };
 
   return (
-    <BentoCard size="medium" hover={true}>
-      {/* Header - Icon and Title */}
-      <div className="flex items-center gap-2 mb-2 md:mb-3">
-        <MdContactMail className="text-lg md:text-xl text-yellow-500" />
-        <h3 className="text-base md:text-xl font-bold text-gray-900 dark:text-white">Let's Connect</h3>
-      </div>
-
-      {/* Contact Methods - Larger, More Spacious */}
+    <div>
+      {/* Contact Methods */}
       <div className="space-y-1.5 md:space-y-2 mb-2 md:mb-3">
         {/* Email */}
         <a
@@ -72,7 +65,7 @@ const Contact = () => {
           })}
         </div>
       </div>
-    </BentoCard>
+    </div>
   );
 };
 

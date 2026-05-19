@@ -2,6 +2,8 @@ import { useState, useRef, useEffect } from 'react';
 import { MdClose, MdSend, MdMinimize, MdContentCopy, MdCheck } from 'react-icons/md';
 import { RiRobot2Line } from 'react-icons/ri';
 import ReactMarkdown from 'react-markdown';
+import { Input } from './ui/input';
+import { Button } from './ui/button';
 
 const Chatbot = ({ isOpen, onClose }) => {
   const [messages, setMessages] = useState([]);
@@ -369,22 +371,23 @@ const Chatbot = ({ isOpen, onClose }) => {
               </button>
             )}
             <div className="flex gap-2">
-              <input
+              <Input
                 type="text"
                 value={input}
                 onChange={(e) => setInput(e.target.value)}
                 onKeyPress={handleKeyPress}
                 placeholder="Ask me anything..."
-                className="flex-1 px-4 py-2 bg-gray-100 dark:bg-[#2C2C2E] text-gray-900 dark:text-white rounded-full border border-gray-300 dark:border-gray-600 focus:outline-none focus:border-yellow-500 transition-colors text-sm"
+                className="flex-1 rounded-full bg-gray-100 dark:bg-[#2C2C2E] border-gray-300 dark:border-gray-600 focus-visible:ring-yellow-500 text-sm"
               />
-              <button
+              <Button
                 onClick={() => handleSend()}
                 disabled={!input.trim()}
-                className="w-10 h-10 bg-yellow-500 hover:bg-yellow-600 disabled:bg-gray-300 dark:disabled:bg-gray-600 text-white rounded-full flex items-center justify-center transition-colors disabled:cursor-not-allowed"
+                size="icon"
+                className="w-10 h-10 rounded-full bg-yellow-500 hover:bg-yellow-600 disabled:bg-gray-300 dark:disabled:bg-gray-600 text-white flex-shrink-0"
                 aria-label="Send message"
               >
                 <MdSend className="text-lg" />
-              </button>
+              </Button>
             </div>
           </div>
         </div>

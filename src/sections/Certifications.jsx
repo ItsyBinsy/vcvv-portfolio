@@ -1,247 +1,107 @@
-import { useState, useEffect, useRef } from 'react';
-import BentoCard from '../components/BentoCard';
+import { useState, useEffect } from 'react';
 import CertCard from '../components/CertCard';
-import Modal from '../components/Modal';
+import { Dialog, DialogContent, DialogTitle } from '../components/ui/dialog';
 import { certificationsData } from '../utils/data';
-import { MdVerified } from 'react-icons/md';
+import { MdVerified, MdOpenInNew } from 'react-icons/md';
+import { useInfiniteScroll } from '../hooks/useInfiniteScroll';
 
-const Certifications = () => {
-  const [isModalOpen, setIsModalOpen] = useState(false);
+const Certifications = ({ defaultOpen = false, onModalClose } = {}) => {
+  const [isModalOpen, setIsModalOpen] = useState(defaultOpen);
+  const handleModalChange = (open) => { setIsModalOpen(open); if (!open) onModalClose?.(); };
   const [currentIndex, setCurrentIndex] = useState(0);
-  const scrollContainerRef = useRef(null);
-  const animationFrameRef = useRef(null);
-  const userScrollingRef = useRef(false);
+  const [selectedCert, setSelectedCert] = useState(certificationsData[0]);
 
-  // Continuous auto-scroll with scrollTo API
+  const {
+    scrollContainerRef,
+    animationFrameRef,
+    userScrollingRef,
+    startAnimation,
+    handleMouseEnter,
+    handleMouseLeave,
+    handleTouchStart,
+    handleTouchEnd,
+  } = useInfiniteScroll({ speed: 10 });
+
   useEffect(() => {
     const container = scrollContainerRef.current;
     if (!container) return;
 
-    // Small delay to ensure DOM is fully rendered
     const startDelay = setTimeout(() => {
-      if (container.scrollWidth === 0) {
-        return;
-      }
-
-      const scrollDistance = container.scrollWidth / 2;
-      let startTime = null;
-      const duration = scrollDistance * 10; // 10ms per pixel = slow scroll
-
-        const animate = (timestamp) => {
-        if (!container || !container.isConnected || userScrollingRef.current) return;
-
-        if (!startTime) startTime = timestamp;
-        const elapsed = timestamp - startTime;
-        const progress = (elapsed % duration) / duration;
-        const scrollPos = progress * scrollDistance;
-
-        // Check if we're close to the reset point
-        const currentScroll = container.scrollLeft;
-
-        // Only reset if we've scrolled past halfway with smaller threshold
-        if (currentScroll >= scrollDistance - 10) {
-          // Use requestAnimationFrame for smoother reset
-          requestAnimationFrame(() => {
-            container.scrollLeft = 0;
-          });
-          startTime = timestamp; // Reset timer too
-        } else {
-          // Use scrollTo for better mobile support
-          container.scrollTo({
-            left: scrollPos,
-            behavior: 'instant'
-          });
-        }
-
-        animationFrameRef.current = requestAnimationFrame(animate);
-      };      animationFrameRef.current = requestAnimationFrame(animate);
+      if (container.scrollWidth > 0) startAnimation(container);
     }, 100);
 
     return () => {
       clearTimeout(startDelay);
-      if (animationFrameRef.current) {
-        cancelAnimationFrame(animationFrameRef.current);
-      }
+      if (animationFrameRef.current) cancelAnimationFrame(animationFrameRef.current);
     };
   }, []);
 
-  // Track current index based on scroll position
   useEffect(() => {
     const container = scrollContainerRef.current;
     if (!container) return;
 
     let lastIndex = -1;
-    const updateCurrentIndex = () => {
+    const updateIndex = () => {
       const cards = container.querySelectorAll('[data-cert-index]');
-      if (cards.length === 0) return;
-
-      const cardWidth = cards[0].offsetWidth;
-      const scrollLeft = container.scrollLeft;
-      const index = Math.round(scrollLeft / cardWidth) % certificationsData.length;
-
-      // Only update state if index actually changed
+      if (!cards.length) return;
+      const index = Math.round(container.scrollLeft / cards[0].offsetWidth) % certificationsData.length;
       if (index !== lastIndex) {
         lastIndex = index;
-        // Use requestAnimationFrame to batch state updates
-        requestAnimationFrame(() => {
-          setCurrentIndex(index);
-        });
+        requestAnimationFrame(() => setCurrentIndex(index));
       }
     };
 
-    // Update on scroll
-    container.addEventListener('scroll', updateCurrentIndex);
-    // Initial update
-    updateCurrentIndex();
-
-    return () => {
-      container.removeEventListener('scroll', updateCurrentIndex);
-    };
+    container.addEventListener('scroll', updateIndex);
+    updateIndex();
+    return () => container.removeEventListener('scroll', updateIndex);
   }, [certificationsData.length]);
 
   const goToSlide = (index) => {
     const container = scrollContainerRef.current;
-    if (container) {
-      // Temporarily pause auto-scroll
-      userScrollingRef.current = true;
-      if (animationFrameRef.current) {
-        cancelAnimationFrame(animationFrameRef.current);
-        animationFrameRef.current = null;
-      }
+    if (!container) return;
 
-      const cards = container.querySelectorAll('[data-cert-index]');
-      const targetCard = cards[index];
+    userScrollingRef.current = true;
+    if (animationFrameRef.current) { cancelAnimationFrame(animationFrameRef.current); animationFrameRef.current = null; }
 
-      if (targetCard) {
-        const containerRect = container.getBoundingClientRect();
-        const cardRect = targetCard.getBoundingClientRect();
-        const scrollLeft = container.scrollLeft;
-        const targetScrollPosition = scrollLeft + (cardRect.left - containerRect.left);
-
-        container.scrollTo({
-          left: targetScrollPosition,
-          behavior: 'smooth'
-        });
-
-        // Resume auto-scroll after 2 seconds
-        setTimeout(() => {
-          userScrollingRef.current = false;
-
-          // Restart animation from new position
-          const scrollDistance = container.scrollWidth / 2;
-          const currentScroll = container.scrollLeft;
-          const duration = scrollDistance * 10;
-          const initialProgress = (currentScroll % scrollDistance) / scrollDistance;
-          const initialElapsed = initialProgress * duration;
-          let startTime = null;
-
-          const animate = (timestamp) => {
-            if (!container || !container.isConnected || userScrollingRef.current) return;
-
-            if (!startTime) startTime = timestamp - initialElapsed;
-            const elapsed = timestamp - startTime;
-            const progress = (elapsed % duration) / duration;
-            const scrollPos = progress * scrollDistance;
-            const currentScroll = container.scrollLeft;
-
-            if (currentScroll >= scrollDistance - 5) {
-              container.scrollLeft = 0;
-              startTime = timestamp;
-            } else {
-              container.scrollTo({
-                left: scrollPos,
-                behavior: 'instant'
-              });
-            }
-
-            animationFrameRef.current = requestAnimationFrame(animate);
-          };
-          animationFrameRef.current = requestAnimationFrame(animate);
-        }, 2000);
-      }
+    const cards = container.querySelectorAll('[data-cert-index]');
+    const target = cards[index];
+    if (target) {
+      const offset = container.scrollLeft + (target.getBoundingClientRect().left - container.getBoundingClientRect().left);
+      container.scrollTo({ left: offset, behavior: 'smooth' });
+      setTimeout(() => {
+        userScrollingRef.current = false;
+        startAnimation(container, container.scrollLeft);
+      }, 2000);
     }
   };
 
-  if (!certificationsData || certificationsData.length === 0) {
-    return null;
-  }
+  if (!certificationsData?.length) return null;
+
+  // Group certifications by year
+  const grouped = certificationsData.reduce((acc, cert) => {
+    const year = cert.date.split(' ').pop();
+    if (!acc[year]) acc[year] = [];
+    acc[year].push(cert);
+    return acc;
+  }, {});
+  const sortedYears = Object.keys(grouped).sort((a, b) => b - a);
 
   return (
-    <BentoCard size="medium" hover={true}>
-      {/* Title on card */}
-      <div className="flex items-center justify-between mb-2 md:mb-3">
-        <div className="flex items-center gap-2">
-          <MdVerified className="text-lg md:text-xl text-yellow-500" />
-          <h3 className="text-base md:text-xl font-bold text-gray-900 dark:text-white">
-            Certifications & Achievements
-          </h3>
-        </div>
+    <div>
+      <div className="flex items-center justify-end mb-4">
         <button
           onClick={() => setIsModalOpen(true)}
-          className="text-xs font-semibold text-yellow-600 dark:text-yellow-400 hover:text-yellow-700 dark:hover:text-yellow-300 transition-colors duration-200"
+          className="text-xs font-semibold text-yellow-600 dark:text-yellow-400 hover:text-yellow-500 dark:hover:text-yellow-300 transition-colors duration-200"
         >
-          View All
+          View All →
         </button>
       </div>
 
-      {/* Carousel Container */}
       <div
         className="relative"
-        onMouseEnter={() => {
-          // Only pause on desktop (hover), not on mobile touch
-          if (window.matchMedia('(hover: hover)').matches) {
-            userScrollingRef.current = true;
-            if (animationFrameRef.current) {
-              cancelAnimationFrame(animationFrameRef.current);
-              animationFrameRef.current = null;
-            }
-          }
-        }}
-        onMouseLeave={() => {
-          if (window.matchMedia('(hover: hover)').matches) {
-            userScrollingRef.current = false;
-
-            // Restart animation from current position immediately
-            const container = scrollContainerRef.current;
-            if (container) {
-              const scrollDistance = container.scrollWidth / 2;
-              const currentScroll = container.scrollLeft;
-              const duration = scrollDistance * 10;
-
-              // Calculate how far we are in the animation cycle
-              const initialProgress = (currentScroll % scrollDistance) / scrollDistance;
-              const initialElapsed = initialProgress * duration;
-
-              let startTime = null;
-
-              const animate = (timestamp) => {
-                if (!container || !container.isConnected || userScrollingRef.current) return;
-
-                if (!startTime) startTime = timestamp - initialElapsed;
-                const elapsed = timestamp - startTime;
-                const progress = (elapsed % duration) / duration;
-                const scrollPos = progress * scrollDistance;
-
-                const currentScroll = container.scrollLeft;
-
-                if (currentScroll >= scrollDistance - 5) {
-                  container.scrollLeft = 0;
-                  startTime = timestamp;
-                } else {
-                  container.scrollTo({
-                    left: scrollPos,
-                    behavior: 'instant'
-                  });
-                }
-
-                animationFrameRef.current = requestAnimationFrame(animate);
-              };
-              animationFrameRef.current = requestAnimationFrame(animate);
-            }
-          }
-        }}
+        onMouseEnter={handleMouseEnter}
+        onMouseLeave={handleMouseLeave}
       >
-        {/* Infinite Scroll Container */}
         <div
           ref={scrollContainerRef}
           className="flex gap-2 md:gap-3 pb-2 overflow-x-scroll scrollbar-hide"
@@ -253,86 +113,21 @@ const Certifications = () => {
             willChange: 'scroll-position',
             transform: 'translateZ(0)',
           }}
-          onTouchStart={() => {
-            userScrollingRef.current = true;
-            if (animationFrameRef.current) {
-              cancelAnimationFrame(animationFrameRef.current);
-              animationFrameRef.current = null;
-            }
-          }}
-          onTouchEnd={() => {
-            userScrollingRef.current = false;
-
-            // Restart animation from current position immediately
-            const container = scrollContainerRef.current;
-            if (container) {
-              const scrollDistance = container.scrollWidth / 2;
-              const currentScroll = container.scrollLeft;
-              const duration = scrollDistance * 10;
-
-              // Calculate how far we are in the animation cycle
-              const initialProgress = (currentScroll % scrollDistance) / scrollDistance;
-              const initialElapsed = initialProgress * duration;
-
-              let startTime = null;
-
-              const animate = (timestamp) => {
-                if (!container || !container.isConnected || userScrollingRef.current) return;
-
-                if (!startTime) startTime = timestamp - initialElapsed;
-                const elapsed = timestamp - startTime;
-                const progress = (elapsed % duration) / duration;
-                const scrollPos = progress * scrollDistance;
-
-                const currentScroll = container.scrollLeft;
-
-                if (currentScroll >= scrollDistance - 5) {
-                  container.scrollLeft = 0;
-                  startTime = timestamp;
-                } else {
-                  container.scrollTo({
-                    left: scrollPos,
-                    behavior: 'instant'
-                  });
-                }
-
-                animationFrameRef.current = requestAnimationFrame(animate);
-              };
-              animationFrameRef.current = requestAnimationFrame(animate);
-            }
-          }}
+          onTouchStart={handleTouchStart}
+          onTouchEnd={handleTouchEnd}
         >
-          {/* First set of items */}
           {certificationsData.map((cert, index) => (
-            <div 
-              key={`original-${index}`} 
-              className="flex-shrink-0"
-              data-cert-index={index}
-            >
-              <CertCard
-                name={cert.name}
-                issuer={cert.issuer}
-                date={cert.date}
-                badge={cert.badge}
-                link={cert.link}
-              />
+            <div key={`original-${index}`} className="flex-shrink-0" data-cert-index={index}>
+              <CertCard name={cert.name} issuer={cert.issuer} date={cert.date} badge={cert.badge} link={cert.link} />
             </div>
           ))}
-          {/* Duplicate set for seamless loop */}
           {certificationsData.map((cert, index) => (
             <div key={`duplicate-${index}`} className="flex-shrink-0">
-              <CertCard
-                name={cert.name}
-                issuer={cert.issuer}
-                date={cert.date}
-                badge={cert.badge}
-                link={cert.link}
-              />
+              <CertCard name={cert.name} issuer={cert.issuer} date={cert.date} badge={cert.badge} link={cert.link} />
             </div>
           ))}
         </div>
 
-        {/* Dot Indicators - Outside scroll container with higher z-index */}
         <div className="relative z-10 flex justify-center gap-1.5 md:gap-2 mt-3 md:mt-4">
           {certificationsData.map((_, index) => (
             <button
@@ -349,26 +144,130 @@ const Certifications = () => {
         </div>
       </div>
 
-      {/* View All Modal */}
-      <Modal
-        isOpen={isModalOpen}
-        onClose={() => setIsModalOpen(false)}
-        title="All Certifications & Achievements"
-      >
-        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
-          {certificationsData.map((cert, index) => (
-            <CertCard
-              key={index}
-              name={cert.name}
-              issuer={cert.issuer}
-              date={cert.date}
-              badge={cert.badge}
-              link={cert.link}
-            />
-          ))}
-        </div>
-      </Modal>
-    </BentoCard>
+      {/* Master-detail: timeline list + credential preview */}
+      <Dialog open={isModalOpen} onOpenChange={handleModalChange}>
+        <DialogContent className="w-[calc(100%-2rem)] max-w-xl max-h-[88vh] gap-0 p-0 overflow-hidden dark:bg-[#0d0d0d] bg-white">
+          <DialogTitle className="sr-only">Certifications & Achievements</DialogTitle>
+
+          <div className="flex" style={{ height: '88vh' }}>
+            {/* Left: timeline list */}
+            <div className="w-60 flex-shrink-0 flex flex-col border-r border-gray-100 dark:border-white/6 overflow-hidden">
+              {/* Header */}
+              <div className="px-4 py-3 border-b border-gray-100 dark:border-white/6 flex-shrink-0">
+                <div className="flex items-center gap-2">
+                  <MdVerified className="text-yellow-500 text-base flex-shrink-0" />
+                  <span className="text-xs font-bold text-gray-900 dark:text-white tracking-wide uppercase">Credentials</span>
+                  <span className="ml-auto text-[10px] text-gray-400 dark:text-gray-500 font-medium">{certificationsData.length}</span>
+                </div>
+              </div>
+
+              {/* Timeline grouped by year */}
+              <div className="overflow-y-auto flex-1 modal-scrollbar px-3 py-3 space-y-4">
+                {sortedYears.map(year => (
+                  <div key={year}>
+                    <div className="flex items-center gap-2 mb-2">
+                      <span className="text-[10px] font-bold text-gray-400 dark:text-gray-500 tracking-widest uppercase">{year}</span>
+                      <div className="flex-1 h-px bg-gray-100 dark:bg-white/6" />
+                    </div>
+                    <div className="space-y-1">
+                      {grouped[year].map((cert, i) => (
+                        <button
+                          key={i}
+                          onClick={() => setSelectedCert(cert)}
+                          className={`w-full text-left flex items-center gap-2.5 px-2.5 py-2 rounded-lg transition-all duration-150 group ${
+                            selectedCert?.name === cert.name
+                              ? 'bg-yellow-50 dark:bg-yellow-900/15 ring-1 ring-yellow-200 dark:ring-yellow-800/40'
+                              : 'hover:bg-gray-50 dark:hover:bg-white/4'
+                          }`}
+                        >
+                          <div className="w-7 h-7 rounded-md overflow-hidden flex-shrink-0 bg-gray-100 dark:bg-white/8 flex items-center justify-center p-1">
+                            <img src={cert.badge} alt="" className="w-full h-full object-contain" loading="lazy" />
+                          </div>
+                          <div className="min-w-0 flex-1">
+                            <p className={`text-[11px] font-semibold leading-tight line-clamp-2 transition-colors ${
+                              selectedCert?.name === cert.name
+                                ? 'text-yellow-700 dark:text-yellow-400'
+                                : 'text-gray-700 dark:text-gray-300 group-hover:text-gray-900 dark:group-hover:text-white'
+                            }`}>
+                              {cert.name}
+                            </p>
+                            <p className="text-[10px] text-gray-400 dark:text-gray-500 mt-0.5 truncate">{cert.issuer}</p>
+                          </div>
+                        </button>
+                      ))}
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+
+            {/* Right: credential preview */}
+            {selectedCert && (
+              <div className="flex-1 flex flex-col overflow-hidden relative">
+                {/* Full cert image — same treatment as project screenshots */}
+                <div className="flex-shrink-0 relative overflow-hidden border-b border-gray-100 dark:border-white/6 bg-gray-50 dark:bg-white/4" style={{ height: '200px' }}>
+                  <img
+                    src={selectedCert.preview || selectedCert.badge}
+                    alt={selectedCert.name}
+                    className="absolute inset-0 w-full h-full object-contain object-center"
+                  />
+                </div>
+
+                {/* Info below image */}
+                <div className="flex-1 flex flex-col items-center justify-center px-6 py-5 relative min-h-0 overflow-hidden">
+                  <div className="text-center space-y-2 w-full max-w-[240px]">
+                    <h3 className="text-sm font-bold text-gray-900 dark:text-white leading-snug">{selectedCert.name}</h3>
+                    <p className="text-xs font-medium text-gray-500 dark:text-gray-400">{selectedCert.issuer}</p>
+                    <div className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-yellow-50 dark:bg-yellow-900/25 border border-yellow-200 dark:border-yellow-800/50">
+                      <MdVerified className="text-yellow-500 w-3.5 h-3.5 flex-shrink-0" />
+                      <span className="text-xs font-bold text-yellow-700 dark:text-yellow-400">{selectedCert.date}</span>
+                    </div>
+
+                    {selectedCert.link && selectedCert.link !== '#' && (
+                      <div className="pt-1">
+                        <a
+                          href={selectedCert.link}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-gray-900 dark:bg-white text-white dark:text-gray-900 text-xs font-bold hover:bg-gray-700 dark:hover:bg-gray-100 transition-colors shadow-md"
+                        >
+                          <MdOpenInNew className="w-3.5 h-3.5" />
+                          View Credential
+                        </a>
+                      </div>
+                    )}
+                  </div>
+                </div>
+
+                {/* Bottom: count + dots + arrows — matches Projects footer */}
+                <div className="flex-shrink-0 px-5 py-2.5 border-t border-gray-100 dark:border-white/6 flex items-center justify-between">
+                  <span className="text-[10px] text-gray-400 dark:text-gray-500">
+                    {certificationsData.indexOf(selectedCert) + 1} of {certificationsData.length}
+                  </span>
+                  <div />
+                  <div className="flex gap-1">
+                    <button
+                      onClick={() => {
+                        const i = certificationsData.indexOf(selectedCert);
+                        setSelectedCert(certificationsData[(i - 1 + certificationsData.length) % certificationsData.length]);
+                      }}
+                      className="p-1 rounded text-gray-400 hover:text-gray-700 dark:hover:text-white transition-colors text-xs"
+                    >←</button>
+                    <button
+                      onClick={() => {
+                        const i = certificationsData.indexOf(selectedCert);
+                        setSelectedCert(certificationsData[(i + 1) % certificationsData.length]);
+                      }}
+                      className="p-1 rounded text-gray-400 hover:text-gray-700 dark:hover:text-white transition-colors text-xs"
+                    >→</button>
+                  </div>
+                </div>
+              </div>
+            )}
+          </div>
+        </DialogContent>
+      </Dialog>
+    </div>
   );
 };
 

@@ -2,6 +2,7 @@ import { useState, useRef } from 'react';
 import { MdLightMode, MdDarkMode } from 'react-icons/md';
 import { RiFacebookLine, RiLinkedinLine, RiRobot2Line } from 'react-icons/ri';
 import { SiGmail } from 'react-icons/si';
+import { LuGithub } from "react-icons/lu";
 import { useDarkMode } from '../context/DarkModeContext';
 
 const FloatingNav = ({ onChatToggle }) => {
@@ -12,7 +13,7 @@ const FloatingNav = ({ onChatToggle }) => {
 
   const navItems = [
     { id: 'email', icon: SiGmail, link: 'https://mail.google.com/mail/?view=cm&to=vincecvviana@gmail.com' },
-    { id: 'facebook', icon: RiFacebookLine, link: 'https://www.facebook.com/vincecvv' },
+    { id: 'github', icon: LuGithub, link: 'https://github.com/ItsyBinsy' },
     { id: 'linkedin', icon: RiLinkedinLine, link: 'https://www.linkedin.com/in/vincecvv/' }
   ];
 
@@ -116,7 +117,7 @@ const FloatingNav = ({ onChatToggle }) => {
     <div className="fixed bottom-8 left-1/2 -translate-x-1/2 z-50">
       {/* Minimalistic Container with Liquid Morphing */}
       <div
-        className="relative bg-white/90 dark:bg-[#0A0A0A]/95 backdrop-blur-md p-2 border-2 border-gray-300 dark:border-gray-700 transition-all duration-700 ease-out"
+        className="relative bg-white dark:bg-[#1C1C1E] p-2 border-2 border-gray-200 dark:border-gray-700 transition-all duration-700 ease-out"
         style={{
           ...getBlobStyle(),
           boxShadow: '0 8px 32px rgba(0, 0, 0, 0.15), 0 2px 8px rgba(0, 0, 0, 0.1)'

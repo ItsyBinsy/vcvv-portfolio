@@ -1,87 +1,136 @@
-import { useState } from 'react';
-import BentoCard from '../components/BentoCard';
-import TypingAnimation from '../components/TypingAnimation';
+import { motion } from 'framer-motion';
+import { MdDownload, MdArrowOutward } from 'react-icons/md';
 import { heroData } from '../utils/data';
 import { useDarkMode } from '../context/DarkModeContext';
+import TypingAnimation from '../components/TypingAnimation';
 
 const Hero = () => {
   const { isDarkMode } = useDarkMode();
 
-  // Different titles to rotate through
-  const titles = [
-    "Full-Stack Developer",
-    "Student Developer",
-    "Social Media Manager"
-  ];
-
-  // State for mobile tap to straighten
-  const [isTapped, setIsTapped] = useState(false);
-
-  const handleMobileTap = () => {
-    setIsTapped(!isTapped);
-  };
-
   return (
-    <BentoCard size="large">
-      <div className="relative">
-        {/* Floating Profile Card - Top Right, smaller on mobile */}
-        <div className="absolute -top-3 -right-3 md:-top-4 md:-right-4 md:top-0 md:right-0 z-10">
-          <div
-            onClick={handleMobileTap}
-            className={`w-20 h-24 md:w-28 md:h-32 rounded-2xl overflow-hidden shadow-xl border-2 border-white dark:border-gray-700 transform transition-all duration-500 md:hover:scale-105 cursor-pointer md:cursor-default ${
-              isTapped ? 'rotate-0 scale-105' : 'rotate-3'
-            } md:rotate-3 md:hover:rotate-0`}
-            style={{
-              boxShadow: '0 10px 40px rgba(0, 0, 0, 0.12), 0 2px 8px rgba(0, 0, 0, 0.08)'
-            }}
+    <section className="relative pt-16 pb-4 overflow-hidden">
+
+      {/* ── Top meta row ── */}
+      <motion.div
+        className="flex items-center justify-between mb-10"
+        initial={{ opacity: 0, y: -12 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.5, ease: 'easeOut' }}
+      >
+        <span className="text-[11px] font-mono text-gray-400 dark:text-gray-600 tracking-widest uppercase">
+          Portfolio · 2026
+        </span>
+        {/* OJT badge */}
+        <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-green-50 dark:bg-green-900/20 border border-green-200 dark:border-green-800 text-green-700 dark:text-green-400 text-[11px] font-semibold">
+          <span className="relative flex h-1.5 w-1.5">
+            <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-400 opacity-75" />
+            <span className="relative inline-flex rounded-full h-1.5 w-1.5 bg-green-500" />
+          </span>
+          Available for OJT
+        </div>
+      </motion.div>
+
+      {/* ── Name block — the centrepiece ── */}
+      <div className="relative mb-6">
+        <motion.p
+          className="text-[11px] font-mono text-gray-400 dark:text-gray-600 tracking-widest uppercase mb-3"
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ duration: 0.4, delay: 0.1 }}
+        >
+          {heroData.tagline}
+        </motion.p>
+
+        {/* Giant name — clips in from bottom */}
+        <div className="overflow-hidden">
+          <motion.h1
+            className="text-[clamp(3rem,8vw,6.5rem)] font-extrabold leading-[0.9] tracking-tight text-gray-900 dark:text-white"
+            initial={{ y: '110%', opacity: 0 }}
+            animate={{ y: 0, opacity: 1 }}
+            transition={{ duration: 0.75, ease: [0.22, 1, 0.36, 1], delay: 0.15 }}
           >
-            <img
-              src={isDarkMode ? heroData.image.dark : heroData.image.light}
-              alt={heroData.name}
-              className="w-full h-full object-cover transition-opacity duration-300"
-            />
-          </div>
+            {heroData.name}
+          </motion.h1>
         </div>
 
-        {/* Content Grid - Tighter spacing on mobile */}
-        <div className="grid md:grid-cols-2 gap-3 md:gap-6 pt-6 md:pt-0 pr-24 md:pr-32">
-          {/* Left: Tagline + Name */}
-          <div className="text-left">
-            <p className="text-xs md:text-base text-gray-600 dark:text-gray-400 mb-1 md:mb-2">{heroData.tagline}</p>
-            <h1 className="text-2xl md:text-4xl font-bold mb-1 text-gray-900 dark:text-white leading-tight">
-              {heroData.name}
-            </h1>
-          </div>
-
-          {/* Right: Title + Details + CV Link */}
-          <div className="text-left md:text-right space-y-1 md:space-y-2">
-            <div className="flex items-center justify-start md:justify-end">
-              <h2 className="text-sm md:text-lg font-bold text-gray-900 dark:text-white">
-                <TypingAnimation
-                  texts={titles}
-                  typingSpeed={80}
-                  deletingSpeed={50}
-                  delayBetweenTexts={2000}
-                />
-              </h2>
-            </div>
-            <p className="text-xs md:text-sm text-gray-600 dark:text-gray-400">{heroData.education}</p>
-            <p className="text-xs md:text-sm font-semibold text-gray-900 dark:text-white">{heroData.university}</p>
-            <p className="text-xs md:text-sm text-gray-600 dark:text-gray-400 italic">{heroData.expertise}</p>
-
-            {/* Subtle CV Link */}
-            <a
-              href="/CV_VinceCarl_Viana.pdf"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="inline-block mt-1 md:mt-2 text-xs md:text-sm text-gray-500 dark:text-gray-400 hover:text-yellow-600 dark:hover:text-yellow-400 transition-colors duration-200 underline decoration-gray-300 dark:decoration-gray-600 hover:decoration-yellow-600 dark:hover:decoration-yellow-400 underline-offset-2"
-            >
-              View CV →
-            </a>
-          </div>
-        </div>
+        {/* Photo — floats in from right, overlaps the name area */}
+        <motion.div
+          className="absolute right-0 top-0 w-36 h-44 lg:w-44 lg:h-56 rounded-2xl overflow-hidden border border-gray-200 dark:border-white/10 shadow-xl"
+          initial={{ opacity: 0, x: 32, scale: 0.95 }}
+          animate={{ opacity: 1, x: 0, scale: 1 }}
+          transition={{ duration: 0.7, delay: 0.6, ease: [0.22, 1, 0.36, 1] }}
+        >
+          <img
+            src={isDarkMode ? heroData.image.dark : heroData.image.light}
+            alt={heroData.name}
+            className="w-full h-full object-cover"
+            fetchPriority="high"
+            style={{ objectPosition: '50% 8%' }}
+          />
+        </motion.div>
       </div>
-    </BentoCard>
+
+      {/* ── Role + edu row ── */}
+      <motion.div
+        className="flex flex-wrap items-center gap-3 mb-8"
+        initial={{ opacity: 0, y: 10 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.5, delay: 0.45 }}
+      >
+        {/* Typing role */}
+        <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-lg bg-gray-100 dark:bg-white/6 border border-gray-200 dark:border-white/10">
+          <span className="w-1.5 h-1.5 rounded-full bg-yellow-400 flex-shrink-0" />
+          <span className="text-xs font-semibold text-gray-700 dark:text-gray-300">
+            <TypingAnimation
+              texts={['Web & Mobile App Developer', 'QA & Software Tester', 'Full-Stack Developer']}
+              typingSpeed={75}
+              deletingSpeed={45}
+              delayBetweenTexts={2200}
+            />
+          </span>
+        </div>
+
+        <span className="text-gray-300 dark:text-gray-700 text-sm">·</span>
+
+        <div className="flex flex-col">
+          <span className="text-[10px] text-gray-400 dark:text-gray-600">{heroData.education}</span>
+          <span className="text-xs font-bold text-gray-700 dark:text-gray-300">{heroData.university}</span>
+        </div>
+      </motion.div>
+
+      {/* ── CTA row ── */}
+      <motion.div
+        className="flex items-center gap-3"
+        initial={{ opacity: 0, y: 10 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.5, delay: 0.55 }}
+      >
+        <a
+          href="/CV_VinceCarl_Viana.pdf"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="relative group inline-flex items-center gap-2 px-5 py-2.5 rounded-xl bg-yellow-500 text-white text-xs font-bold hover:-translate-y-0.5 overflow-hidden transition-all duration-200 before:absolute before:inset-0 before:-translate-x-full hover:before:translate-x-full before:bg-gradient-to-r before:from-transparent before:via-white/20 before:to-transparent before:transition-transform before:duration-500"
+        >
+          <MdDownload className="w-3.5 h-3.5" />
+          View CV
+        </a>
+        <a
+          href="mailto:vincecvviana@gmail.com"
+          className="group inline-flex items-center gap-2 px-5 py-2.5 rounded-xl border border-gray-200 dark:border-white/10 text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white hover:border-gray-400 dark:hover:border-white/30 text-xs font-semibold transition-all duration-200"
+        >
+          Get in touch
+          <MdArrowOutward className="w-3 h-3 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform duration-200" />
+        </a>
+      </motion.div>
+
+      {/* ── Divider line ── */}
+      <motion.div
+        className="mt-14 border-t border-gray-100 dark:border-white/6"
+        initial={{ scaleX: 0, originX: 0 }}
+        animate={{ scaleX: 1 }}
+        transition={{ duration: 0.8, delay: 0.7, ease: [0.22, 1, 0.36, 1] }}
+      />
+    </section>
   );
 };
 
