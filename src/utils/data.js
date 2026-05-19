@@ -255,7 +255,7 @@ export const projectsData = [
   {
     title: "FAST Laboratories - HR Payroll Management System",
     role: "Front-End Developer · Software Engineering Final Requirement",
-    period: "2024",
+    period: "Sep 2024 - May 2025",
     tech: ["AngularJS", "ASP.NET MVC", "MySQL", "HTML5", "CSS", "GitHub"],
     highlights: [
       "Built automated payroll interface with employee record management and salary calculation modules",
@@ -327,6 +327,14 @@ export const projectsData = [
 
 // Certifications Section Data
 export const certificationsData = [
+  {
+    name: "Certificate of Appreciation – HR Information and Payroll System",
+    issuer: "First Analytical Services and Technical Cooperative",
+    date: "May 2025",
+    badge: "/images/FASTCERT.jpg",
+    preview: "/images/FASTCERT.jpg",
+    link: "#"
+  },
   {
     name: "PhilNITS Information Technology Passport (IP) Certification",
     issuer: "PhilNITS",
