@@ -32,6 +32,7 @@ import {
   SiGraphql,
   SiRadixui,
   SiGithubcopilot,
+  SiPython,
 } from 'react-icons/si';
 import { MdOutlineCheckCircle, MdOutlineBugReport, MdOutlineDevices, MdOutlineEditNote, MdOutlineTerminal } from 'react-icons/md';
 
@@ -67,6 +68,7 @@ export const iconMap = {
   SiGraphql,
   SiRadixui,
   SiGithubcopilot,
+  SiPython,
   MdOutlineCheckCircle,
   MdOutlineTerminal,
   MdOutlineBugReport,
