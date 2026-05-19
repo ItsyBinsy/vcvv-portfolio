@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
-import { MdDownload, MdArrowOutward, MdWorkOutline, MdCode, MdVerified, MdAlternateEmail } from 'react-icons/md';
+import { MdDownload, MdArrowOutward, MdWorkOutline, MdCode, MdVerified, MdAlternateEmail, MdLocationOn } from 'react-icons/md';
 import { RiFacebookLine, RiLinkedinLine } from 'react-icons/ri';
 import { useCursorSpotlight } from './hooks/useCursorSpotlight';
 import { heroData, projectsData, skillsData, certificationsData, contactData } from './utils/data';
@@ -22,7 +22,7 @@ function useManilaTime() {
     const tick = () => {
       setTime(new Date().toLocaleTimeString('en-PH', {
         timeZone: 'Asia/Manila',
-        hour: '2-digit', minute: '2-digit', second: '2-digit', hour12: false,
+        hour: 'numeric', minute: '2-digit', hour12: true,
       }));
     };
     tick();
@@ -160,11 +160,14 @@ const HeroPanel = ({ hoveredPanel, setHoveredPanel }) => {
         </div>
       </div>
 
-      {/* Manila clock — bottom right, over the photo */}
+      {/* Manila location + time — bottom right, over the photo */}
       <div className="absolute bottom-3.5 right-4 z-10 flex items-center gap-1.5">
-        <span className="w-1 h-1 rounded-full bg-green-400 animate-pulse" />
-        <span className="text-[9px] font-mono text-white/40 tracking-wider">
-          PHT · {manilaTime}
+        <span className="relative flex h-1.5 w-1.5 flex-shrink-0">
+          <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-400 opacity-75" />
+          <span className="relative inline-flex rounded-full h-1.5 w-1.5 bg-green-400" />
+        </span>
+        <span className="text-[10px] font-medium text-white/70 tracking-wide">
+          Manila · {manilaTime} PHT
         </span>
       </div>
     </Panel>

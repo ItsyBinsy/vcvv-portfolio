@@ -1,3 +1,4 @@
+import { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { MdDownload, MdArrowOutward } from 'react-icons/md';
 import { heroData } from '../utils/data';
@@ -6,6 +7,16 @@ import TypingAnimation from '../components/TypingAnimation';
 
 const Hero = () => {
   const { isDarkMode } = useDarkMode();
+  const [time, setTime] = useState('');
+
+  useEffect(() => {
+    const update = () => {
+      setTime(new Date().toLocaleTimeString('en-PH', { hour: 'numeric', minute: '2-digit', hour12: true, timeZone: 'Asia/Manila' }));
+    };
+    update();
+    const interval = setInterval(update, 1000);
+    return () => clearInterval(interval);
+  }, []);
 
   return (
     <section className="relative pt-16 pb-4 overflow-hidden">
@@ -20,13 +31,23 @@ const Hero = () => {
         <span className="text-[11px] font-mono text-gray-400 dark:text-gray-600 tracking-widest uppercase">
           Portfolio · 2026
         </span>
-        {/* OJT badge */}
-        <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-green-50 dark:bg-green-900/20 border border-green-200 dark:border-green-800 text-green-700 dark:text-green-400 text-[11px] font-semibold">
-          <span className="relative flex h-1.5 w-1.5">
-            <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-400 opacity-75" />
-            <span className="relative inline-flex rounded-full h-1.5 w-1.5 bg-green-500" />
-          </span>
-          Available for OJT
+        <div className="flex items-center gap-2">
+          {/* Location + time */}
+          <div className="inline-flex items-center gap-1.5 text-gray-500 dark:text-gray-400 text-[11px] font-medium">
+            <span className="relative flex h-1.5 w-1.5 flex-shrink-0">
+              <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-400 opacity-75" />
+              <span className="relative inline-flex rounded-full h-1.5 w-1.5 bg-green-400" />
+            </span>
+            Manila · {time} PHT
+          </div>
+          {/* OJT badge */}
+          <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-green-50 dark:bg-green-900/20 border border-green-200 dark:border-green-800 text-green-700 dark:text-green-400 text-[11px] font-semibold">
+            <span className="relative flex h-1.5 w-1.5">
+              <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-400 opacity-75" />
+              <span className="relative inline-flex rounded-full h-1.5 w-1.5 bg-green-500" />
+            </span>
+            Available for OJT
+          </div>
         </div>
       </motion.div>
 
