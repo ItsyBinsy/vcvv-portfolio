@@ -61,12 +61,14 @@ const HeroScreen = ({ onScrollDown }) => {
         <div className="absolute inset-0"
           style={{ background: 'linear-gradient(to bottom, rgba(0,0,0,0.08) 0%, rgba(0,0,0,0.15) 40%, rgba(0,0,0,0.75) 70%, rgba(0,0,0,0.92) 100%)' }}
         />
+        {/* Top-down scrim — dims bright white photo area */}
+        <div className="absolute inset-0 bg-gradient-to-b from-black/40 via-transparent to-transparent" />
       </div>
 
       {/* Top bar — Available for Work left, PHT clock right */}
       <div className="relative z-10 flex items-center justify-between p-5 pt-8">
         <motion.div initial={{ opacity: 0, y: -10 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.3, duration: 0.5 }}>
-          <div className={`inline-flex items-center gap-1.5 text-[11px] font-semibold ${isDarkMode ? 'text-white' : 'text-gray-900'}`}>
+          <div className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-black/30 backdrop-blur-md border border-white/20 text-white text-[11px] font-semibold">
             <span className="relative flex h-1.5 w-1.5">
               <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-400 opacity-75" />
               <span className="relative inline-flex rounded-full h-1.5 w-1.5 bg-green-400" />
@@ -75,7 +77,7 @@ const HeroScreen = ({ onScrollDown }) => {
           </div>
         </motion.div>
         <motion.div initial={{ opacity: 0, y: -10 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.3, duration: 0.5 }}>
-          <div className={`inline-flex items-center gap-1.5 text-[10px] font-mono tracking-wider ${isDarkMode ? 'text-white' : 'text-gray-900'}`}>
+          <div className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-black/30 backdrop-blur-md border border-white/20 text-white text-[10px] font-mono tracking-wider">
             <span className="relative flex h-1.5 w-1.5 flex-shrink-0">
               <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-400 opacity-75" />
               <span className="relative inline-flex rounded-full h-1.5 w-1.5 bg-green-400" />
