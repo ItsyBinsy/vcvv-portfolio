@@ -27,7 +27,7 @@ const BottomSheet = ({ open, onClose, children, title, icon: TitleIcon }) => {
           {/* Sheet */}
           <motion.div
             className="fixed bottom-0 left-0 right-0 z-50 flex flex-col bg-white dark:bg-[#0d0d0d] rounded-t-2xl overflow-hidden"
-            style={{ maxHeight: '90vh' }}
+            style={{ maxHeight: '90svh' }}
             initial={{ y: '100%' }}
             animate={{ y: 0 }}
             exit={{ y: '100%' }}
