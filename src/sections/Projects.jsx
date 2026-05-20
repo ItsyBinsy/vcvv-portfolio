@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import ProjectCard from '../components/ProjectCard';
 import { Dialog, DialogContent, DialogTitle } from '../components/ui/dialog';
 import { Badge } from '../components/ui/badge';
@@ -15,6 +15,25 @@ const Projects = ({ defaultOpen = false, onModalClose } = {}) => {
   const [imgIndex, setImgIndex] = useState(0);
 
   const getImages = (project) => project.images?.length ? project.images : [project.image].filter(Boolean);
+
+  // Preload next image in gallery
+  useEffect(() => {
+    if (!selectedProject) return;
+    const imgs = getImages(selectedProject);
+    if (imgs.length <= 1) return;
+    const next = imgs[(imgIndex + 1) % imgs.length];
+    const img = new Image();
+    img.src = next;
+  }, [imgIndex, selectedProject]);
+
+  // Preload all first images when modal opens
+  useEffect(() => {
+    if (!isModalOpen) return;
+    projectsData.forEach(p => {
+      const imgs = getImages(p);
+      if (imgs[0]) { const img = new Image(); img.src = imgs[0]; }
+    });
+  }, [isModalOpen]);
 
   const selectProject = (project) => {
     setSelectedProject(project);

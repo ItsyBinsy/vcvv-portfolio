@@ -75,6 +75,15 @@ const Certifications = ({ defaultOpen = false, onModalClose } = {}) => {
     }
   };
 
+  // Preload all cert images when modal opens
+  useEffect(() => {
+    if (!isModalOpen) return;
+    certificationsData.forEach(cert => {
+      const src = cert.preview || cert.badge;
+      if (src) { const img = new Image(); img.src = src; }
+    });
+  }, [isModalOpen]);
+
   if (!certificationsData?.length) return null;
 
   // Group certifications by year
