@@ -230,7 +230,8 @@ const SkillsContent = () => {
             value={query}
             onChange={e => setQuery(e.target.value)}
             placeholder="Search skills..."
-            className="flex-1 bg-transparent text-xs text-gray-700 dark:text-gray-200 placeholder-gray-400 dark:placeholder-gray-600 outline-none"
+            className="flex-1 bg-transparent text-gray-700 dark:text-gray-200 placeholder-gray-400 dark:placeholder-gray-600 outline-none"
+            style={{ fontSize: '16px' }}
           />
           {query && (
             <button onClick={() => setQuery('')} className="text-gray-400 text-sm leading-none">×</button>
