@@ -82,6 +82,9 @@ export const skillsData = {
         { name: "Bootstrap", icon: "SiBootstrap", description: "Accelerated development with grid systems and prebuilt components in coursework dashboards and class projects." },
         { name: "Materialize", icon: "SiMaterialdesign", description: "Built responsive Material Design interfaces applied in tourism platform and client projects." },
         { name: "shadcn/ui", icon: "SiRadixui", description: "Used component library built on Radix UI and Tailwind for accessible, composable UI primitives." },
+        { name: "TypeScript", icon: "SiTypescript", description: "Built type-safe web applications with static typing, interfaces, and strict null checks in Next.js projects." },
+        { name: "PWA", icon: "SiPwa", description: "Built progressive web apps with offline support, installability, and native-like experience using web standards." },
+        { name: "Zustand", icon: "MdOutlineTerminal", description: "Managed global client state with Zustand including persist middleware and custom hydration hooks for SSR-safe rendering." },
       ],
     },
     {
@@ -128,6 +131,7 @@ export const skillsData = {
         { name: "Docker", icon: "SiDocker", description: "Containerized applications for consistent development and deployment environments." },
         { name: "GitHub Copilot", icon: "SiGithubcopilot", description: "Leveraged AI-assisted code completion and suggestions to accelerate development workflows." },
         { name: "Claude Code", icon: "MdOutlineTerminal", description: "Used AI-powered CLI for code generation, refactoring, and multi-file edits in complex projects." },
+        { name: "Vercel", icon: "SiVercel", description: "Deployed and hosted web applications on Vercel with automatic CI/CD, edge functions, and custom domain configuration." },
       ],
     },
     {
@@ -141,6 +145,7 @@ export const skillsData = {
         { name: "UX Validation", icon: "MdOutlineCheckCircle", description: "Evaluated user flows and interaction patterns against usability heuristics and feedback." },
         { name: "Postman", icon: "SiPostman", description: "Tested and documented REST APIs with request collections, environment variables, and response validation." },
         { name: "Python", icon: "SiPython", description: "Wrote automated test scripts and validation pipelines for AI model outputs in capstone research." },
+        { name: "Playwright", icon: "MdOutlineBugReport", description: "Built E2E test suites covering all screens, edge cases, route mocking, custom fixtures, and mobile viewport testing." },
         { name: "Bug Tracking", icon: "MdOutlineBugReport", description: "Logged, prioritized, and tracked issues using project management tools during QA cycles." },
         { name: "Copywriting", icon: "MdOutlineEditNote", description: "Wrote clear, concise web copy and social media content tailored to target audiences." },
         { name: "Social Media Mgmt", icon: "MdOutlineEditNote", description: "Managed content calendars, posting schedules, and audience engagement across platforms." },

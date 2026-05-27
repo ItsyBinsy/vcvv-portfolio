@@ -34,6 +34,9 @@ import {
   SiGithubcopilot,
   SiPython,
   SiPostman,
+  SiTypescript,
+  SiPwa,
+  SiVercel,
 } from 'react-icons/si';
 import { MdOutlineCheckCircle, MdOutlineBugReport, MdOutlineDevices, MdOutlineEditNote, MdOutlineTerminal } from 'react-icons/md';
 
@@ -71,6 +74,9 @@ export const iconMap = {
   SiGithubcopilot,
   SiPython,
   SiPostman,
+  SiTypescript,
+  SiPwa,
+  SiVercel,
   MdOutlineCheckCircle,
   MdOutlineTerminal,
   MdOutlineBugReport,
