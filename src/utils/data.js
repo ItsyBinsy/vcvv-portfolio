@@ -155,7 +155,7 @@ export const projectsData = [
     title: "Saan Tayo Kakain",
     role: "Full-Stack Developer & QA · Personal Project",
     period: "May 2026",
-    tech: ["Next.js 15", "TypeScript", "Tailwind CSS", "Zustand", "Framer Motion", "Google Places API", "Playwright", "Lottie", "Tally", "PWA", "Vercel"],
+    tech: ["Next.js", "TypeScript", "Tailwind CSS", "Zustand", "Framer Motion", "Google Places API", "Playwright", "Lottie", "Tally", "PWA", "Vercel"],
     highlights: [
       "GPS-based restaurant decision PWA using Google Places API, with 3 game modes (lucky wheel, bracket elimination, instant random), shipped to production and used by real users",
       "Architected a secure server-side API proxy with sliding-window rate limiting, AbortController timeouts, strict input allowlisting, and a Google Cloud billing cap to protect a live API key without backend infrastructure",
