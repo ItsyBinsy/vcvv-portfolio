@@ -152,6 +152,23 @@ export const skillsData = {
 // Projects Section Data
 export const projectsData = [
   {
+    title: "Saan Tayo Kakain",
+    role: "Full-Stack Developer & QA · Personal Project",
+    period: "May 2026",
+    tech: ["Next.js 15", "TypeScript", "Tailwind CSS", "Zustand", "Framer Motion", "Google Places API", "Playwright", "Lottie", "Tally", "PWA", "Vercel"],
+    highlights: [
+      "GPS-based restaurant decision PWA using Google Places API, with 3 game modes (lucky wheel, bracket elimination, instant random), shipped to production and used by real users",
+      "Architected a secure server-side API proxy with sliding-window rate limiting, AbortController timeouts, strict input allowlisting, and a Google Cloud billing cap to protect a live API key without backend infrastructure",
+      "Built a complete E2E test suite with Playwright covering all screens, edge cases, and back-button loopholes, including route mocking, custom fixtures, and mobile viewport testing at real phone dimensions",
+      "Integrated Zustand persist middleware with a custom useHydrated hook to solve a hydration race condition where localStorage rehydration caused false redirect guards to fire on valid state",
+      "Designed and shipped custom Lottie animations, dynamic OG image generation (Next.js ImageResponse), and a contextual Tally feedback popup triggered after users return from Google Maps",
+    ],
+    images: ["/images/STK.png"],
+    link: "https://www.saantayokakain.today",
+    github: "https://github.com/ItsyBinsy/saan-tayo-kakain",
+    isPrivate: false,
+  },
+  {
     title: "TLL Daily Drill (WikayGaling) - Filipino Vocabulary Quiz App",
     role: "Software Engineer Intern (Full-Stack) · Blackfort Consulting PH",
     period: "Mar 2026 - May 2026",
