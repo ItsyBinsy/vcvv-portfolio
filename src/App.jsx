@@ -1,37 +1,21 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, lazy, Suspense } from 'react';
 import { motion } from 'framer-motion';
 import { MdDownload, MdArrowOutward, MdWorkOutline, MdCode, MdVerified, MdAlternateEmail, MdLocationOn } from 'react-icons/md';
 import { RiFacebookLine, RiLinkedinLine } from 'react-icons/ri';
 import { LuGithub } from 'react-icons/lu';
 import { useCursorSpotlight } from './hooks/useCursorSpotlight';
+import { useManilaTime } from './hooks/useManilaTime';
 import { heroData, projectsData, skillsData, certificationsData, contactData } from './utils/data';
 import { iconMap } from './utils/iconMap';
 import { useDarkMode } from './context/DarkModeContext';
 import TypingAnimation from './components/TypingAnimation';
 import FloatingNav from './components/FloatingNav';
-import Chatbot from './components/Chatbot';
+const Chatbot = lazy(() => import('./components/Chatbot'));
 import MobileLayout from './components/MobileLayout';
 import CustomCursor from './components/CustomCursor';
 import Projects from './sections/Projects';
 import Skills from './sections/Skills';
 import Certifications from './sections/Certifications';
-
-// ── Manila clock hook ─────────────────────────────────────────────
-function useManilaTime() {
-  const [time, setTime] = useState('');
-  useEffect(() => {
-    const tick = () => {
-      setTime(new Date().toLocaleTimeString('en-PH', {
-        timeZone: 'Asia/Manila',
-        hour: 'numeric', minute: '2-digit', hour12: true,
-      }));
-    };
-    tick();
-    const id = setInterval(tick, 1000);
-    return () => clearInterval(id);
-  }, []);
-  return time;
-}
 
 
 // ── Panel shell ───────────────────────────────────────────────────
@@ -470,7 +454,11 @@ function App() {
     <div className="min-h-screen bg-gray-50 dark:bg-[#080808] transition-colors duration-300">
       <CustomCursor />
       <FloatingNav onChatToggle={() => setIsChatOpen(!isChatOpen)} />
-      <Chatbot isOpen={isChatOpen} onClose={() => setIsChatOpen(false)} />
+      {isChatOpen && (
+        <Suspense fallback={null}>
+          <Chatbot isOpen={isChatOpen} onClose={() => setIsChatOpen(false)} />
+        </Suspense>
+      )}
 
       {/* Mobile */}
       {layoutSize === 'mobile' && (

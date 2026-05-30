@@ -29,9 +29,15 @@
     <meta name="twitter:description" content="Web & Mobile App Developer and QA Tester. BSIT graduate of UST." />
     <meta name="twitter:image" content="/images/me/mewhite.png" />
 
-    <!-- Image Preloads -->
-    <link rel="preload" as="image" href="/images/me/mewhite.png" />
-    <link rel="preload" as="image" href="/images/me/meblack.png" />
+    <!-- Preload only the hero image that matches the user's color scheme -->
+    <script>
+      var l = document.createElement('link');
+      l.rel = 'preload'; l.as = 'image';
+      l.href = window.matchMedia('(prefers-color-scheme: dark)').matches
+        ? '/images/me/meblack.webp'
+        : '/images/me/mewhite.webp';
+      document.head.appendChild(l);
+    </script>
 
     <!-- JSON-LD Structured Data -->
     <script type="application/ld+json">

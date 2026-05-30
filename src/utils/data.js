@@ -9,8 +9,8 @@ export const heroData = {
   university: "University of Santo Tomas",
   expertise: "Expertise in Web & Mobile Development",
   image: {
-    light: "/images/me/mewhite.png",  // Light mode image
-    dark: "/images/me/meblack.png"      // Dark mode image
+    light: "/images/me/mewhite.webp",  // Light mode image
+    dark: "/images/me/meblack.webp"      // Dark mode image
   },
   buttons: [
     { label: "Download CV", type: "outline" },
@@ -140,7 +140,7 @@ export const projectsData = [
       "Integrated Zustand persist middleware with a custom useHydrated hook to solve a hydration race condition where localStorage rehydration caused false redirect guards to fire on valid state",
       "Designed and shipped custom Lottie animations, dynamic OG image generation (Next.js ImageResponse), and a contextual Tally feedback popup triggered after users return from Google Maps",
     ],
-    images: ["/images/STK.png"],
+    images: ["/images/STK.webp"],
     link: "https://www.saantayokakain.today",
     github: "https://github.com/ItsyBinsy/saan-tayo-kakain",
     isPrivate: false,
@@ -156,11 +156,11 @@ export const projectsData = [
       "Consumed Strapi v5 REST API for quiz content and delivered features across Agile/Scrum sprints using Azure DevOps CI/CD, Azure Repos, and PR-based code review in a professional team environment"
     ],
     images: [
-      "/images/TLL1.png",
-      "/images/TLL2.png",
-      "/images/TLL3.png",
-      "/images/TLL4.png",
-      "/images/TLL5.png",
+      "/images/TLL1.webp",
+      "/images/TLL2.webp",
+      "/images/TLL3.webp",
+      "/images/TLL4.webp",
+      "/images/TLL5.webp",
     ],
     link: "https://wikaygaling-dev.blackfortconsulting.com/",
     isPrivate: false,
@@ -176,9 +176,9 @@ export const projectsData = [
       "Implemented Firebase Authentication with Google Sign-In, Cloud Firestore for real-time data, Firebase Storage for image uploads, and bookmark and personal profile features"
     ],
     images: [
-      "/images/NAM1.png",
-      "/images/NAM2.png",
-      "/images/NAM3.png",
+      "/images/NAM1.webp",
+      "/images/NAM2.webp",
+      "/images/NAM3.webp",
     ],
     link: null,
     github: "https://github.com/ItsyBinsy/namnam",
@@ -194,7 +194,7 @@ export const projectsData = [
       "Worked within a CQRS architecture using MediatR handlers and Entity Framework Core for data access on a .NET 9 multi-project solution",
       "Contributed to timesheet and attendance workflows including approval flows, corrections, and reporting features built with Telerik Blazor UI components"
     ],
-    images: ["/images/BFT.png"],
+    images: ["/images/BFT.webp"],
     link: null,
     isPrivate: true,
   },
@@ -209,17 +209,17 @@ export const projectsData = [
       "Managed deployment with Digital Ocean and version control with GitHub"
     ],
     images: [
-      "/images/STUDAI.png",
-      "/images/STUDAI2.png",
-      "/images/STUDAI3.png",
-      "/images/STUDAI4.png",
-      "/images/STUDAI5.png",
-      "/images/STUDAI6.png",
-      "/images/STUDAI7.png",
-      "/images/STUDAI8.png",
-      "/images/STUDAI9.png",
-      "/images/STUDAI10.png",
-      "/images/STUDAI11.png",
+      "/images/STUDAI.webp",
+      "/images/STUDAI2.webp",
+      "/images/STUDAI3.webp",
+      "/images/STUDAI4.webp",
+      "/images/STUDAI5.webp",
+      "/images/STUDAI6.webp",
+      "/images/STUDAI7.webp",
+      "/images/STUDAI8.webp",
+      "/images/STUDAI9.webp",
+      "/images/STUDAI10.webp",
+      "/images/STUDAI11.webp",
     ],
     link: "https://studai.dev/",
     isPrivate: false,
@@ -234,7 +234,7 @@ export const projectsData = [
       "Developed booking system and customer inquiry features",
       "Managed version control and team collaboration using GitHub"
     ],
-    images: ["/images/STARCOLOROOF.png"],
+    images: ["/images/STARCOLOROOF.webp"],
     link: null,
     github: "https://github.com/npsangco/Coloroof-App",
     isPrivate: false,
@@ -249,7 +249,7 @@ export const projectsData = [
       "Developed household registrations, resident profiles, employee records, infrastructure project tracking, and incident reporting modules",
       "Managed deployment with Digital Ocean and version control with GitHub"
     ],
-    images: ["/images/BARANGAY.png"],
+    images: ["/images/BARANGAY.webp"],
     link: null,
     github: "https://github.com/npsangco/barangay247",
     isPrivate: false,
@@ -278,7 +278,7 @@ export const projectsData = [
       "Implemented visual-first navigation with category-based content browsing, responsive grid layouts, and Netflix-inspired design patterns",
       "Developed user profile management with follower tracking, account features, messaging systems, and referral rewards functionality"
     ],
-    images: ["/images/ANDROID.png"],
+    images: ["/images/ANDROID.webp"],
     link: null,
     github: "https://github.com/ItsyBinsy/MyAndroidLayouts",
     isPrivate: false,
@@ -293,7 +293,7 @@ export const projectsData = [
       "Developed tourism showcase features including attractions gallery, experience posts, writer dashboard for content submission, and admin moderation panel",
       "Implemented user authentication with status-based login (pending, approved, rejected) and dynamic role-based dashboard routing"
     ],
-    images: ["/images/LVV.png"],
+    images: ["/images/LVV.webp"],
     link: null,
     isPrivate: true,
   },
@@ -307,7 +307,7 @@ export const projectsData = [
       "Evaluated key features and engagement tools, providing structured feedback on usability and overall user experience",
       "Delivered targeted written analysis covering pain points, strengths, and improvement suggestions based on real-world webinar and virtual event experience"
     ],
-    images: ["/images/WG.png"],
+    images: ["/images/WG.webp"],
     link: null,
     isPrivate: false,
   },
@@ -321,7 +321,7 @@ export const projectsData = [
       "Developed blog system and direct booking integration",
       "Implemented quality assurance testing for cross-browser compatibility"
     ],
-    images: ["/images/EXPERIENCEMIMAROPA.png"],
+    images: ["/images/EXPERIENCEMIMAROPA.webp"],
     link: null,
     isPrivate: true,
   },
@@ -333,56 +333,56 @@ export const certificationsData = [
     name: "PhilNITS Information Technology Passport (IP) Certification",
     issuer: "PhilNITS",
     date: "Nov 2025",
-    badge: "/images/PHILNITS.png",
-    preview: "/images/PHILNITS.png",
+    badge: "/images/PHILNITS.webp",
+    preview: "/images/PHILNITS.webp",
     link: "#"
   },
   {
     name: "CSS Essentials",
     issuer: "Cisco",
     date: "Oct 2025",
-    badge: "/images/CSS.png",
-    preview: "/images/CSS.png",
+    badge: "/images/CSS.webp",
+    preview: "/images/CSS.webp",
     link: "#"
   },
   {
     name: "Career Essentials in Generative AI by Microsoft and LinkedIn",
     issuer: "Microsoft",
     date: "Sep 2025",
-    badge: "/images/AI.png",
-    preview: "/images/AI.png",
+    badge: "/images/AI.webp",
+    preview: "/images/AI.webp",
     link: "#"
   },
   {
     name: "HTML Essentials",
     issuer: "Cisco",
     date: "Sep 2025",
-    badge: "/images/HTML.png",
-    preview: "/images/HTML.png",
+    badge: "/images/HTML.webp",
+    preview: "/images/HTML.webp",
     link: "#"
   },
   {
     name: "Certificate of Appreciation – HR Information and Payroll System",
     issuer: "First Analytical Services and Technical Cooperative",
     date: "May 2025",
-    badge: "/images/FASTCERT.jpg",
-    preview: "/images/FASTCERT.jpg",
+    badge: "/images/FASTCERT.webp",
+    preview: "/images/FASTCERT.webp",
     link: "#"
   },
   {
     name: "JavaScript Essentials 1",
     issuer: "Cisco",
     date: "Dec 2023",
-    badge: "/images/JS.png",
-    preview: "/images/JS.png",
+    badge: "/images/JS.webp",
+    preview: "/images/JS.webp",
     link: "#"
   },
   {
     name: "CompTIA IT Fundamentals+ (ITF+) Certification",
     issuer: "CompTIA",
     date: "May 2023",
-    badge: "/images/ITF.png",
-    preview: "/images/ITF.png",
+    badge: "/images/ITF.webp",
+    preview: "/images/ITF.webp",
     link: "#"
   },
 ];

@@ -7,24 +7,13 @@ import { LuGithub } from 'react-icons/lu';
 import BottomSheet from './BottomSheet';
 import TypingAnimation from './TypingAnimation';
 import { heroData, projectsData, skillsData, certificationsData, contactData } from '../utils/data';
+import { useManilaTime } from '../hooks/useManilaTime';
 import { iconMap } from '../utils/iconMap';
 import { useDarkMode } from '../context/DarkModeContext';
 import { Badge } from './ui/badge';
 
 const HERO_ROLES = ['Web & Mobile App Developer', 'QA & Software Tester', 'Full-Stack Developer'];
 
-function useManilaTime() {
-  const [time, setTime] = useState('');
-  useEffect(() => {
-    const tick = () => setTime(new Date().toLocaleTimeString('en-PH', {
-      timeZone: 'Asia/Manila', hour: 'numeric', minute: '2-digit', hour12: true,
-    }));
-    tick();
-    const id = setInterval(tick, 1000);
-    return () => clearInterval(id);
-  }, []);
-  return time;
-}
 
 const categoryColors = {
   'Frontend': 'from-blue-500/10 to-cyan-500/5 border-blue-200/50 dark:border-blue-800/30 text-blue-600 dark:text-blue-400',

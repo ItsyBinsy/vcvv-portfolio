@@ -20,6 +20,10 @@ function raf(time) {
 }
 requestAnimationFrame(raf)
 
+document.addEventListener('visibilitychange', () => {
+  document.hidden ? lenis.stop() : lenis.start()
+})
+
 createRoot(document.getElementById('root')).render(
   <StrictMode>
     <DarkModeProvider>

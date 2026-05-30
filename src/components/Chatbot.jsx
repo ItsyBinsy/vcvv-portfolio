@@ -149,7 +149,7 @@ const Chatbot = ({ isOpen, onClose }) => {
           <div className="flex items-center gap-2.5">
             <div className="w-7 h-7 rounded-full overflow-hidden border border-gray-200 dark:border-white/10 flex-shrink-0">
               <img
-                src="/images/baymax.jpg"
+                src="/images/baymax.webp"
                 alt="Assistant"
                 className="w-full h-full object-cover object-top"
                 onError={e => { e.target.style.display = 'none'; e.target.nextElementSibling.style.display = 'flex'; }}
