@@ -1,5 +1,4 @@
 import { useState, useEffect } from 'react';
-import ProjectCard from '../components/ProjectCard';
 import { Dialog, DialogContent, DialogTitle } from '../components/ui/dialog';
 import { Badge } from '../components/ui/badge';
 import { projectsData } from '../utils/data';
@@ -9,8 +8,6 @@ import { SiGithub } from 'react-icons/si';
 const Projects = ({ defaultOpen = false, onModalClose } = {}) => {
   const [isModalOpen, setIsModalOpen] = useState(defaultOpen);
   const handleModalChange = (open) => { setIsModalOpen(open); if (!open) onModalClose?.(); };
-  const [currentIndex, setCurrentIndex] = useState(0);
-  const [isPaused, setIsPaused] = useState(false);
   const [selectedProject, setSelectedProject] = useState(projectsData[0]);
   const [imgIndex, setImgIndex] = useState(0);
 
@@ -43,62 +40,7 @@ const Projects = ({ defaultOpen = false, onModalClose } = {}) => {
   if (!projectsData?.length) return null;
 
   return (
-    <div>
-      <div className="flex items-center justify-end mb-4">
-        <button
-          onClick={() => setIsModalOpen(true)}
-          className="text-xs font-semibold text-yellow-600 dark:text-yellow-400 hover:text-yellow-500 dark:hover:text-yellow-300 transition-colors duration-200"
-        >
-          View All →
-        </button>
-      </div>
-
-      <div
-        className="relative overflow-hidden"
-        onMouseEnter={() => setIsPaused(true)}
-        onMouseLeave={() => setIsPaused(false)}
-      >
-        <div className="relative w-full">
-          {projectsData.map((project, index) => (
-            <div
-              key={index}
-              className={`transition-opacity duration-500 ${
-                index === currentIndex ? 'opacity-100' : 'opacity-0 absolute top-0 left-0 w-full pointer-events-none'
-              }`}
-            >
-              <ProjectCard
-                title={project.title}
-                role={project.role}
-                period={project.period}
-                tech={project.tech}
-                highlights={project.highlights}
-                image={project.images?.[0]}
-                link={project.link}
-                github={project.github}
-                isPrivate={project.isPrivate}
-                imagePosition={index % 2 === 0 ? 'left' : 'right'}
-                compact={true}
-              />
-            </div>
-          ))}
-        </div>
-
-        <div className="flex justify-center gap-1.5 md:gap-2 mt-3 md:mt-4">
-          {projectsData.map((_, index) => (
-            <button
-              key={index}
-              onClick={() => setCurrentIndex(index)}
-              className={`transition-all duration-300 rounded-full cursor-pointer hover:bg-yellow-400 ${
-                index === currentIndex
-                  ? 'w-6 md:w-8 h-1.5 md:h-2 bg-yellow-500'
-                  : 'w-1.5 md:w-2 h-1.5 md:h-2 bg-gray-300 dark:bg-gray-800'
-              }`}
-              aria-label={`Go to project ${index + 1}`}
-            />
-          ))}
-        </div>
-      </div>
-
+    <>
       {/* Master-Detail Split Modal */}
       <Dialog open={isModalOpen} onOpenChange={handleModalChange}>
         <DialogContent className="w-[calc(100%-2rem)] max-w-2xl max-h-[88vh] gap-0 p-0 overflow-hidden dark:bg-[#0d0d0d] bg-white">
@@ -107,7 +49,6 @@ const Projects = ({ defaultOpen = false, onModalClose } = {}) => {
           <div className="flex" style={{ height: '88vh' }}>
             {/* Left panel — project list */}
             <div className="w-56 flex-shrink-0 flex flex-col border-r border-gray-100 dark:border-white/6 overflow-hidden">
-              {/* Panel header */}
               <div className="px-4 py-3 border-b border-gray-100 dark:border-white/6 flex-shrink-0">
                 <div className="flex items-center gap-2">
                   <MdWorkOutline className="text-yellow-500 text-base flex-shrink-0" />
@@ -116,7 +57,6 @@ const Projects = ({ defaultOpen = false, onModalClose } = {}) => {
                 </div>
               </div>
 
-              {/* List */}
               <div className="overflow-y-auto flex-1 modal-scrollbar">
                 {projectsData.map((project, index) => (
                   <button
@@ -191,7 +131,7 @@ const Projects = ({ defaultOpen = false, onModalClose } = {}) => {
                   );
                 })()}
 
-                {/* Title bar — Private badge lives here, away from X button */}
+                {/* Title bar */}
                 <div className="px-5 py-3 border-b border-gray-100 dark:border-white/6 flex-shrink-0">
                   <div className="flex items-start justify-between gap-3">
                     <div className="min-w-0">
@@ -224,9 +164,8 @@ const Projects = ({ defaultOpen = false, onModalClose } = {}) => {
 
                 {/* Detail content */}
                 <div className="flex-1 overflow-y-auto modal-scrollbar px-5 py-4 space-y-4">
-                  {/* Tech stack */}
                   <div>
-                    <p className="text-[10px] font-bold text-gray-400 dark:text-gray-500 uppercase tracking-widest mb-2">Experience</p>
+                    <p className="text-[10px] font-bold text-gray-400 dark:text-gray-500 uppercase tracking-widest mb-2">Built With</p>
                     <div className="flex flex-wrap gap-1.5">
                       {selectedProject.tech.map((t, i) => (
                         <Badge
@@ -240,7 +179,6 @@ const Projects = ({ defaultOpen = false, onModalClose } = {}) => {
                     </div>
                   </div>
 
-                  {/* Highlights */}
                   {selectedProject.highlights?.length > 0 && (
                     <div>
                       <p className="text-[10px] font-bold text-gray-400 dark:text-gray-500 uppercase tracking-widest mb-2">Highlights</p>
@@ -283,7 +221,7 @@ const Projects = ({ defaultOpen = false, onModalClose } = {}) => {
           </div>
         </DialogContent>
       </Dialog>
-    </div>
+    </>
   );
 };
 

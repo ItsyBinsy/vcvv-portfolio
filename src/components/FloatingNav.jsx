@@ -12,9 +12,9 @@ const FloatingNav = ({ onChatToggle }) => {
   const navContainerRef = useRef(null);
 
   const navItems = [
-    { id: 'email', icon: SiGmail, link: 'https://mail.google.com/mail/?view=cm&to=vincecvviana@gmail.com' },
-    { id: 'github', icon: LuGithub, link: 'https://github.com/ItsyBinsy' },
-    { id: 'linkedin', icon: RiLinkedinLine, link: 'https://www.linkedin.com/in/vincecvv/' }
+    { id: 'email', icon: SiGmail, link: 'https://mail.google.com/mail/?view=cm&to=vincecvviana@gmail.com', label: 'Email' },
+    { id: 'github', icon: LuGithub, link: 'https://github.com/ItsyBinsy', label: 'GitHub' },
+    { id: 'linkedin', icon: RiLinkedinLine, link: 'https://www.linkedin.com/in/vincecvv/', label: 'LinkedIn' },
   ];
 
   // Handle touch interactions on mobile with auto-dismiss
@@ -144,7 +144,7 @@ const FloatingNav = ({ onChatToggle }) => {
                 onMouseEnter={() => setActiveIcon(index)}
                 onMouseLeave={() => setActiveIcon(null)}
                 onTouchStart={() => handleTouchStart(index)}
-                className="relative w-11 h-11 rounded-full flex items-center justify-center text-gray-700 hover:text-gray-900 dark:text-gray-300 dark:hover:text-white transition-all duration-500"
+                className="relative w-11 h-11 rounded-full flex items-center justify-center text-gray-700 hover:text-gray-900 dark:text-gray-300 dark:hover:text-white transition-all duration-500 group"
                 style={{
                   transform: activeIcon === index
                     ? 'translateY(-3px) scale(1.15)'
@@ -155,6 +155,9 @@ const FloatingNav = ({ onChatToggle }) => {
                 }}
               >
                 <Icon className="text-lg transition-all duration-300" />
+                <span className="pointer-events-none absolute -top-8 left-1/2 -translate-x-1/2 px-2 py-1 rounded-md bg-gray-900 dark:bg-white text-white dark:text-gray-900 text-[10px] font-semibold whitespace-nowrap opacity-0 scale-90 group-hover:opacity-100 group-hover:scale-100 transition-all duration-150 shadow-md">
+                  {item.label}
+                </span>
               </a>
             );
           })}
@@ -174,7 +177,7 @@ const FloatingNav = ({ onChatToggle }) => {
             onMouseEnter={() => setActiveIcon(navItems.length)}
             onMouseLeave={() => setActiveIcon(null)}
             onTouchStart={() => handleTouchStart(navItems.length)}
-            className="relative w-11 h-11 rounded-full flex items-center justify-center text-gray-700 hover:text-gray-900 dark:text-gray-300 dark:hover:text-white transition-all duration-500"
+            className="relative w-11 h-11 rounded-full flex items-center justify-center text-gray-700 hover:text-gray-900 dark:text-gray-300 dark:hover:text-white transition-all duration-500 group"
             style={{
               transform: activeIcon === navItems.length
                 ? 'translateY(-3px) scale(1.15)'
@@ -183,6 +186,9 @@ const FloatingNav = ({ onChatToggle }) => {
             }}
           >
             <RiRobot2Line className="text-xl" />
+            <span className="pointer-events-none absolute -top-8 left-1/2 -translate-x-1/2 px-2 py-1 rounded-md bg-gray-900 dark:bg-white text-white dark:text-gray-900 text-[10px] font-semibold whitespace-nowrap opacity-0 scale-90 group-hover:opacity-100 group-hover:scale-100 transition-all duration-150 shadow-md">
+              Ask AI
+            </span>
           </button>
 
           {/* Dark Mode Toggle */}
@@ -191,7 +197,7 @@ const FloatingNav = ({ onChatToggle }) => {
             onMouseEnter={() => setActiveIcon(navItems.length + 1)}
             onMouseLeave={() => setActiveIcon(null)}
             onTouchStart={() => handleTouchStart(navItems.length + 1)}
-            className="relative w-11 h-11 rounded-full flex items-center justify-center text-gray-700 hover:text-gray-900 dark:text-gray-300 dark:hover:text-white transition-all duration-500"
+            className="relative w-11 h-11 rounded-full flex items-center justify-center text-gray-700 hover:text-gray-900 dark:text-gray-300 dark:hover:text-white transition-all duration-500 group"
             style={{
               transform: activeIcon === navItems.length + 1
                 ? 'translateY(-3px) scale(1.15) rotate(15deg)'
@@ -211,6 +217,9 @@ const FloatingNav = ({ onChatToggle }) => {
                 }`}
               />
             </div>
+            <span className="pointer-events-none absolute -top-8 left-1/2 -translate-x-1/2 px-2 py-1 rounded-md bg-gray-900 dark:bg-white text-white dark:text-gray-900 text-[10px] font-semibold whitespace-nowrap opacity-0 scale-90 group-hover:opacity-100 group-hover:scale-100 transition-all duration-150 shadow-md">
+              {isDarkMode ? 'Light mode' : 'Dark mode'}
+            </span>
           </button>
         </div>
       </div>

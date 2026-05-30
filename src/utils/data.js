@@ -19,34 +19,6 @@ export const heroData = {
   status: "Available for Work",
 };
 
-// About Section Data
-export const aboutData = {
-  title: "About Me",
-  cards: [
-    {
-      period: "The Past",
-      subtitle: "Done",
-      icon: "MdSchool",
-      content:
-        "My journey started in Grade 10, not in a Computer Science class, but in a basic web design subject. The task was simple: build a website using HTML and CSS. While my classmates struggled to understand tags and layouts, I found myself researching late into the night, not because it was required, but because I was genuinely curious. I was one of the first to submit that final project, and something clicked. That website took me an entire school year to build. Now? I could rebuild it in minutes. That realization, that growth, is what hooked me.",
-    },
-    {
-      period: "The Present",
-      subtitle: "Done",
-      icon: "MdComputer",
-      content:
-        "Fast forward to 4th year BSIT at UST, and that curiosity has evolved into real skill. I build full-stack applications, not as an expert, but as someone who can ship working products. I've taken on freelance projects, mostly student-level work, but real clients with real deadlines. I haven't disappointed them yet. One of my proudest moments? Being able to side hustle while maintaining academic excellence, covering my daily needs and helping with expenses. That Grade 10 spark? It's now a steady flame I've learned to control.",
-    },
-    {
-      period: "The Future",
-      subtitle: "Done",
-      icon: "MdRocket",
-      content:
-        "Looking ahead, I'm ready for my first real developer role. I'm not chasing titles like 'Senior Engineer' or trying to 'revolutionize tech', not yet. Right now, I want to join a team where I can contribute from day one, learn from experienced developers, and keep that Grade 10 curiosity alive. Long-term? I want to look back at today the same way I look at that first HTML project, amazed at how far I've come. If it took me 6 years to go from 'HTML in a school year' to 'full-stack apps in months,' imagine where I'll be in the next 6. That's the story I'm writing.",
-    },
-  ],
-};
-
 // Skills Section Data - Categorized
 export const skillsData = {
   // Featured skills for carousel (top skills to showcase)

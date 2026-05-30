@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { MdDownload, MdArrowOutward, MdWorkOutline, MdCode, MdVerified, MdAlternateEmail, MdLocationOn } from 'react-icons/md';
 import { RiFacebookLine, RiLinkedinLine } from 'react-icons/ri';
+import { LuGithub } from 'react-icons/lu';
 import { useCursorSpotlight } from './hooks/useCursorSpotlight';
 import { heroData, projectsData, skillsData, certificationsData, contactData } from './utils/data';
 import { iconMap } from './utils/iconMap';
@@ -154,6 +155,15 @@ const HeroPanel = ({ hoveredPanel, setHoveredPanel }) => {
               >
                 <MdDownload className="w-3 h-3" />
                 View CV
+              </a>
+              <a
+                href="https://github.com/ItsyBinsy"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center justify-center w-8 h-8 rounded-xl bg-white/10 backdrop-blur-sm border border-white/20 text-white/80 hover:text-white hover:bg-white/20 transition-all duration-200"
+                aria-label="GitHub"
+              >
+                <LuGithub className="w-3.5 h-3.5" />
               </a>
             </div>
           </FadeIn>

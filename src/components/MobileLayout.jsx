@@ -1,9 +1,9 @@
 import { useRef, useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { MdDownload, MdKeyboardArrowDown, MdVerified, MdAlternateEmail, MdArrowOutward, MdOpenInNew, MdLock, MdCode, MdPhone } from 'react-icons/md';
-import { SiGmail } from 'react-icons/si';
+import { SiGmail, SiGithub } from 'react-icons/si';
 import { RiFacebookLine, RiLinkedinLine } from 'react-icons/ri';
-import { SiGithub } from 'react-icons/si';
+import { LuGithub } from 'react-icons/lu';
 import BottomSheet from './BottomSheet';
 import TypingAnimation from './TypingAnimation';
 import { heroData, projectsData, skillsData, certificationsData, contactData } from '../utils/data';
@@ -119,15 +119,26 @@ const HeroScreen = ({ onScrollDown }) => {
             <p className="text-white/40 text-[10px] leading-snug mb-0.5">{heroData.education}</p>
             <p className="text-white/80 text-xs font-semibold leading-snug">{heroData.university}</p>
           </div>
-          <a
-            href="/CV_VinceCarl_Viana.pdf"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="relative flex-shrink-0 inline-flex items-center gap-1.5 px-4 py-2.5 rounded-2xl bg-yellow-500 active:scale-95 text-white text-xs font-bold overflow-hidden transition-all duration-150 before:absolute before:inset-0 before:-translate-x-full active:before:translate-x-full before:bg-gradient-to-r before:from-transparent before:via-white/20 before:to-transparent before:transition-transform before:duration-500"
-          >
-            <MdDownload className="w-3.5 h-3.5" />
-            View CV
-          </a>
+          <div className="flex items-center gap-2 flex-shrink-0">
+            <a
+              href="/CV_VinceCarl_Viana.pdf"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="relative inline-flex items-center gap-1.5 px-4 py-2.5 rounded-2xl bg-yellow-500 active:scale-95 text-white text-xs font-bold overflow-hidden transition-all duration-150 before:absolute before:inset-0 before:-translate-x-full active:before:translate-x-full before:bg-gradient-to-r before:from-transparent before:via-white/20 before:to-transparent before:transition-transform before:duration-500"
+            >
+              <MdDownload className="w-3.5 h-3.5" />
+              View CV
+            </a>
+            <a
+              href="https://github.com/ItsyBinsy"
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label="GitHub"
+              className="inline-flex items-center justify-center w-10 h-10 rounded-2xl bg-white/10 backdrop-blur-sm border border-white/20 text-white/80 active:scale-95 transition-all duration-150"
+            >
+              <LuGithub className="w-4 h-4" />
+            </a>
+          </div>
         </div>
 
         {/* Swipe up cue */}
@@ -179,7 +190,7 @@ const ProjectsContent = () => (
             </div>
           </div>
           <div className="mb-3">
-            <p className="text-[10px] font-bold text-gray-400 dark:text-gray-500 uppercase tracking-widest mb-1.5">Experience</p>
+            <p className="text-[10px] font-bold text-gray-400 dark:text-gray-500 uppercase tracking-widest mb-1.5">Built With</p>
             <div className="flex flex-wrap gap-1.5">
               {project.tech.map(t => (
                 <Badge key={t} variant="outline" className="text-[10px] px-2 py-0.5 h-auto bg-yellow-50 dark:bg-yellow-900/20 border-yellow-200 dark:border-yellow-800/50 text-yellow-700 dark:text-yellow-400">
