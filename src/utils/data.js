@@ -288,9 +288,8 @@ export const projectsData = [
     period: "2024",
     tech: ["Android Studio", "Kotlin", "XML Layouts"],
     highlights: [
-      "Built multiple mobile applications showcasing diverse UI patterns including streaming platforms, social media feeds, and digital wallet interfaces",
-      "Implemented visual-first navigation with category-based content browsing, responsive grid layouts, and Netflix-inspired design patterns",
-      "Developed user profile management with follower tracking, account features, messaging systems, and referral rewards functionality"
+      "Built multiple Android applications in Kotlin throughout a semester of mobile development coursework, recreating responsive UI patterns from popular apps",
+      "Applied Android fundamentals including XML layouts, visual navigation, grid-based content browsing, and user profile management across multiple hands-on laboratory exercises"
     ],
     images: ["/images/ANDROID.webp"],
     link: null,
