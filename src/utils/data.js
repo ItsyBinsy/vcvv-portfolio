@@ -152,9 +152,10 @@ export const projectsData = [
     period: "Mar 2026 - May 2026",
     tech: ["ReactJS", "Tailwind CSS", "REST API", "Strapi v5", "Azure DevOps", "GitHub"],
     highlights: [
-      "Worked directly with a real client (The Learning Library) to gather requirements and translate their vision into Figma designs, then into a production-ready React interface",
-      "Built a daily Filipino vocabulary quiz with multiple question formats including image-based, word cloud, and pure text, with 15-second timers, star-based scoring, and localStorage progress persistence for mid-session resume",
-      "Consumed Strapi v5 REST API for quiz content and delivered features across Agile/Scrum sprints using Azure DevOps CI/CD, Azure Repos, and PR-based code review in a professional team environment"
+      "Collaborated on Figma designs and translated them into production-ready React components, adapting to client feedback and requests throughout the design-to-code workflow across a real client project",
+      "Worked in a professional Agile/Scrum team environment at a consulting firm, navigating Azure DevOps boards, resolving bug tickets, submitting PRs for code review, and shipping features across sprints alongside senior engineers",
+      "Built the complete quiz frontend in React including multiple question formats (image-based, word cloud, pure text), countdown timers, star-based scoring, and localStorage persistence that saves progress on every answer so users on unstable connections never lose their session mid-quiz",
+      "Consumed Strapi v5 REST API to fetch quiz content, gaining hands-on experience with headless CMS architecture, content schema design, and how media and relational fields are structured and served to a frontend"
     ],
     images: [
       "/images/TLL1.webp",
@@ -172,9 +173,11 @@ export const projectsData = [
     period: "May 2026",
     tech: ["Flutter", "Dart", "Cloud Firestore", "Firebase Authentication", "Firebase Storage", "GitHub"],
     highlights: [
-      "Led UI/UX design in Figma as mockup author, then led a 3-person team from project setup to final build, overseeing architecture decisions and overall code quality",
-      "Built restaurant discovery with category filtering and real-time search across name, category, and star rating, plus community reviews with photo upload and auto-updating ratings on submission",
-      "Implemented Firebase Authentication with Google Sign-In, Cloud Firestore for real-time data, Firebase Storage for image uploads, and bookmark and personal profile features"
+      "Led a 3-person team through a full mobile app lifecycle, from wireframes and mockups to a working Flutter build, overseeing architecture decisions, NoSQL schema design, and overall code quality",
+      "Built a multi-parameter real-time search across name, category, and star rating using Cloud Firestore composite queries, with results updating live as users type",
+      "Implemented an automated rating aggregation system using Firestore listeners that recalculates and propagates restaurant average ratings instantly on every new review submission",
+      "Handled cross-document data cascading so profile picture updates reflect across all existing review documents, maintaining data consistency without a traditional backend",
+      "Integrated Firebase Authentication with Google Sign-In and email/password login, Cloud Firestore for real-time data, and Firebase Storage for photo uploads, covering the full Firebase suite across auth, database, and storage"
     ],
     images: [
       "/images/NAM1.webp",
@@ -205,9 +208,12 @@ export const projectsData = [
     period: "Aug - Dec 2025",
     tech: ["ReactJS", "Node.js", "Express.js", "MySQL", "Tailwind CSS", "Firebase", "DigitalOcean", "GitHub"],
     highlights: [
-      "Built quiz module with three game modes (Normal, Shuffled, Adaptive Difficulty) and real-time multiplayer quiz battles using Firebase",
-      "Developed AI-powered study recommendations, achievement systems, and progress tracking features",
-      "Managed deployment with Digital Ocean and version control with GitHub"
+      "Built a complete quiz platform covering manual creation, AI-powered quiz generation from note content, four question types including matching with partial credit, 6-digit share codes with cross-user import, unified leaderboards across original and imported quiz copies via shared quiz ID, and server-side scoring with daily cap enforcement",
+      "Implemented adaptive difficulty mode that dynamically reorders the question queue mid-quiz based on rolling accuracy every 2 questions, with difficulty-weighted scoring (Easy=1, Medium=2, Hard=3) and the full adaptive journey recorded per attempt for review",
+      "Built the real-time quiz battle system using Firebase Realtime Database for live score sync, emoji reactions, and per-player connection status, with a 5-minute disconnect grace period, reconnection resume, forfeit handling, and final results synced to MySQL in a single transaction",
+      "Hardened the quiz system against production edge cases including timer expiry race conditions, non-host start attempts rejected server-side, duplicate PIN retry loops, and graceful battle termination when the source quiz is deleted mid-game",
+      "Collaborated on QA by fixing bug tickets reported by the testing team and contributing to test case writing, participating in the full bug lifecycle from report to resolution",
+      "Designed and built an AI evaluation suite solo using the DeepEval framework with GPT-3.5-turbo as an LLM judge, testing note summarization and chatbot responses across 9 test cases using SummarizationMetric, FaithfulnessMetric, and AnswerRelevancyMetric with all 9 cases passed with scores synced to the Confident AI dashboard"
     ],
     images: [
       "/images/STUDAI.webp",
@@ -300,15 +306,15 @@ export const projectsData = [
   },
   {
     title: "Webinar Platform UX Testing & Feedback",
-    role: "Software QA & Tester · Freelance (Upwork)",
-    period: "May 2026",
+    role: "Software QA & Product Tester  · Freelance (Upwork)",
+    period: "May-June 2026",
     tech: ["Software QA", "Software Testing"],
     highlights: [
-      "Conducted guided usability testing sessions on a browser-based webinar platform for professionals, founders, and creators",
-      "Evaluated key features and engagement tools, providing structured feedback on usability and overall user experience",
-      "Delivered targeted written analysis covering pain points, strengths, and improvement suggestions based on real-world webinar and virtual event experience"
+      "Tested a private-label jewelry dropshipping platform end-to-end, evaluating the store setup flow, branding asset generation, product catalog management, and Shopify integration for automated order fulfillment",
+      "Evaluated a browser-based webinar platform across all available modes and features including hosting, engagement tools, and audience interaction, delivering structured written feedback on usability, pain points, and improvement suggestions",
+      "Produced screen-recorded proof-of-testing sessions and written deliverables for two separate client platforms, documenting real user experience with actionable insights for each product team"
     ],
-    images: ["/images/WG.webp"],
+    images: ["/images/ST1.webp", "/images/ST.webp"],
     link: null,
     isPrivate: false,
   },
