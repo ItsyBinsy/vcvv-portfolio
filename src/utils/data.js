@@ -235,13 +235,14 @@ export const projectsData = [
     title: "Star Coloroof - Roofing Products E-Commerce Platform",
     role: "Full-Stack Developer",
     period: "Dec 2025",
-    tech: ["ReactJS", "Node.js", "Tailwind CSS", "REST API", "GitHub"],
+    tech: ["ReactJS", "React Router v7", "Node.js", "Express", "Nodemailer", "Tailwind CSS", "Framer Motion", "Axios", "GitHub"],
     highlights: [
-      "Built online storefront with product catalog, detailed specifications, and shopping cart",
-      "Developed booking system and customer inquiry features",
-      "Managed version control and team collaboration using GitHub"
+      "Built a multi-page React application for a real construction materials supplier, defended as an academic final requirement, with full client-side routing using React Router v7, implementing protected admin routes with a custom AuthContext, useContext, and ProtectedRoute pattern that redirects unauthenticated users back to their intended destination after login",
+      "Applied core React patterns throughout including useState for local UI state, useEffect with cleanup functions for event listeners and timers, useRef for click-outside modal detection, lifting state up between parent and child components, and controlled form inputs with inline validation",
+      "Built a product catalog with real-time search, multi-select category filtering, a detail modal with scroll lock and keyboard close, and parallel data fetching using Promise.all to avoid sequential waterfall requests",
+      "Connected the frontend to three Node.js servers handling REST data (JSON Server), email delivery (Nodemailer with HTML templates), and image uploads (Multer with MIME validation), integrating all three via Axios"
     ],
-    images: ["/images/STARCOLOROOF.webp"],
+    images: ["/images/STAR1.webp", "/images/STAR2.webp"],
     link: null,
     github: "https://github.com/npsangco/Coloroof-App",
     isPrivate: false,
@@ -252,9 +253,9 @@ export const projectsData = [
     period: "Dec 2025",
     tech: ["Laravel", "MySQL", "Bootstrap", "DigitalOcean", "GitHub"],
     highlights: [
-      "Built role-based management system with three-tier access control (Administrator, Employee, Resident)",
-      "Developed household registrations, resident profiles, employee records, infrastructure project tracking, and incident reporting modules",
-      "Managed deployment with Digital Ocean and version control with GitHub"
+      "Built a role-based access control system with three user tiers (admin, employee, resident) using Laravel middleware and route grouping, applying authentication and authorization patterns in a real multi-user application context",
+      "Designed and managed database layer using Laravel migrations, Eloquent ORM, and seeders across 7 models and 15 migrations, implementing soft deletes for record archiving and relational data modeling for a government use case",
+      "Containerized the application with Docker and deployed to DigitalOcean App Platform with a managed MySQL 8 database and auto-deploy on push to main"
     ],
     images: [
       "/images/BARANGAY.webp",
@@ -300,11 +301,12 @@ export const projectsData = [
     title: "Viva La Vigan - Tourism & Cultural Heritage Platform",
     role: "Full-Stack Developer",
     period: "2024",
-    tech: ["AngularJS", "ASP.NET MVC", "MySQL", "Materialize", "GitHub"],
+    tech: ["C#", "ASP.NET MVC", "Entity Framework", "AngularJS", "Materialize CSS", "MySQL", "GitHub",],
     highlights: [
-      "Built role-based content management system with three-tier access control (User, Writer, Admin) and application approval workflow",
-      "Developed tourism showcase features including attractions gallery, experience posts, writer dashboard for content submission, and admin moderation panel",
-      "Implemented user authentication with status-based login (pending, approved, rejected) and dynamic role-based dashboard routing"
+      "Built a multi-role blogging and content management platform using ASP.NET MVC and AngularJS, with three access tiers (User, Writer, Admin) each routed to their own dashboard, views, and business logic, with Materialize CSS for the responsive UI",
+      "Designed the data layer using Entity Framework Code-First with segregated DbContexts per domain (users, blogs, comments) and kept data responsibilities separated across bounded contexts",
+      "Implemented status-based authentication where accounts cycle through pending, approved, and rejected states, with a role escalation flow that locks writer applicants in a pending state until processed through an admin moderation queue",
+      "Built full CRUD operations for blog posts and user management across both the ASP.NET MVC backend and the AngularJS frontend, writing the services, controllers, and async HTTP calls that connect the client to the server without full page refreshes"
     ],
     images: ["/images/LVV.webp"],
     link: null,
