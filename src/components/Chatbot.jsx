@@ -191,7 +191,7 @@ const Chatbot = ({ isOpen, onClose }) => {
         </div>
 
         {/* Messages */}
-        <div className="flex-1 overflow-y-auto px-4 py-3 space-y-3 modal-scrollbar">
+        <div className="flex-1 overflow-y-auto px-4 py-3 space-y-3 modal-scrollbar" data-lenis-prevent>
           {messages.map((msg, i) => (
             <div key={i} className={`flex ${msg.type === 'user' ? 'justify-end' : 'justify-start'}`}>
               <div className="max-w-[82%]">

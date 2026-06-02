@@ -57,7 +57,7 @@ const Projects = ({ defaultOpen = false, onModalClose } = {}) => {
                 </div>
               </div>
 
-              <div className="overflow-y-auto flex-1 modal-scrollbar">
+              <div className="overflow-y-auto flex-1 modal-scrollbar" data-lenis-prevent>
                 {projectsData.map((project, index) => (
                   <button
                     key={index}
@@ -163,7 +163,7 @@ const Projects = ({ defaultOpen = false, onModalClose } = {}) => {
                 </div>
 
                 {/* Detail content */}
-                <div className="flex-1 overflow-y-auto modal-scrollbar px-5 py-4 space-y-4">
+                <div className="flex-1 overflow-y-auto modal-scrollbar px-5 py-4 space-y-4" data-lenis-prevent>
                   <div>
                     <p className="text-[10px] font-bold text-gray-400 dark:text-gray-500 uppercase tracking-widest mb-2">Built With</p>
                     <div className="flex flex-wrap gap-1.5">

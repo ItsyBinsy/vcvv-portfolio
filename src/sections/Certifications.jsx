@@ -171,7 +171,7 @@ const Certifications = ({ defaultOpen = false, onModalClose } = {}) => {
               </div>
 
               {/* Timeline grouped by year */}
-              <div className="overflow-y-auto flex-1 modal-scrollbar px-3 py-3 space-y-4">
+              <div className="overflow-y-auto flex-1 modal-scrollbar px-3 py-3 space-y-4" data-lenis-prevent>
                 {sortedYears.map(year => (
                   <div key={year}>
                     <div className="flex items-center gap-2 mb-2">
