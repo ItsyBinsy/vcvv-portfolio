@@ -256,7 +256,13 @@ export const projectsData = [
       "Developed household registrations, resident profiles, employee records, infrastructure project tracking, and incident reporting modules",
       "Managed deployment with Digital Ocean and version control with GitHub"
     ],
-    images: ["/images/BARANGAY.webp"],
+    images: [
+      "/images/BARANGAY.webp",
+      "/images/BARANGAY2.webp",
+      "/images/BARANGAY3.webp",
+      "/images/BARANGAY4.webp",
+      "/images/BARANGAY5.webp",
+    ],
     link: null,
     github: "https://github.com/npsangco/barangay247",
     isPrivate: false,
