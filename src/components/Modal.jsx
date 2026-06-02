@@ -51,6 +51,7 @@ const Modal = ({ isOpen, onClose, title, children }) => {
         {/* Content - Custom scrollbar for dark mode */}
         <div
           className="flex-1 overflow-y-auto p-2.5 md:p-6 modal-scrollbar"
+          data-lenis-prevent
         >
           {children}
         </div>
