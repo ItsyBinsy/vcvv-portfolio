@@ -81,6 +81,11 @@ const Chatbot = ({ isOpen, onClose }) => {
 
   const handleSend = async (messageText = input) => {
     if (!messageText.trim()) return;
+    if (messageText.length > 500) {
+      setError('Message too long. Keep it under 500 characters.');
+      setTimeout(() => setError(null), 2000);
+      return;
+    }
     const now = Date.now();
     if (now - lastMessageTime < 3000) {
       const wait = Math.ceil((3000 - (now - lastMessageTime)) / 1000);
@@ -276,6 +281,7 @@ const Chatbot = ({ isOpen, onClose }) => {
             onChange={e => setInput(e.target.value)}
             onKeyDown={handleKeyDown}
             placeholder="Ask me anything…"
+            maxLength={500}
             className="flex-1 bg-transparent text-gray-900 dark:text-white placeholder:text-gray-400 dark:placeholder:text-gray-600 outline-none"
             style={{ fontSize: '16px' }}
           />
