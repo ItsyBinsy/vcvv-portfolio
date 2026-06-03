@@ -1,6 +1,6 @@
 import { useRef, useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
-import { MdDownload, MdKeyboardArrowDown, MdVerified, MdAlternateEmail, MdArrowOutward, MdOpenInNew, MdLock, MdCode, MdPhone } from 'react-icons/md';
+import { MdDownload, MdKeyboardArrowDown, MdVerified, MdAlternateEmail, MdArrowOutward, MdOpenInNew, MdLock, MdCode, MdPhone, MdChevronLeft, MdChevronRight } from 'react-icons/md';
 import { SiGmail, SiGithub } from 'react-icons/si';
 import { RiFacebookLine, RiLinkedinLine } from 'react-icons/ri';
 import { LuGithub } from 'react-icons/lu';
@@ -148,67 +148,121 @@ const HeroScreen = ({ onScrollDown }) => {
 
 
 /* ─── Projects sheet content ─────────────────────────── */
-const ProjectsContent = () => (
-  <div className="divide-y divide-gray-100 dark:divide-white/6">
-    {projectsData.map((project) => {
-      const imgs = project.images?.length ? project.images : [];
-      return (
-        <div key={project.title} className="px-5 py-5">
-          {imgs.length > 0 && (
-            <div className="flex gap-2 mb-3 overflow-x-auto scrollbar-hide -mx-5 px-5">
-              {imgs.map((src, i) => {
-                const useContain = !!project.useContain;
-                return (
-                  <div key={i} className={`flex-shrink-0 w-[80vw] rounded-xl overflow-hidden bg-gray-100 dark:bg-white/6 ${useContain ? 'aspect-[16/9]' : 'aspect-[16/7]'}`}>
-                    <img src={src} alt="" className={`w-full h-full ${useContain ? 'object-contain' : 'object-cover object-top'}`} loading="lazy" />
-                  </div>
-                );
-              })}
-            </div>
-          )}
-          <div className="flex items-start justify-between gap-2 mb-2">
-            <div>
-              <h3 className="text-sm font-bold text-gray-900 dark:text-white leading-snug">{project.title}</h3>
-              <p className="text-xs text-gray-400 dark:text-gray-500 mt-0.5">{project.role}{project.period ? ` · ${project.period}` : ''}</p>
-            </div>
-            <div className="flex gap-1 flex-shrink-0 mt-0.5">
-              {project.github && <a href={project.github} target="_blank" rel="noopener noreferrer" className="p-1.5 rounded-lg text-gray-400 hover:text-gray-900 dark:hover:text-white"><SiGithub className="w-4 h-4" /></a>}
-              {project.link && <a href={project.link} target="_blank" rel="noopener noreferrer" className="p-1.5 rounded-lg text-gray-400 hover:text-yellow-500"><MdOpenInNew className="w-4 h-4" /></a>}
-              {project.isPrivate && !project.link && !project.github && (
-                <span className="flex items-center gap-1 px-2 py-1 rounded-lg bg-gray-100 dark:bg-white/8 text-gray-400 text-[10px]">
-                  <MdLock className="w-3 h-3" />Private
-                </span>
-              )}
-            </div>
-          </div>
-          <div className="mb-3">
-            <p className="text-[10px] font-bold text-gray-400 dark:text-gray-500 uppercase tracking-widest mb-1.5">Built With</p>
-            <div className="flex flex-wrap gap-1.5">
-              {project.tech.map(t => (
-                <Badge key={t} variant="outline" className="text-[10px] px-2 py-0.5 h-auto bg-yellow-50 dark:bg-yellow-900/20 border-yellow-200 dark:border-yellow-800/50 text-yellow-700 dark:text-yellow-400">
-                  {t}
-                </Badge>
-              ))}
-            </div>
-          </div>
-          {project.highlights?.length > 0 && (
+const ProjectDetail = ({ project, onClose }) => {
+  const imgs = project.images?.length ? project.images : [];
+  const useContain = !!project.useContain;
+  const [imgIndex, setImgIndex] = useState(0);
+
+  return (
+    <div className="pb-8">
+      {imgs.length > 0 && (
+        <div className="relative bg-gray-100 dark:bg-black" style={{ aspectRatio: useContain ? '16/9' : '16/7' }}>
+          <img
+            src={imgs[imgIndex]}
+            alt=""
+            className={`w-full h-full ${useContain ? 'object-contain' : 'object-cover object-top'}`}
+            loading="lazy"
+          />
+          {imgs.length > 1 && (
             <>
-              <p className="text-[10px] font-bold text-gray-400 dark:text-gray-500 uppercase tracking-widest mb-1.5">Highlights</p>
-              <ul className="space-y-1.5">
-                {project.highlights.map((h, i) => (
-                  <li key={i} className="flex gap-2 items-start">
-                    <span className="w-1 h-1 rounded-full bg-yellow-500 flex-shrink-0 mt-1.5" />
-                    <span className="text-xs text-gray-600 dark:text-gray-400 leading-relaxed">{h}</span>
-                  </li>
+              <button onClick={() => setImgIndex((imgIndex - 1 + imgs.length) % imgs.length)}
+                className="absolute left-2 top-1/2 -translate-y-1/2 w-7 h-7 rounded-full bg-black/40 backdrop-blur-sm flex items-center justify-center text-white">
+                <MdChevronLeft className="w-4 h-4" />
+              </button>
+              <button onClick={() => setImgIndex((imgIndex + 1) % imgs.length)}
+                className="absolute right-2 top-1/2 -translate-y-1/2 w-7 h-7 rounded-full bg-black/40 backdrop-blur-sm flex items-center justify-center text-white">
+                <MdChevronRight className="w-4 h-4" />
+              </button>
+              <div className="absolute bottom-2 left-1/2 -translate-x-1/2 flex gap-1 px-2 py-1 rounded-full bg-black/30 backdrop-blur-sm">
+                {imgs.map((_, i) => (
+                  <button key={i} onClick={() => setImgIndex(i)}
+                    className={`rounded-full transition-all duration-200 ${i === imgIndex ? 'w-4 h-1.5 bg-white' : 'w-1.5 h-1.5 bg-white/50'}`} />
                 ))}
-              </ul>
+              </div>
             </>
           )}
         </div>
-      );
-    })}
-  </div>
-);
+      )}
+
+      <div className="px-5 pt-4">
+        <div className="flex items-start justify-between gap-2 mb-1">
+          <h3 className="text-base font-bold text-gray-900 dark:text-white leading-snug">{project.title}</h3>
+          <div className="flex gap-1 flex-shrink-0">
+            {project.github && <a href={project.github} target="_blank" rel="noopener noreferrer" className="p-1.5 rounded-lg text-gray-400"><SiGithub className="w-4 h-4" /></a>}
+            {project.link && <a href={project.link} target="_blank" rel="noopener noreferrer" className="p-1.5 rounded-lg text-gray-400 hover:text-yellow-500"><MdOpenInNew className="w-4 h-4" /></a>}
+            {project.isPrivate && !project.link && !project.github && (
+              <span className="flex items-center gap-1 px-2 py-1 rounded-lg bg-gray-100 dark:bg-white/8 text-gray-400 text-[10px]">
+                <MdLock className="w-3 h-3" />Private
+              </span>
+            )}
+          </div>
+        </div>
+        <p className="text-xs text-gray-400 dark:text-gray-500 mb-4">{project.role}{project.period ? ` · ${project.period}` : ''}</p>
+
+        <p className="text-[10px] font-bold text-gray-400 dark:text-gray-500 uppercase tracking-widest mb-1.5">Built With</p>
+        <div className="flex flex-wrap gap-1.5 mb-4">
+          {project.tech.map(t => (
+            <Badge key={t} variant="outline" className="text-[10px] px-2 py-0.5 h-auto bg-yellow-50 dark:bg-yellow-900/20 border-yellow-200 dark:border-yellow-800/50 text-yellow-700 dark:text-yellow-400">
+              {t}
+            </Badge>
+          ))}
+        </div>
+
+        {project.highlights?.length > 0 && (
+          <>
+            <p className="text-[10px] font-bold text-gray-400 dark:text-gray-500 uppercase tracking-widest mb-1.5">Highlights</p>
+            <ul className="space-y-1.5">
+              {project.highlights.map((h, i) => (
+                <li key={i} className="flex gap-2 items-start">
+                  <span className="w-1 h-1 rounded-full bg-yellow-500 flex-shrink-0 mt-1.5" />
+                  <span className="text-xs text-gray-600 dark:text-gray-400 leading-relaxed">{h}</span>
+                </li>
+              ))}
+            </ul>
+          </>
+        )}
+      </div>
+    </div>
+  );
+};
+
+const ProjectsContent = () => {
+  const [selectedProject, setSelectedProject] = useState(null);
+
+  return (
+    <>
+      <p className="px-5 pt-4 pb-2 text-[10px] text-gray-400 dark:text-gray-600">Tap a project to view details</p>
+      <div className="grid grid-cols-2 gap-3 px-5 pb-4">
+        {projectsData.map((project) => (
+          <button
+            key={project.title}
+            onClick={() => setSelectedProject(project)}
+            className="flex flex-col rounded-xl overflow-hidden border border-gray-100 dark:border-white/6 bg-gray-50 dark:bg-white/3 active:scale-95 transition-transform text-left"
+          >
+            <div className="w-full aspect-[4/3] bg-gray-100 dark:bg-white/6 overflow-hidden">
+              {project.images?.[0]
+                ? <img src={project.images[0]} alt="" className={`w-full h-full ${project.useContain ? 'object-contain' : 'object-cover object-top'}`} loading="lazy" />
+                : <div className="w-full h-full bg-gradient-to-br from-yellow-100 to-yellow-200 dark:from-yellow-900/30 dark:to-yellow-800/20" />
+              }
+            </div>
+            <div className="px-2.5 py-2">
+              <p className="text-xs font-bold text-gray-800 dark:text-gray-200 leading-tight line-clamp-2">{project.title}</p>
+              <p className="text-[10px] text-gray-400 dark:text-gray-500 mt-0.5 truncate">{project.period}</p>
+            </div>
+          </button>
+        ))}
+      </div>
+
+      <BottomSheet
+        open={!!selectedProject}
+        onClose={() => setSelectedProject(null)}
+        title={selectedProject?.title}
+      >
+        {selectedProject && <ProjectDetail project={selectedProject} onClose={() => setSelectedProject(null)} />}
+      </BottomSheet>
+    </>
+  );
+};
 
 /* ─── Skills sheet content ───────────────────────────── */
 const SkillsContent = () => {
