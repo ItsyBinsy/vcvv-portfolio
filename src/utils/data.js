@@ -354,9 +354,9 @@ export const projectsData = [
     period: "2023",
     tech: ["HTML5", "CSS", "JavaScript", "Bootstrap", "MySQL"],
     highlights: [
-      "Built responsive tourism website with destination showcase pages, tour packages, and user authentication",
-      "Developed blog system and direct booking integration",
-      "Implemented quality assurance testing for cross-browser compatibility"
+      "One of the earlier projects that shaped a full-stack approach, applying HTML5, CSS, JavaScript, Bootstrap, and MySQL end-to-end across responsive layouts, dynamic content, role-based access control (User, Writer, Admin), and database-backed user authentication",
+      "Collaborated in a team setting for a defended academic project, coordinating across members and delivering a working product under real academic pressure",
+      "Performed manual QA across all pages, catching UI inconsistencies and broken flows before the project defense"
     ],
     images: ["/images/EXPERIENCEMIMAROPA.webp"],
     link: null,
