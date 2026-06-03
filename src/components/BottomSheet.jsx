@@ -1,10 +1,10 @@
-import { useEffect } from 'react';
+import { useEffect, useLayoutEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 
 let scrollLockCount = 0;
 
 const BottomSheet = ({ open, onClose, children, title, icon: TitleIcon }) => {
-  useEffect(() => {
+  useLayoutEffect(() => {
     if (open) {
       scrollLockCount++;
       document.body.style.overflow = 'hidden';
