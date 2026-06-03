@@ -135,7 +135,7 @@ const Chatbot = ({ isOpen, onClose }) => {
       {isMinimized && (
         <div
           onClick={() => { setIsMinimized(false); setUnreadCount(0); }}
-          className="fixed bottom-20 right-4 md:bottom-8 md:right-8 w-14 h-14 rounded-full bg-yellow-500 hover:bg-yellow-400 shadow-2xl flex items-center justify-center cursor-pointer transition-all duration-200 z-40"
+          className="fixed bottom-20 right-4 md:bottom-8 md:right-8 w-14 h-14 rounded-full bg-yellow-500 hover:bg-yellow-400 shadow-2xl flex items-center justify-center cursor-pointer transition-all duration-200 z-40 mb-[env(safe-area-inset-bottom)]"
         >
           <RiRobot2Line className="text-white text-2xl" />
           {unreadCount > 0 && (
@@ -147,7 +147,7 @@ const Chatbot = ({ isOpen, onClose }) => {
       )}
 
       {/* Chat window */}
-      {!isMinimized && <div className="fixed bottom-20 right-4 md:bottom-8 md:right-8 w-[calc(100vw-2rem)] md:w-[22rem] h-[32rem] flex flex-col z-40 rounded-2xl overflow-hidden shadow-2xl border border-gray-200 dark:border-white/8 bg-white dark:bg-[#0d0d0d]">
+      {!isMinimized && <div className="fixed bottom-20 right-4 md:bottom-8 md:right-8 w-[calc(100vw-2rem)] md:w-[22rem] h-[70svh] md:h-[32rem] max-h-[600px] flex flex-col z-40 rounded-2xl overflow-hidden shadow-2xl border border-gray-200 dark:border-white/8 bg-white dark:bg-[#0d0d0d]" style={{ paddingBottom: 'env(safe-area-inset-bottom)' }}>
 
         {/* Header */}
         <div className="flex items-center justify-between px-4 py-3 border-b border-gray-100 dark:border-white/6 flex-shrink-0">
@@ -198,21 +198,21 @@ const Chatbot = ({ isOpen, onClose }) => {
         {/* Messages */}
         <div className="flex-1 overflow-y-auto px-4 py-3 space-y-3 modal-scrollbar" data-lenis-prevent>
           {messages.map((msg, i) => (
-            <div key={i} className={`flex ${msg.type === 'user' ? 'justify-end' : 'justify-start'}`}>
+            <div key={i} className={`flex ${msg.type === 'user' ? 'justify-end' : 'justify-start'} group`}>
               <div className="max-w-[82%]">
-                <div className={`px-3 py-2 rounded-2xl text-sm leading-relaxed ${
+                <div className={`px-3 py-2 text-sm ${
                   msg.type === 'user'
-                    ? 'bg-yellow-500 text-white rounded-br-sm'
-                    : 'bg-gray-100 dark:bg-white/6 text-gray-900 dark:text-white rounded-bl-sm'
+                    ? 'bg-yellow-500 text-white rounded-2xl rounded-br-sm'
+                    : 'bg-gray-100 dark:bg-white/6 text-gray-900 dark:text-white rounded-2xl rounded-bl-sm border-l-2 border-yellow-400/60'
                 }`}>
                   {msg.type === 'bot' ? (
-                    <div className="prose prose-sm dark:prose-invert max-w-none text-[13px]">
+                    <div className="prose prose-sm dark:prose-invert max-w-none text-[13px] leading-snug">
                       <ReactMarkdown
                         components={{
-                          p: ({ node, ...props }) => <p className="mb-1.5 last:mb-0" {...props} />,
+                          p: ({ node, ...props }) => <p className="mb-1 last:mb-0" {...props} />,
                           a: ({ node, ...props }) => <a className="text-yellow-500 hover:underline" target="_blank" rel="noopener noreferrer" {...props} />,
-                          ul: ({ node, ...props }) => <ul className="list-disc ml-4 mb-1.5" {...props} />,
-                          ol: ({ node, ...props }) => <ol className="list-decimal ml-4 mb-1.5" {...props} />,
+                          ul: ({ node, ...props }) => <ul className="list-disc ml-4 mb-1" {...props} />,
+                          ol: ({ node, ...props }) => <ol className="list-decimal ml-4 mb-1" {...props} />,
                           code: ({ node, inline, ...props }) =>
                             inline
                               ? <code className="bg-black/10 dark:bg-white/10 px-1 py-0.5 rounded text-xs" {...props} />
@@ -223,10 +223,10 @@ const Chatbot = ({ isOpen, onClose }) => {
                       </ReactMarkdown>
                     </div>
                   ) : (
-                    <p className="text-[13px]">{msg.text}</p>
+                    <p className="text-[13px] leading-snug">{msg.text}</p>
                   )}
                 </div>
-                <div className="flex items-center gap-1.5 mt-0.5 px-1">
+                <div className="flex items-center gap-1.5 mt-0.5 px-1 opacity-0 group-hover:opacity-100 transition-opacity duration-150">
                   <span className="text-[10px] text-gray-400 dark:text-gray-600">{formatTime(msg.timestamp)}</span>
                   {msg.type === 'bot' && (
                     <button onClick={() => copyToClipboard(msg.text, i)} className="text-gray-300 dark:text-gray-600 hover:text-gray-500 dark:hover:text-gray-400 transition-colors">
@@ -273,25 +273,27 @@ const Chatbot = ({ isOpen, onClose }) => {
         </div>
 
         {/* Input */}
-        <div className="flex items-center gap-2 px-3 py-2.5 border-t border-gray-100 dark:border-white/6 flex-shrink-0">
-          <input
-            ref={inputRef}
-            type="text"
-            value={input}
-            onChange={e => setInput(e.target.value)}
-            onKeyDown={handleKeyDown}
-            placeholder="Ask me anything…"
-            maxLength={500}
-            className="flex-1 bg-transparent text-gray-900 dark:text-white placeholder:text-gray-400 dark:placeholder:text-gray-600 outline-none"
-            style={{ fontSize: '16px' }}
-          />
-          <button
-            onClick={() => handleSend()}
-            disabled={!input.trim()}
-            className="w-8 h-8 rounded-full bg-yellow-500 hover:bg-yellow-400 disabled:bg-gray-200 dark:disabled:bg-white/6 disabled:cursor-not-allowed flex items-center justify-center flex-shrink-0 transition-colors duration-150"
-          >
-            <MdSend className="text-white text-sm" />
-          </button>
+        <div className="px-3 py-2.5 border-t border-gray-100 dark:border-white/6 flex-shrink-0">
+          <div className="flex items-center gap-2 px-3 py-2 rounded-xl bg-gray-100 dark:bg-white/6 border border-gray-200 dark:border-white/8 focus-within:border-yellow-400/50 dark:focus-within:border-yellow-400/30 transition-colors">
+            <input
+              ref={inputRef}
+              type="text"
+              value={input}
+              onChange={e => setInput(e.target.value)}
+              onKeyDown={handleKeyDown}
+              placeholder="Ask me anything…"
+              maxLength={500}
+              className="flex-1 bg-transparent text-gray-900 dark:text-white placeholder:text-gray-400 dark:placeholder:text-gray-600 outline-none text-sm"
+              style={{ fontSize: '16px' }}
+            />
+            <button
+              onClick={() => handleSend()}
+              disabled={!input.trim()}
+              className="w-7 h-7 rounded-lg bg-yellow-500 hover:bg-yellow-400 disabled:bg-gray-300 dark:disabled:bg-white/10 disabled:cursor-not-allowed flex items-center justify-center flex-shrink-0 transition-colors duration-150"
+            >
+              <MdSend className="text-white text-xs" />
+            </button>
+          </div>
         </div>
       </div>}
 
