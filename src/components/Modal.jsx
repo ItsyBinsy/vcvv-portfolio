@@ -1,15 +1,14 @@
-import { useEffect } from 'react';
+import { useEffect, useLayoutEffect } from 'react';
 import { createPortal } from 'react-dom';
 import { MdClose } from 'react-icons/md';
 
 const Modal = ({ isOpen, onClose, title, children }) => {
-  useEffect(() => {
+  useLayoutEffect(() => {
     if (isOpen) {
       document.body.style.overflow = 'hidden';
     }
-
     return () => {
-      document.body.style.overflow = 'unset';
+      document.body.style.overflow = '';
     };
   }, [isOpen]);
 

@@ -1,4 +1,4 @@
-import { useState, useRef, useEffect } from 'react';
+import { useState, useRef, useEffect, useLayoutEffect } from 'react';
 import { MdClose, MdSend, MdContentCopy, MdCheck, MdRemove } from 'react-icons/md';
 import { RiRobot2Line } from 'react-icons/ri';
 import ReactMarkdown from 'react-markdown';
@@ -46,6 +46,15 @@ const Chatbot = ({ isOpen, onClose }) => {
 
   useEffect(() => {
     if (isOpen && !isMinimized) setTimeout(() => inputRef.current?.focus(), 100);
+  }, [isOpen, isMinimized]);
+
+  useLayoutEffect(() => {
+    if (isOpen && !isMinimized) {
+      document.body.style.overflow = 'hidden';
+    } else {
+      document.body.style.overflow = '';
+    }
+    return () => { document.body.style.overflow = ''; };
   }, [isOpen, isMinimized]);
 
   useEffect(() => {

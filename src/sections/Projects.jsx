@@ -4,6 +4,7 @@ import { Badge } from '../components/ui/badge';
 import { projectsData } from '../utils/data';
 import { MdWorkOutline, MdOpenInNew, MdLock, MdArrowForwardIos, MdChevronLeft, MdChevronRight } from 'react-icons/md';
 import { SiGithub } from 'react-icons/si';
+import ImageWithSkeleton from '../components/ImageWithSkeleton';
 
 const Projects = ({ defaultOpen = false, onModalClose } = {}) => {
   const [isModalOpen, setIsModalOpen] = useState(defaultOpen);
@@ -68,9 +69,12 @@ const Projects = ({ defaultOpen = false, onModalClose } = {}) => {
                         : 'hover:bg-gray-50 dark:hover:bg-white/4 border-l-2 border-l-transparent'
                     }`}
                   >
-                    <div className="w-8 h-8 rounded-md overflow-hidden flex-shrink-0 bg-gray-100 dark:bg-white/8">
-                      <img src={project.images?.[0]} alt="" className="w-full h-full object-cover object-top" loading="lazy" />
-                    </div>
+                    <ImageWithSkeleton
+                      src={project.images?.[0]}
+                      alt=""
+                      className="w-full h-full object-cover object-top"
+                      containerClassName="w-8 h-8 rounded-md flex-shrink-0 bg-gray-100 dark:bg-white/8"
+                    />
                     <div className="min-w-0 flex-1">
                       <p className={`text-xs font-semibold leading-tight line-clamp-2 transition-colors ${
                         selectedProject?.title === project.title
@@ -97,11 +101,12 @@ const Projects = ({ defaultOpen = false, onModalClose } = {}) => {
                   const useContain = !!selectedProject.useContain;
                   return (
                     <div className="flex-shrink-0 relative overflow-hidden border-b border-gray-100 dark:border-white/6 bg-gray-50 dark:bg-black" style={{ height: useContain ? '250px' : '200px' }}>
-                      <img
+                      <ImageWithSkeleton
                         key={imgs[imgIndex]}
                         src={imgs[imgIndex]}
                         alt={`${selectedProject.title} screenshot ${imgIndex + 1}`}
                         className={`absolute inset-0 w-full h-full transition-opacity duration-200 ${useContain ? 'object-contain' : 'object-cover object-top'}`}
+                        containerClassName="absolute inset-0"
                       />
                       {imgs.length > 1 && (
                         <>

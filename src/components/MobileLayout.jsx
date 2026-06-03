@@ -1,4 +1,5 @@
 import { useRef, useState, useEffect } from 'react';
+import ImageWithSkeleton from './ImageWithSkeleton';
 import { motion } from 'framer-motion';
 import { MdDownload, MdKeyboardArrowDown, MdVerified, MdAlternateEmail, MdArrowOutward, MdOpenInNew, MdLock, MdCode, MdPhone, MdChevronLeft, MdChevronRight } from 'react-icons/md';
 import { SiGmail, SiGithub } from 'react-icons/si';
@@ -157,11 +158,11 @@ const ProjectDetail = ({ project, onClose }) => {
     <div className="pb-8">
       {imgs.length > 0 && (
         <div className="relative bg-gray-100 dark:bg-black" style={{ aspectRatio: useContain ? '16/9' : '16/7' }}>
-          <img
+          <ImageWithSkeleton
             src={imgs[imgIndex]}
             alt=""
             className={`w-full h-full ${useContain ? 'object-contain' : 'object-cover object-top'}`}
-            loading="lazy"
+            containerClassName="w-full h-full"
           />
           {imgs.length > 1 && (
             <>
@@ -241,7 +242,7 @@ const ProjectsContent = () => {
           >
             <div className="w-full aspect-[4/3] bg-gray-100 dark:bg-white/6 overflow-hidden">
               {project.images?.[0]
-                ? <img src={project.images[0]} alt="" className={`w-full h-full ${project.useContain ? 'object-contain' : 'object-cover object-top'}`} loading="lazy" />
+                ? <ImageWithSkeleton src={project.images[0]} alt="" className={`w-full h-full ${project.useContain ? 'object-contain' : 'object-cover object-top'}`} containerClassName="w-full h-full" />
                 : <div className="w-full h-full bg-gradient-to-br from-yellow-100 to-yellow-200 dark:from-yellow-900/30 dark:to-yellow-800/20" />
               }
             </div>
