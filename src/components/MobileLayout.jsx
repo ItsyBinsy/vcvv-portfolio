@@ -319,77 +319,103 @@ const SkillsContent = () => {
       {/* Helper hint */}
       <p className="px-5 pb-2 text-[10px] text-gray-400 dark:text-gray-600">Tap a skill to learn more</p>
 
-      {/* Notion-style list */}
-      <div className="divide-y divide-gray-100 dark:divide-white/6 px-5 pb-4">
+      {/* 2-column icon grid */}
+      <div className="grid grid-cols-2 gap-2 px-5 pb-4">
         {filtered.map((skill) => {
           const Icon = iconMap[skill.icon];
-          const isSelected = selectedSkill === skill.name;
           const colorClass = categoryColors[skill.category] || categoryColors['Frontend'];
           return (
             <button
               key={skill.name}
-              onClick={() => setSelectedSkill(isSelected ? null : skill.name)}
-              className="w-full text-left"
+              onClick={() => setSelectedSkill(skill.name === selectedSkill ? null : skill.name)}
+              className="flex items-center gap-3 px-3 py-3 rounded-xl border border-gray-100 dark:border-white/6 bg-gray-50 dark:bg-white/3 active:scale-95 transition-transform text-left"
             >
-              <div className="flex items-center gap-3 py-3">
-                <div className={`w-8 h-8 rounded-lg flex items-center justify-center flex-shrink-0 text-base transition-all duration-200 ${
-                  isSelected
-                    ? `bg-gradient-to-br border ${colorClass}`
-                    : 'bg-gray-100 dark:bg-white/8 text-gray-500 dark:text-gray-400'
-                }`}>
-                  {Icon && <Icon />}
-                </div>
-                <div className="min-w-0 flex-1">
-                  <p className={`text-sm font-semibold transition-colors duration-200 ${isSelected ? 'text-gray-900 dark:text-white' : 'text-gray-800 dark:text-gray-200'}`}>
-                    {skill.name}
-                  </p>
-                  {!isSelected && skill.description && (
-                    <p className="text-[10px] text-gray-400 dark:text-gray-500 leading-snug line-clamp-1">{skill.description}</p>
-                  )}
-                </div>
-                <span className={`text-gray-300 dark:text-gray-700 text-xs transition-transform duration-200 flex-shrink-0 ${isSelected ? 'rotate-180' : ''}`}>▾</span>
+              <div className={`w-8 h-8 rounded-lg flex items-center justify-center flex-shrink-0 text-base bg-gradient-to-br border ${colorClass}`}>
+                {Icon && <Icon />}
               </div>
-              {isSelected && skill.description && (
-                <div className="pb-3 pl-11">
-                  <p className="text-xs text-gray-500 dark:text-gray-400 leading-relaxed">{skill.description}</p>
-                </div>
-              )}
+              <span className="text-xs font-semibold text-gray-800 dark:text-gray-200 leading-tight">{skill.name}</span>
             </button>
           );
         })}
         {filtered.length === 0 && (
-          <p className="text-xs text-gray-400 dark:text-gray-600 py-6 text-center">No skills found</p>
+          <p className="text-xs text-gray-400 dark:text-gray-600 py-6 text-center col-span-2">No skills found</p>
         )}
       </div>
+
+      <BottomSheet
+        open={!!selectedSkill}
+        onClose={() => setSelectedSkill(null)}
+        title={selectedSkill}
+      >
+        {selectedSkill && (() => {
+          const skill = filtered.find(s => s.name === selectedSkill) || allSkills.find(s => s.name === selectedSkill);
+          const Icon = skill ? iconMap[skill.icon] : null;
+          const colorClass = skill ? (categoryColors[skill.category] || categoryColors['Frontend']) : '';
+          return skill ? (
+            <div className="px-5 py-5">
+              <div className={`w-14 h-14 rounded-2xl flex items-center justify-center text-2xl mb-4 bg-gradient-to-br border ${colorClass}`}>
+                {Icon && <Icon />}
+              </div>
+              <p className="text-[10px] font-bold text-gray-400 dark:text-gray-500 uppercase tracking-widest mb-1">{skill.category}</p>
+              <p className="text-sm text-gray-600 dark:text-gray-400 leading-relaxed">{skill.description}</p>
+            </div>
+          ) : null;
+        })()}
+      </BottomSheet>
     </>
   );
 };
 
 /* ─── Certs sheet content ────────────────────────────── */
-const CertsContent = () => (
-  <div className="divide-y divide-gray-100 dark:divide-white/6">
-    {certificationsData.map((cert) => (
-      <div key={cert.name} className="px-5 py-5">
-        {/* Badge image — same treatment as project screenshot */}
-        <div className="w-full aspect-[16/7] rounded-xl overflow-hidden bg-gray-50 dark:bg-white/4 border border-gray-100 dark:border-white/6 flex items-center justify-center mb-3">
-          <img src={cert.preview || cert.badge} alt="" className="h-full object-contain" loading="lazy" />
-        </div>
-        <div className="flex items-start justify-between gap-2">
-          <div className="min-w-0 flex-1">
-            <h3 className="text-sm font-bold text-gray-900 dark:text-white leading-snug">{cert.name}</h3>
-            <p className="text-xs text-gray-400 dark:text-gray-500 mt-0.5">{cert.issuer} · {cert.date}</p>
-          </div>
-          {cert.link && cert.link !== '#' && (
-            <a href={cert.link} target="_blank" rel="noopener noreferrer"
-              className="flex-shrink-0 p-1.5 text-gray-400 active:text-yellow-500 mt-0.5">
-              <MdOpenInNew className="w-4 h-4" />
-            </a>
-          )}
-        </div>
+const CertsContent = () => {
+  const [selectedCert, setSelectedCert] = useState(null);
+
+  return (
+    <>
+      <p className="px-5 pt-4 pb-2 text-[10px] text-gray-400 dark:text-gray-600">Tap a credential to view details</p>
+      <div className="grid grid-cols-2 gap-3 px-5 pb-4">
+        {certificationsData.map((cert) => (
+          <button
+            key={cert.name}
+            onClick={() => setSelectedCert(cert)}
+            className="flex flex-col rounded-xl overflow-hidden border border-gray-100 dark:border-white/6 bg-gray-50 dark:bg-white/3 active:scale-95 transition-transform text-left"
+          >
+            <div className="w-full aspect-square bg-white dark:bg-white/4 flex items-center justify-center p-3">
+              <img src={cert.badge} alt="" className="w-full h-full object-contain" loading="lazy" />
+            </div>
+            <div className="px-2.5 py-2 border-t border-gray-100 dark:border-white/6">
+              <p className="text-[10px] font-bold text-gray-800 dark:text-gray-200 leading-tight line-clamp-2">{cert.name}</p>
+              <p className="text-[9px] text-gray-400 dark:text-gray-500 mt-0.5 truncate">{cert.issuer}</p>
+            </div>
+          </button>
+        ))}
       </div>
-    ))}
-  </div>
-);
+
+      <BottomSheet
+        open={!!selectedCert}
+        onClose={() => setSelectedCert(null)}
+        title="Credential"
+      >
+        {selectedCert && (
+          <div className="px-5 py-5">
+            <div className="w-full aspect-[4/3] rounded-xl overflow-hidden bg-white dark:bg-white/4 border border-gray-100 dark:border-white/6 flex items-center justify-center mb-4">
+              <img src={selectedCert.preview || selectedCert.badge} alt="" className="h-full object-contain" loading="lazy" />
+            </div>
+            <h3 className="text-sm font-bold text-gray-900 dark:text-white leading-snug mb-1">{selectedCert.name}</h3>
+            <p className="text-xs text-gray-400 dark:text-gray-500 mb-4">{selectedCert.issuer} · {selectedCert.date}</p>
+            {selectedCert.link && selectedCert.link !== '#' && (
+              <a href={selectedCert.link} target="_blank" rel="noopener noreferrer"
+                className="inline-flex items-center gap-1.5 px-4 py-2 rounded-xl bg-yellow-500 text-white text-xs font-bold">
+                <MdOpenInNew className="w-3.5 h-3.5" />
+                View Certificate
+              </a>
+            )}
+          </div>
+        )}
+      </BottomSheet>
+    </>
+  );
+};
 
 /* ─── Contact sheet content ──────────────────────────── */
 const ContactContent = () => (
