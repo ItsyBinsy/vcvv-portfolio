@@ -117,7 +117,7 @@ const Projects = ({ defaultOpen = false, onModalClose } = {}) => {
                           >
                             <MdChevronRight className="w-4 h-4" />
                           </button>
-                          <div className="absolute bottom-2 left-1/2 -translate-x-1/2 flex gap-1 z-10">
+                          <div className="absolute bottom-2 left-1/2 -translate-x-1/2 flex gap-1 z-10 px-2 py-1 rounded-full bg-black/30 backdrop-blur-sm">
                             {imgs.map((_, i) => (
                               <button
                                 key={i}
