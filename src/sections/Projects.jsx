@@ -94,13 +94,14 @@ const Projects = ({ defaultOpen = false, onModalClose } = {}) => {
                 {/* Image gallery */}
                 {(() => {
                   const imgs = getImages(selectedProject);
+                  const useContain = !!selectedProject.useContain;
                   return (
-                    <div className="flex-shrink-0 relative overflow-hidden border-b border-gray-100 dark:border-white/6 bg-gray-50 dark:bg-black" style={{ height: selectedProject.title === 'Saan Tayo Kakain' ? '250px' : '200px' }}>
+                    <div className="flex-shrink-0 relative overflow-hidden border-b border-gray-100 dark:border-white/6 bg-gray-50 dark:bg-black" style={{ height: useContain ? '250px' : '200px' }}>
                       <img
                         key={imgs[imgIndex]}
                         src={imgs[imgIndex]}
                         alt={`${selectedProject.title} screenshot ${imgIndex + 1}`}
-                        className={`absolute inset-0 w-full h-full transition-opacity duration-200 ${selectedProject.title === 'Saan Tayo Kakain' ? 'object-contain' : 'object-cover object-top'}`}
+                        className={`absolute inset-0 w-full h-full transition-opacity duration-200 ${useContain ? 'object-contain' : 'object-cover object-top'}`}
                       />
                       {imgs.length > 1 && (
                         <>

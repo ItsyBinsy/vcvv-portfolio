@@ -130,6 +130,7 @@ export const skillsData = {
 export const projectsData = [
   {
     title: "Saan Tayo Kakain",
+    useContain: true,
     role: "Full-Stack Developer & QA · Personal Project",
     period: "May 2026",
     tech: ["Next.js", "TypeScript", "Tailwind CSS", "Zustand", "Framer Motion", "Google Places API", "Playwright", "Lottie", "Tally", "PWA", "Vercel"],
@@ -290,6 +291,7 @@ export const projectsData = [
   },
   {
     title: "Mobile App Collection - Flutter Course",
+    useContain: true,
     role: "Mobile App Developer",
     period: "2026",
     tech: ["Flutter", "Dart"],

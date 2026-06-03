@@ -156,11 +156,14 @@ const ProjectsContent = () => (
         <div key={project.title} className="px-5 py-5">
           {imgs.length > 0 && (
             <div className="flex gap-2 mb-3 overflow-x-auto scrollbar-hide -mx-5 px-5">
-              {imgs.map((src, i) => (
-                <div key={i} className={`flex-shrink-0 w-[80vw] rounded-xl overflow-hidden bg-gray-100 dark:bg-white/6 ${project.title === 'Saan Tayo Kakain' ? 'aspect-[16/9]' : 'aspect-[16/7]'}`}>
-                  <img src={src} alt="" className={`w-full h-full ${project.title === 'Saan Tayo Kakain' ? 'object-contain' : 'object-cover object-top'}`} loading="lazy" />
-                </div>
-              ))}
+              {imgs.map((src, i) => {
+                const useContain = !!project.useContain;
+                return (
+                  <div key={i} className={`flex-shrink-0 w-[80vw] rounded-xl overflow-hidden bg-gray-100 dark:bg-white/6 ${useContain ? 'aspect-[16/9]' : 'aspect-[16/7]'}`}>
+                    <img src={src} alt="" className={`w-full h-full ${useContain ? 'object-contain' : 'object-cover object-top'}`} loading="lazy" />
+                  </div>
+                );
+              })}
             </div>
           )}
           <div className="flex items-start justify-between gap-2 mb-2">
