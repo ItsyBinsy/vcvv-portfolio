@@ -142,7 +142,6 @@ export const projectsData = [
       "Built dynamic OG image generation with Next.js ImageResponse and a custom font loaded via readFileSync, shipping proper Twitter card previews for social sharing without a third-party service.",
     ],
     images: [
-      "/images/STK.webp",
       "/images/STK2.webp",
       "/images/STK3.webp",
       "/images/STK4.webp",
