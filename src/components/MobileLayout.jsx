@@ -561,7 +561,7 @@ const FolderTile = ({ folder, onOpen, delay }) => (
       )}
       <button
         onClick={onOpen}
-        className="w-full aspect-square rounded-2xl p-3 active:scale-95 transition-transform duration-150 shadow-lg cursor-default overflow-hidden"
+        className="w-full aspect-square rounded-2xl p-3 active:scale-95 transition-transform duration-150 shadow-lg cursor-default overflow-hidden flex items-center justify-center"
         style={{
           background: 'rgba(150,150,150,0.15)',
           backdropFilter: 'blur(12px)',
