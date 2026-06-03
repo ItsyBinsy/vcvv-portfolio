@@ -207,7 +207,7 @@ export const projectsData = [
       "Worked within a Docker-containerized development environment and observed .NET Aspire orchestration, building familiarity with how distributed systems are provisioned, configured, and run locally in an enterprise context",
       "Navigated a 14-project Clean Architecture solution (Api, Client, Core, Infrastructure, Shared, Test, Tools layers), building practical understanding of how enterprise codebases separate concerns across bounded layers compared to the single-project academic apps built in school"
     ],
-    images: ["/images/BFT.webp"],
+    images: ["/images/BFT.webp", "/images/BF2.webp"],
     link: null,
     isPrivate: true,
   },
