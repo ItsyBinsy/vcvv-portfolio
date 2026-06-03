@@ -141,7 +141,14 @@ export const projectsData = [
       "Engineered a contextual feedback trigger using Tally's JS SDK that fires once after users return from Google Maps directions, using visibilitychange and a 15s idle fallback, never repeating after submit.",
       "Built dynamic OG image generation with Next.js ImageResponse and a custom font loaded via readFileSync, shipping proper Twitter card previews for social sharing without a third-party service.",
     ],
-    images: ["/images/STK.webp"],
+    images: [
+      "/images/STK.webp",
+      "/images/STK2.webp",
+      "/images/STK3.webp",
+      "/images/STK4.webp",
+      "/images/STK5.webp",
+      "/images/STK6.webp",
+    ],
     link: "https://www.saantayokakain.today",
     github: "https://github.com/ItsyBinsy/saan-tayo-kakain",
     isPrivate: false,
@@ -284,12 +291,12 @@ export const projectsData = [
   },
   {
     title: "Mobile App Collection - Netflix, Instagram & Maya Inspired",
-    role: "Frontend Developer",
+    role: "Mobile App Developer",
     period: "2024",
     tech: ["Android Studio", "Kotlin", "XML Layouts"],
     highlights: [
-      "Built multiple Android applications in Kotlin throughout a semester of mobile development coursework, recreating responsive UI patterns from popular apps",
-      "Applied Android fundamentals including XML layouts, visual navigation, grid-based content browsing, and user profile management across multiple hands-on laboratory exercises"
+      "Built multiple Android applications in Kotlin using Android Studio throughout a semester of mobile development coursework, recreating responsive UI patterns from popular apps",
+      "Applied Android fundamentals including XML layouts, responsive grid-based content browsing, visual navigation, and user profile management across multiple hands-on laboratory exercises"
     ],
     images: ["/images/ANDROID.webp"],
     link: null,
@@ -327,7 +334,7 @@ export const projectsData = [
   },
   {
     title: "ExperienceMIMAROPA - Regional Tourism Platform",
-    role: "Front-End Developer & Quality Assurance",
+    role: "Front-End Developer & QA",
     period: "2023",
     tech: ["HTML5", "CSS", "JavaScript", "Bootstrap", "MySQL"],
     highlights: [
