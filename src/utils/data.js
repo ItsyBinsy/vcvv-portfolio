@@ -296,7 +296,7 @@ export const projectsData = [
     highlights: [
       "Built multiple Flutter mobile applications throughout a semester of mobile development coursework, applying core Dart and Flutter fundamentals including widgets, Scaffold, layouts, and navigation across recreations of real-world app interfaces"
     ],
-    images: [/images/FLUTTER.webp],
+    images: ["/images/FLUTTER.webp"],
     link: null,
     isPrivate: false,
   },
