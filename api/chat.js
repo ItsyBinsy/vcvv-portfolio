@@ -72,10 +72,10 @@ export default async function handler(req, res) {
       return res.status(400).json({ error: 'Message is required' });
     }
 
-    const GEMINI_API_KEY = process.env.GEMINI_API_KEY;
+    const OPENAI_API_KEY = process.env.OPENAI_API_KEY;
 
-    if (!GEMINI_API_KEY) {
-      console.error('Gemini API key not configured');
+    if (!OPENAI_API_KEY) {
+      console.error('OpenAI API key not configured');
       return res.status(500).json({ error: 'API key not configured' });
     }
 
@@ -246,42 +246,41 @@ QA & Testing:
 - When in doubt, say: "I don't have that specific information. You can contact Vince directly at vincecvviana@gmail.com or +63 938 472 9243 for details."
 - Maintain accuracy over creativity - better to admit not knowing than to hallucinate`;
 
-    // Build conversation history for Gemini format
-    const contents = [
+    // Build conversation history for OpenAI format
+    const messages_history = [
+      { role: 'system', content: systemPrompt },
       ...history.map(msg => ({
-        role: msg.type === 'user' ? 'user' : 'model',
-        parts: [{ text: msg.text }]
+        role: msg.type === 'user' ? 'user' : 'assistant',
+        content: msg.text
       })),
-      { role: 'user', parts: [{ text: message }] }
+      { role: 'user', content: message }
     ];
 
-    // Call Gemini API
-    const response = await fetch(
-      `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${GEMINI_API_KEY}`,
-      {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          system_instruction: { parts: [{ text: systemPrompt }] },
-          contents,
-          generationConfig: {
-            temperature: 0.7,
-            maxOutputTokens: 500
-          }
-        })
-      }
-    );
+    // Call OpenAI API
+    const response = await fetch('https://api.openai.com/v1/chat/completions', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${OPENAI_API_KEY}`
+      },
+      body: JSON.stringify({
+        model: 'gpt-4o-mini',
+        messages: messages_history,
+        temperature: 0.7,
+        max_tokens: 500
+      })
+    });
 
     if (!response.ok) {
       const error = await response.json();
-      console.error('Gemini API error:', error);
+      console.error('OpenAI API error:', error);
       return res.status(500).json({
         error: 'Having trouble connecting. You can reach Vince directly via the Contact section or at vincecvviana@gmail.com.'
       });
     }
 
     const data = await response.json();
-    const aiMessage = data.candidates[0].content.parts[0].text;
+    const aiMessage = data.choices[0].message.content;
 
     return res.status(200).json({ message: aiMessage });
 
