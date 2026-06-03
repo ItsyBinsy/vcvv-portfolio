@@ -198,7 +198,7 @@ export const projectsData = [
   {
     title: "BF Timesheet - Timesheet Management System",
     role: "Software Engineer Intern (Full-Stack) · Blackfort Consulting PH",
-    period: "Feb 2026 - Apr 2026",
+    period: "Feb 2026 - May 2026",
     tech: [".NET 9 Web API", "Blazor WebAssembly", "Telerik UI", "Entity Framework Core", "PostgreSQL", ".NET Aspire", "Docker", "MediatR (CQRS)", "Azure DevOps"],
     highlights: [
       "Contributed to an active enterprise-scale timesheet and HR system as a full-stack intern, navigating a Clean Architecture codebase with CQRS, MediatR, and Blazor WebAssembly alongside senior engineers across multiple professional roles",
@@ -350,7 +350,7 @@ export const projectsData = [
   },
   {
     title: "ExperienceMIMAROPA - Regional Tourism Platform",
-    role: "Front-End Developer & QA",
+    role: "Front-End Developer & Software QA",
     period: "2023",
     tech: ["HTML5", "CSS", "JavaScript", "Bootstrap", "MySQL"],
     highlights: [
