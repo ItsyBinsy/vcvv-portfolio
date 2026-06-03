@@ -196,47 +196,64 @@ const Chatbot = ({ isOpen, onClose }) => {
         </div>
 
         {/* Messages */}
-        <div className="flex-1 overflow-y-auto px-4 py-3 space-y-3 modal-scrollbar" data-lenis-prevent>
-          {messages.map((msg, i) => (
-            <div key={i} className={`flex ${msg.type === 'user' ? 'justify-end' : 'justify-start'} group`}>
-              <div className="max-w-[82%]">
-                <div className={`px-3 py-2 text-sm ${
-                  msg.type === 'user'
-                    ? 'bg-yellow-500 text-white rounded-2xl rounded-br-sm'
-                    : 'bg-gray-100 dark:bg-white/6 text-gray-900 dark:text-white rounded-2xl rounded-bl-sm border-l-2 border-yellow-400/60'
-                }`}>
-                  {msg.type === 'bot' ? (
-                    <div className="prose prose-sm dark:prose-invert max-w-none text-[13px] leading-snug">
-                      <ReactMarkdown
-                        components={{
-                          p: ({ node, ...props }) => <p className="mb-1 last:mb-0" {...props} />,
-                          a: ({ node, ...props }) => <a className="text-yellow-500 hover:underline" target="_blank" rel="noopener noreferrer" {...props} />,
-                          ul: ({ node, ...props }) => <ul className="list-disc ml-4 mb-1" {...props} />,
-                          ol: ({ node, ...props }) => <ol className="list-decimal ml-4 mb-1" {...props} />,
-                          code: ({ node, inline, ...props }) =>
-                            inline
-                              ? <code className="bg-black/10 dark:bg-white/10 px-1 py-0.5 rounded text-xs" {...props} />
-                              : <code className="block bg-black/10 dark:bg-white/10 p-2 rounded text-xs overflow-x-auto mt-1" {...props} />,
-                        }}
-                      >
-                        {msg.text}
-                      </ReactMarkdown>
+        <div className="flex-1 overflow-y-auto px-3 py-3 space-y-1 modal-scrollbar" data-lenis-prevent>
+          {messages.map((msg, i) => {
+            const isUser = msg.type === 'user';
+            const prevMsg = messages[i - 1];
+            const nextMsg = messages[i + 1];
+            const isFirst = !prevMsg || prevMsg.type !== msg.type;
+            const isLast = !nextMsg || nextMsg.type !== msg.type;
+
+            return (
+              <div key={i} className={`flex items-end gap-2 ${isUser ? 'justify-end' : 'justify-start'} group`}>
+                {/* Bot avatar — only on last bot message in a group */}
+                {!isUser && (
+                  <div className={`w-6 h-6 rounded-full overflow-hidden flex-shrink-0 ${isLast ? 'opacity-100' : 'opacity-0'}`}>
+                    <img src="/images/baymax.webp" alt="" className="w-full h-full object-cover object-top" />
+                  </div>
+                )}
+
+                <div className={`max-w-[75%] ${isUser ? 'items-end' : 'items-start'} flex flex-col`}>
+                  <div className={`px-3 py-2 text-[13px] leading-snug ${
+                    isUser
+                      ? `bg-yellow-500 text-white ${isFirst && isLast ? 'rounded-2xl' : isFirst ? 'rounded-2xl rounded-br-md' : isLast ? 'rounded-2xl rounded-tr-md rounded-br-sm' : 'rounded-2xl rounded-r-md'}`
+                      : `bg-gray-100 dark:bg-[#2C2C2E] text-gray-900 dark:text-white ${isFirst && isLast ? 'rounded-2xl' : isFirst ? 'rounded-2xl rounded-bl-md' : isLast ? 'rounded-2xl rounded-tl-md rounded-bl-sm' : 'rounded-2xl rounded-l-md'}`
+                  }`}>
+                    {!isUser ? (
+                      <div className="prose prose-sm dark:prose-invert max-w-none text-[13px] leading-snug">
+                        <ReactMarkdown
+                          components={{
+                            p: ({ node, ...props }) => <p className="mb-1 last:mb-0" {...props} />,
+                            a: ({ node, ...props }) => <a className="text-yellow-500 hover:underline" target="_blank" rel="noopener noreferrer" {...props} />,
+                            ul: ({ node, ...props }) => <ul className="list-disc ml-4 mb-1" {...props} />,
+                            ol: ({ node, ...props }) => <ol className="list-decimal ml-4 mb-1" {...props} />,
+                            code: ({ node, inline, ...props }) =>
+                              inline
+                                ? <code className="bg-black/10 dark:bg-white/10 px-1 py-0.5 rounded text-xs" {...props} />
+                                : <code className="block bg-black/10 dark:bg-white/10 p-2 rounded text-xs overflow-x-auto mt-1" {...props} />,
+                          }}
+                        >
+                          {msg.text}
+                        </ReactMarkdown>
+                      </div>
+                    ) : (
+                      <p>{msg.text}</p>
+                    )}
+                  </div>
+                  {isLast && (
+                    <div className={`flex items-center gap-1.5 mt-0.5 px-1 opacity-0 group-hover:opacity-100 transition-opacity duration-150 ${isUser ? 'justify-end' : 'justify-start'}`}>
+                      <span className="text-[10px] text-gray-400 dark:text-gray-600">{formatTime(msg.timestamp)}</span>
+                      {!isUser && (
+                        <button onClick={() => copyToClipboard(msg.text, i)} className="text-gray-300 dark:text-gray-600 hover:text-gray-500 dark:hover:text-gray-400 transition-colors">
+                          {copiedMessageId === i ? <MdCheck className="text-xs text-green-500" /> : <MdContentCopy className="text-[10px]" />}
+                        </button>
+                      )}
                     </div>
-                  ) : (
-                    <p className="text-[13px] leading-snug">{msg.text}</p>
-                  )}
-                </div>
-                <div className="flex items-center gap-1.5 mt-0.5 px-1 opacity-0 group-hover:opacity-100 transition-opacity duration-150">
-                  <span className="text-[10px] text-gray-400 dark:text-gray-600">{formatTime(msg.timestamp)}</span>
-                  {msg.type === 'bot' && (
-                    <button onClick={() => copyToClipboard(msg.text, i)} className="text-gray-300 dark:text-gray-600 hover:text-gray-500 dark:hover:text-gray-400 transition-colors">
-                      {copiedMessageId === i ? <MdCheck className="text-xs text-green-500" /> : <MdContentCopy className="text-[10px]" />}
-                    </button>
                   )}
                 </div>
               </div>
-            </div>
-          ))}
+            );
+          })}
 
           {/* Quick replies */}
           {messages.length <= 2 && (
