@@ -199,7 +199,7 @@ export const projectsData = [
     title: "BF Timesheet - Timesheet Management System",
     role: "Software Engineer Intern (Full-Stack) · Blackfort Consulting PH",
     period: "Feb 2026 - Apr 2026",
-    tech: ["ASP.NET Core", "Entity Framework Core", "Telerik Blazor UI", "Blazor WebAssembly", "SQL", "Docker", "GitHub"],
+    tech: [".NET 9 Web API", "Blazor WebAssembly", "Telerik UI", "Entity Framework Core", "PostgreSQL", ".NET Aspire", "Docker", "MediatR (CQRS)", "Azure DevOps"],
     highlights: [
       "Contributed to an active enterprise-scale timesheet and HR system as a full-stack intern, navigating a Clean Architecture codebase with CQRS, MediatR, and Blazor WebAssembly alongside senior engineers across multiple professional roles",
       "Resolved bug tickets across the Blazor WebAssembly client and ASP.NET Core Web API backend, reading and adapting to the team's established code style and architecture patterns to deliver fixes within sprint estimates",
