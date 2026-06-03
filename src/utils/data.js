@@ -201,9 +201,11 @@ export const projectsData = [
     period: "Feb 2026 - Apr 2026",
     tech: ["ASP.NET Core", "Entity Framework Core", "Telerik Blazor UI", "Blazor WebAssembly", "SQL", "Docker", "GitHub"],
     highlights: [
-      "Participated in Agile sprints as a full-stack intern, resolving bug tickets across the Blazor WebAssembly client and ASP.NET Core Web API backend",
-      "Worked within a CQRS architecture using MediatR handlers and Entity Framework Core for data access on a .NET 9 multi-project solution",
-      "Contributed to timesheet and attendance workflows including approval flows, corrections, and reporting features built with Telerik Blazor UI components"
+      "Contributed to an active enterprise-scale timesheet and HR system as a full-stack intern, navigating a Clean Architecture codebase with CQRS, MediatR, and Blazor WebAssembly alongside senior engineers across multiple professional roles",
+      "Resolved bug tickets across the Blazor WebAssembly client and ASP.NET Core Web API backend, reading and adapting to the team's established code style and architecture patterns to deliver fixes within sprint estimates",
+      "Gained first-hand exposure to a professional Agile workflow using Azure DevOps, managing work items, submitting pull requests for code review, and meeting sprint-based delivery timelines for the first time outside of academic settings",
+      "Worked within a Docker-containerized development environment and observed .NET Aspire orchestration, building familiarity with how distributed systems are provisioned, configured, and run locally in an enterprise context",
+      "Navigated a 14-project Clean Architecture solution (Api, Client, Core, Infrastructure, Shared, Test, Tools layers), building practical understanding of how enterprise codebases separate concerns across bounded layers compared to the single-project academic apps built in school"
     ],
     images: ["/images/BFT.webp"],
     link: null,
@@ -276,7 +278,7 @@ export const projectsData = [
     isPrivate: false,
   },
   {
-    title: "HR Payroll Management System · FAST Laboratories",
+    title: "HR Payroll Management System - FAST Laboratories",
     role: "Front-End Developer & Software QA · Software Engineering Final Requirement",
     period: "Sep 2024 - May 2025",
     tech: ["AngularJS", "ASP.NET MVC", "MySQL", "HTML5", "CSS", "GitHub"],
