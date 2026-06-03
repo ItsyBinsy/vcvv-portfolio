@@ -284,22 +284,20 @@ export const projectsData = [
       "Developed payroll report generation features",
       "Solved critical HR issues: inconsistent records, salary miscalculations, and processing delays"
     ],
-    images: ["/images/FAST.jpg"],
+    images: ["/images/FAST.webp"],
     link: null,
     isPrivate: true,
   },
   {
-    title: "Mobile App Collection - Netflix, Instagram & Maya Inspired",
+    title: "Mobile App Collection - Flutter Course",
     role: "Mobile App Developer",
-    period: "2024",
-    tech: ["Android Studio", "Kotlin", "XML Layouts"],
+    period: "2026",
+    tech: ["Flutter", "Dart"],
     highlights: [
-      "Built multiple Android applications in Kotlin using Android Studio throughout a semester of mobile development coursework, recreating responsive UI patterns from popular apps",
-      "Applied Android fundamentals including XML layouts, responsive grid-based content browsing, visual navigation, and user profile management across multiple hands-on laboratory exercises"
+      "Built multiple Flutter mobile applications throughout a semester of mobile development coursework, applying core Dart and Flutter fundamentals including widgets, Scaffold, layouts, and navigation across recreations of real-world app interfaces"
     ],
-    images: ["/images/ANDROID.webp"],
+    images: [/images/FLUTTER.webp],
     link: null,
-    github: "https://github.com/ItsyBinsy/MyAndroidLayouts",
     isPrivate: false,
   },
   {
@@ -329,6 +327,20 @@ export const projectsData = [
     ],
     images: ["/images/ST1.webp", "/images/ST.webp"],
     link: null,
+    isPrivate: false,
+  },
+  {
+    title: "Mobile App Collection - Android Development Course",
+    role: "Mobile App Developer",
+    period: "2024",
+    tech: ["Android Studio", "Kotlin", "XML Layouts"],
+    highlights: [
+      "Built multiple Android applications in Kotlin using Android Studio throughout a semester of mobile development coursework, recreating responsive UI patterns from popular apps",
+      "Applied Android fundamentals including XML layouts, responsive grid-based content browsing, visual navigation, and user profile management across multiple hands-on laboratory exercises"
+    ],
+    images: ["/images/ANDROID.webp"],
+    link: null,
+    github: "https://github.com/ItsyBinsy/MyAndroidLayouts",
     isPrivate: false,
   },
   {
