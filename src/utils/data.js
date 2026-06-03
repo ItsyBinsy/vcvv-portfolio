@@ -276,14 +276,15 @@ export const projectsData = [
     isPrivate: false,
   },
   {
-    title: "FAST Laboratories - HR Payroll Management System",
-    role: "Front-End Developer · Software Engineering Final Requirement",
+    title: "HR Payroll Management System · FAST Laboratories",
+    role: "Front-End Developer & Software QA · Software Engineering Final Requirement",
     period: "Sep 2024 - May 2025",
     tech: ["AngularJS", "ASP.NET MVC", "MySQL", "HTML5", "CSS", "GitHub"],
     highlights: [
-      "Built automated payroll interface with employee record management and salary calculation modules",
-      "Developed payroll report generation features",
-      "Solved critical HR issues: inconsistent records, salary miscalculations, and processing delays"
+      "Built and defended the payroll management interface as a Software Engineering final requirement for a real company client (FAST Laboratories), developing employee record views, salary display modules, and payslip report screens using AngularJS and ASP.NET MVC, directly addressing the client's critical HR issues including inconsistent records, salary miscalculations, and processing delays",
+      "Designed entity-relationship diagrams and class diagrams during the system planning phase, translating business requirements into a structured data model before development",
+      "Conducted manual QA testing across payroll workflows, validating that UI outputs correctly reflected statutory deduction computations for SSS and PhilHealth, and tracked identified bugs through to resolution",
+      "Developed payroll report generation views and ensured accurate data presentation across employee records and salary summaries"
     ],
     images: ["/images/FAST.webp"],
     link: null,
