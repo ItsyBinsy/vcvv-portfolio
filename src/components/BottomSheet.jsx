@@ -1,14 +1,23 @@
 import { useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 
+let scrollLockCount = 0;
+
 const BottomSheet = ({ open, onClose, children, title, icon: TitleIcon }) => {
   useEffect(() => {
     if (open) {
+      scrollLockCount++;
       document.body.style.overflow = 'hidden';
-    } else {
-      document.body.style.overflow = '';
     }
-    return () => { document.body.style.overflow = ''; };
+    return () => {
+      if (open) {
+        scrollLockCount--;
+        if (scrollLockCount <= 0) {
+          scrollLockCount = 0;
+          document.body.style.overflow = '';
+        }
+      }
+    };
   }, [open]);
 
   return (
