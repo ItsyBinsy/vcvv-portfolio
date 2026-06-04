@@ -105,7 +105,7 @@ const Projects = ({ defaultOpen = false, onModalClose } = {}) => {
                         key={imgs[imgIndex]}
                         src={imgs[imgIndex]}
                         alt={`${selectedProject.title} screenshot ${imgIndex + 1}`}
-                        className={`absolute inset-0 w-full h-full transition-opacity duration-200 ${useContain ? 'object-contain' : 'object-cover object-top'}`}
+                        className={`w-full h-full transition-opacity duration-200 ${useContain ? 'object-contain' : 'object-cover object-top'}`}
                         containerClassName="absolute inset-0"
                       />
                       {imgs.length > 1 && (
