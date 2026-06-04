@@ -8,6 +8,7 @@ const BottomSheet = ({ open, onClose, children, title, icon: TitleIcon }) => {
     if (open) {
       scrollLockCount++;
       document.body.style.overflow = 'hidden';
+      window.__lenis?.stop();
     }
     return () => {
       if (open) {
@@ -15,6 +16,7 @@ const BottomSheet = ({ open, onClose, children, title, icon: TitleIcon }) => {
         if (scrollLockCount <= 0) {
           scrollLockCount = 0;
           document.body.style.overflow = '';
+          window.__lenis?.start();
         }
       }
     };
