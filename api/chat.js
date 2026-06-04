@@ -142,7 +142,7 @@ Design & QA: Figma, Adobe Photoshop, UI/UX Design, Manual Testing, Cross-browser
    - Worked within CQRS architecture using MediatR handlers and Entity Framework Core on .NET 9
    - Contributed to timesheet and attendance workflows including approval flows, corrections, and reporting
    - Tech Stack: ASP.NET Core, Entity Framework Core, Telerik Blazor UI, Blazor WebAssembly, SQL, Docker, GitHub
-   - Role: Software Engineer Intern (Full-Stack) · Blackfort Consulting PH · Feb 2026 - Apr 2026
+   - Role: Software Engineer Intern (Full-Stack) · Blackfort Consulting PH · Feb 2026 - May 2026
    - Private project (no public link)
 
 5. **StudAI** - AI-Driven Study Buddy
@@ -166,36 +166,41 @@ Design & QA: Figma, Adobe Photoshop, UI/UX Design, Manual Testing, Cross-browser
    - Role: Full-Stack Developer · Dec 2025
    - GitHub: https://github.com/npsangco/barangay247
 
-8. **FAST Laboratories** - HR Payroll Management System
+8. **HR Payroll Management System - FAST Laboratories**
    - Built automated payroll interface with employee record management and salary calculation modules
    - Tech Stack: AngularJS, ASP.NET MVC, MySQL, HTML5, CSS, GitHub
-   - Role: Front-End Developer · Software Engineering Final Requirement · Sep 2024 - May 2025
+   - Role: Front-End Developer & Software QA · Software Engineering Final Requirement · Sep 2024 - May 2025
    - Private project
 
-9. **Webinar Platform UX Testing & Feedback** - Freelance QA (Upwork)
+9. **Mobile App Collection - Flutter Course**
+   - Built multiple Flutter mobile applications throughout a semester of mobile development coursework, applying core Dart and Flutter fundamentals
+   - Tech Stack: Flutter, Dart
+   - Role: Mobile App Developer · 2026
+   - Private project
+
+10. **Webinar Platform UX Testing & Feedback** - Freelance QA (Upwork)
    - Tested a private-label jewelry dropshipping platform end-to-end including store setup, branding, product catalog, and Shopify integration
    - Evaluated a browser-based webinar platform across all modes including hosting, engagement tools, and audience interaction
    - Produced screen-recorded proof-of-testing sessions and written deliverables for two client platforms
    - Tech Stack: Software QA, Software Testing
    - Role: Software QA & Product Tester · Freelance (Upwork) · May-June 2026
 
-10. **Mobile App Collection** - Netflix, Instagram & Maya Inspired
+11. **Mobile App Collection - Android Development Course** - Netflix, Instagram & Maya Inspired
     - Built multiple mobile applications showcasing diverse UI patterns including streaming, social media, and digital wallet interfaces
     - Tech Stack: Android Studio, Kotlin, XML Layouts
-    - Role: Frontend Developer · 2024
+    - Role: Mobile App Developer · 2024
     - GitHub: https://github.com/ItsyBinsy/MyAndroidLayouts
 
-11. **Viva La Vigan** - Tourism & Cultural Heritage Platform
+12. **Viva La Vigan** - Tourism & Cultural Heritage Platform
     - Three-tier role-based content management (User, Writer, Admin) with application approval workflow
     - Tourism showcase with attractions gallery, experience posts, writer dashboard, and admin moderation
     - Tech Stack: AngularJS, ASP.NET MVC, MySQL, Materialize
     - Role: Full-Stack Developer · 2024 · Private project
 
-12. **ExperienceMIMAROPA** - Regional Tourism Platform
-    - Built responsive tourism website with destination showcase, tour packages, and user authentication
-    - Developed blog system and direct booking integration
+13. **ExperienceMIMAROPA** - Regional Tourism Platform
+    - One of the earlier projects that shaped a full-stack approach, applying HTML5, CSS, JavaScript, Bootstrap, and MySQL end-to-end across responsive layouts, dynamic content, role-based access control (User, Writer, Admin), and database-backed user authentication
     - Tech Stack: HTML5, CSS, JavaScript, Bootstrap, MySQL
-    - Role: Front-End Developer & Quality Assurance · 2023 · Private project
+    - Role: Front-End Developer & Software QA · 2023 · Private project
 
 **Certifications:**
 - PhilNITS Information Technology Passport (IP) – PhilNITS (Nov 2025)

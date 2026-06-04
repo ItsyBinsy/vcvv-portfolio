@@ -5,12 +5,10 @@ import { MdClose } from 'react-icons/md';
 const Modal = ({ isOpen, onClose, title, children }) => {
   useLayoutEffect(() => {
     if (isOpen) {
-      document.body.style.overflow = 'hidden';
       window.__lenis?.stop();
     }
     return () => {
-      document.body.style.overflow = '';
-      window.__lenis?.start();
+      if (isOpen) window.__lenis?.start();
     };
   }, [isOpen]);
 
