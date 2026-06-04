@@ -50,12 +50,12 @@ const Chatbot = ({ isOpen, onClose }) => {
 
   useLayoutEffect(() => {
     if (isOpen && !isMinimized) {
-      window.__lenis?.stop();
+      document.documentElement.style.overflow = 'hidden';
     } else {
-      window.__lenis?.start();
+      document.documentElement.style.overflow = '';
     }
     return () => {
-      window.__lenis?.start();
+      document.documentElement.style.overflow = '';
     };
   }, [isOpen, isMinimized]);
 

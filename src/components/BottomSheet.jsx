@@ -7,14 +7,14 @@ const BottomSheet = ({ open, onClose, children, title, icon: TitleIcon }) => {
   useLayoutEffect(() => {
     if (open) {
       scrollLockCount++;
-      window.__lenis?.stop();
+      document.documentElement.style.overflow = 'hidden';
     }
     return () => {
       if (open) {
         scrollLockCount--;
         if (scrollLockCount <= 0) {
           scrollLockCount = 0;
-          window.__lenis?.start();
+          document.documentElement.style.overflow = '';
         }
       }
     };
