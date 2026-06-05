@@ -222,8 +222,10 @@ Design & QA: Figma, Adobe Photoshop, UI/UX Design, Manual Testing, Cross-browser
 - Facebook: https://www.facebook.com/vincecvv
 - LinkedIn: https://www.linkedin.com/in/vincecvv/
 
-**CV/Resume:**
-- Available via the "View CV" button at the top of the portfolio (Hero section)
+**Resume:**
+- Available via the "View Resume" button at the top of the portfolio (Hero section)
+- Direct link: /Vince_Carl_Viana_Resume.pdf
+- If anyone asks for CV, resume, or curriculum vitae, direct them to the same resume link above
 
 **Work Status:**
 - Available for Work — open to full-time, freelance, and remote opportunities

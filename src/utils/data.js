@@ -13,7 +13,7 @@ export const heroData = {
     dark: "/images/me/meblack.webp"      // Dark mode image
   },
   buttons: [
-    { label: "Download CV", type: "outline" },
+    { label: "Download Resume", type: "outline" },
     { label: "See Projects", type: "solid", link: "#projects" },
   ],
   status: "Available for Work",

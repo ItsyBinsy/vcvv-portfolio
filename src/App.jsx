@@ -132,13 +132,13 @@ const HeroPanel = ({ hoveredPanel, setHoveredPanel }) => {
           <FadeIn delay={0.3}>
             <div className="flex items-center gap-2 flex-wrap">
               <a
-                href="/CV_VinceCarl_Viana.pdf"
+                href="/Vince_Carl_Viana_Resume.pdf"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="relative inline-flex items-center gap-1.5 px-3.5 py-2 rounded-xl bg-yellow-500 text-white text-[11px] font-bold hover:-translate-y-0.5 overflow-hidden transition-all duration-200 before:absolute before:inset-0 before:-translate-x-full hover:before:translate-x-full before:bg-gradient-to-r before:from-transparent before:via-white/20 before:to-transparent before:transition-transform before:duration-500"
               >
                 <MdDownload className="w-3 h-3" />
-                View CV
+                View Resume
               </a>
               <a
                 href="https://github.com/ItsyBinsy"

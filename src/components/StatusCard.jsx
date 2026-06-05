@@ -13,11 +13,16 @@ const StatusCard = () => {
         <span className="font-semibold text-xs text-gray-900 dark:text-white">Available for OJT</span>
       </div>
 
-      {/* Download CV Button */}
-      <button className="w-full py-1.5 px-3 rounded-lg bg-yellow-500 text-white text-xs font-semibold hover:bg-yellow-600 transition-all duration-300 flex items-center justify-center gap-1.5">
+      {/* Download Resume Button */}
+      <a
+        href="/Vince_Carl_Viana_Resume.pdf"
+        target="_blank"
+        rel="noopener noreferrer"
+        className="w-full py-1.5 px-3 rounded-lg bg-yellow-500 text-white text-xs font-semibold hover:bg-yellow-600 transition-all duration-300 flex items-center justify-center gap-1.5"
+      >
         <MdDownload className="text-base" />
-        Download CV
-      </button>
+        Download Resume
+      </a>
     </BentoCard>
   );
 };

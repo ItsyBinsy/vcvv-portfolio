@@ -111,13 +111,13 @@ const HeroScreen = ({ onScrollDown }) => {
           </div>
           <div className="flex items-center gap-2 flex-shrink-0">
             <a
-              href="/CV_VinceCarl_Viana.pdf"
+              href="/Vince_Carl_Viana_Resume.pdf"
               target="_blank"
               rel="noopener noreferrer"
               className="relative inline-flex items-center gap-1.5 px-4 py-2.5 rounded-2xl bg-yellow-500 active:scale-95 text-white text-xs font-bold overflow-hidden transition-all duration-150 before:absolute before:inset-0 before:-translate-x-full active:before:translate-x-full before:bg-gradient-to-r before:from-transparent before:via-white/20 before:to-transparent before:transition-transform before:duration-500"
             >
               <MdDownload className="w-3.5 h-3.5" />
-              View CV
+              View Resume
             </a>
             <a
               href="https://github.com/ItsyBinsy"

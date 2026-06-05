@@ -20,7 +20,7 @@ const Chatbot = ({ isOpen, onClose }) => {
     { text: "Skills", query: "What are your technical skills?" },
     { text: "Projects", query: "Tell me about your projects" },
     { text: "Contact", query: "How can I contact you?" },
-    { text: "CV", query: "How do I get your CV?" },
+    { text: "Resume", query: "How do I get your resume?" },
   ];
 
   useEffect(() => {

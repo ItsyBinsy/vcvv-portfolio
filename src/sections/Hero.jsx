@@ -127,13 +127,13 @@ const Hero = () => {
         transition={{ duration: 0.5, delay: 0.55 }}
       >
         <a
-          href="/CV_VinceCarl_Viana.pdf"
+          href="/Vince_Carl_Viana_Resume.pdf"
           target="_blank"
           rel="noopener noreferrer"
           className="relative group inline-flex items-center gap-2 px-5 py-2.5 rounded-xl bg-yellow-500 text-white text-xs font-bold hover:-translate-y-0.5 overflow-hidden transition-all duration-200 before:absolute before:inset-0 before:-translate-x-full hover:before:translate-x-full before:bg-gradient-to-r before:from-transparent before:via-white/20 before:to-transparent before:transition-transform before:duration-500"
         >
           <MdDownload className="w-3.5 h-3.5" />
-          View CV
+          View Resume
         </a>
         <a
           href="mailto:vincecvviana@gmail.com"
