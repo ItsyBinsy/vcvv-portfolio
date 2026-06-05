@@ -90,7 +90,8 @@ export const skillsData = {
         { name: "HeidiSQL", icon: "SiMysql", description: "Primary tool for inspecting, querying, and debugging MySQL databases during development, used across all MySQL-backed projects." },
         { name: "PostgreSQL", icon: "SiPostgresql", description: "Worked with PostgreSQL through Supabase, covering schema design, row-level security, and real-time subscriptions backed by Postgres under the hood." },
         { name: "SQL Server", icon: "SiDotnet", description: "Used SQL Server with Entity Framework Core for data access in the BF Timesheet system at Blackfort, covering migrations, relationships, and LINQ-based querying." },
-        { name: "Strapi", icon: "SiStrapi", description: "Consumed Strapi v5 REST API in the TLL Daily Drill project, working with content types, media fields, and relational data served from a headless CMS in production." },
+        { name: "Strapi", icon: "SiStrapi", description: "Consumed Strapi v5 REST API in The Learning Library Daily Drill project, working with content types, media fields, and relational data served from a headless CMS in production." },
+        { name: "Redis", icon: "SiRedis", description: "Used Upstash Redis in Saan Tayo Kakain to implement a distributed rate limiter using the INCR + EXPIRE pattern, giving all serverless Vercel instances a shared atomic counter to replace an in-memory limiter that was bypassable under load." },
       ],
     },
     {
@@ -109,16 +110,16 @@ export const skillsData = {
     {
       name: "Design & QA",
       skills: [
-        { name: "Figma", icon: "SiFigma", description: "Designed mockups and UI flows for NamNam before leading its development, and contributed to TLL Daily Drill's design-to-code handoff during internship." },
+        { name: "Figma", icon: "SiFigma", description: "Designed mockups and UI flows for NamNam before leading its development, and contributed to The Learning Library Daily Drill's design-to-code handoff during internship." },
         { name: "Adobe Photoshop", icon: "SiAdobephotoshop", description: "Used for creating and editing visual assets, mockup graphics, and image treatments across web and social media projects." },
-        { name: "UI/UX Design", icon: "MdOutlineDevices", description: "Designed the full UI for NamNam, contributed to TLL wireframes, and built this portfolio's bento layout, mobile experience, and dark mode system from scratch." },
+        { name: "UI/UX Design", icon: "MdOutlineDevices", description: "Designed the full UI for NamNam, contributed to The Learning Library wireframes, and built this portfolio's bento layout, mobile experience, and dark mode system from scratch." },
         { name: "Manual Testing", icon: "MdOutlineCheckCircle", description: "Conducted structured manual test cases across internship bug tickets, academic projects, and two paid Upwork QA contracts covering full platform walkthroughs." },
         { name: "Cross-browser Compatibility", icon: "MdOutlineDevices", description: "Verified UI consistency and behavior across Chrome, Firefox, Edge, and Safari as part of QA work on ExperienceMIMAROPA and Upwork client platforms." },
         { name: "UX Validation", icon: "MdOutlineCheckCircle", description: "Delivered structured UX feedback on two Upwork client platforms, evaluating onboarding flows, engagement tools, and usability pain points with written deliverables." },
         { name: "Postman", icon: "SiPostman", description: "Tested and documented REST APIs during development and QA, verifying endpoints, inspecting payloads, and catching integration issues before they reach the frontend." },
         { name: "Python", icon: "SiPython", description: "Built an AI evaluation suite in Python using DeepEval and GPT-3.5-turbo as an LLM judge, testing 9 cases across summarization and chatbot response quality metrics." },
         { name: "Playwright", icon: "MdOutlineBugReport", description: "Wrote a full E2E test suite for Saan Tayo Kakain, covering all screens, network route mocking, localStorage injection, custom typed fixtures, and mobile viewport testing." },
-        { name: "Bug Tracking", icon: "MdOutlineBugReport", description: "Resolved bug tickets on Azure DevOps during internship at Blackfort, triaging, reproducing, fixing, and submitting PRs across both the TLL and BF Timesheet projects." },
+        { name: "Bug Tracking", icon: "MdOutlineBugReport", description: "Resolved bug tickets on Azure DevOps during internship at Blackfort, triaging, reproducing, fixing, and submitting PRs across both The Learning Library and BF Timesheet projects." },
         { name: "Copywriting", icon: "MdOutlineEditNote", description: "Wrote web copy for client projects and managed content for social media pages with followings ranging from 10K to over 1M." },
         { name: "Social Media Mgmt", icon: "MdOutlineEditNote", description: "Managed content calendars and audience engagement for online influencer pages from 2022 to 2025, growing and maintaining accounts across platforms." },
       ],
@@ -133,7 +134,7 @@ export const projectsData = [
     useContain: true,
     role: "Full-Stack Developer & QA · Personal Project",
     period: "May 2026",
-    tech: ["Next.js", "TypeScript", "Tailwind CSS", "Zustand", "Framer Motion", "Google Places API", "Playwright", "Lottie", "Tally", "PWA", "Vercel"],
+    tech: ["Next.js", "TypeScript", "Tailwind CSS", "Zustand", "Framer Motion", "Google Places API", "Upstash Redis", "Playwright", "Lottie", "Tally", "PWA", "Vercel"],
     highlights: [
       "Built and shipped a GPS-based restaurant picker PWA with a custom design system, 3 interactive game modes with Framer Motion animations, Lottie loading screens, server-side API proxy, E2E test suite, and dynamic OG image generation. Live at saantayokakain.today with real users. End-to-end, from architecture to deployment. ",
       "Architected a server-side API proxy with strict input allowlisting, AbortController timeouts, and a per-IP rate limiter, then identified its serverless multi-instance weakness (each Vercel function has isolated memory, making the limiter bypassable under load) and migrated it to Upstash Redis using the INCR + EXPIRE pattern, giving all instances a shared atomic counter.",
@@ -154,7 +155,7 @@ export const projectsData = [
     isPrivate: false,
   },
   {
-    title: "TLL Daily Drill (WikayGaling) - Filipino Vocabulary Quiz App",
+    title: "The Learning Library Daily Drill (WikayGaling) - Filipino Vocabulary Quiz App",
     role: "Software Engineer Intern (Full-Stack) · Blackfort Consulting PH",
     period: "Mar 2026 - May 2026",
     tech: ["ReactJS", "Tailwind CSS", "REST API", "Strapi v5", "Azure DevOps", "GitHub"],
