@@ -37,6 +37,8 @@ import {
   SiTypescript,
   SiPwa,
   SiVercel,
+  SiRedis,
+  SiAmazonwebservices,
 } from 'react-icons/si';
 import { MdOutlineCheckCircle, MdOutlineBugReport, MdOutlineDevices, MdOutlineEditNote, MdOutlineTerminal } from 'react-icons/md';
 
@@ -77,6 +79,8 @@ export const iconMap = {
   SiTypescript,
   SiPwa,
   SiVercel,
+  SiRedis,
+  SiAmazonwebservices,
   MdOutlineCheckCircle,
   MdOutlineTerminal,
   MdOutlineBugReport,

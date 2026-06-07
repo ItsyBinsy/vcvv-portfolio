@@ -104,7 +104,8 @@ export const skillsData = {
         { name: "Docker", icon: "SiDocker", description: "Worked with Docker in the BF Timesheet project at Blackfort, with containerized .NET services as part of the internship development environment." },
         { name: "GitHub Copilot", icon: "SiGithubcopilot", description: "Used as an AI pair programmer to accelerate boilerplate, explore APIs, and validate patterns without losing understanding of what gets generated." },
         { name: "Claude Code", icon: "MdOutlineTerminal", description: "Used Claude Code as an AI CLI for multi-file refactors, architecture decisions, and shipping this portfolio, treating it as a senior collaborator and not just autocomplete." },
-        { name: "Vercel", icon: "SiVercel", description: "Deployed Saan Tayo Kakain and this portfolio on Vercel, covering serverless functions for the chatbot API, automatic CI/CD from GitHub, and custom domain configuration." },
+        { name: "Vercel", icon: "SiVercel", description: "Deployed Saan Tayo Kakain on Vercel, covering serverless functions, automatic CI/CD from GitHub, and custom domain configuration." },
+        { name: "AWS", icon: "SiAmazonwebservices", description: "Migrated this portfolio to a full serverless AWS architecture: static hosting on S3, CDN and HTTPS via CloudFront, SSL certificate provisioned through ACM, and the AI chatbot running on Lambda behind API Gateway." },
       ],
     },
     {
@@ -209,6 +210,21 @@ export const projectsData = [
       "Navigated a 14-project Clean Architecture solution (Api, Client, Core, Infrastructure, Shared, Test, Tools layers), building practical understanding of how enterprise codebases separate concerns across bounded layers compared to the single-project academic apps built in school"
     ],
     images: ["/images/BFT.webp", "/images/BF2.webp"],
+    link: null,
+    isPrivate: true,
+  },
+  {
+    title: "Blackfort Internal Projects - Human Milk Bank Project & BF Website Revamp",
+    role: "Software Engineer Intern (Full-Stack) · Blackfort Consulting PH",
+    period: "April - May 2026",
+    tech: ["Blazor WebAssembly", "ASP.NET Core", "Entity Framework Core", "MediatR (CQRS)", "Next.js", "TypeScript", "Strapi v5", "GraphQL", "Tailwind CSS", "Framer Motion", "GSAP", "Azure DevOps"],
+    highlights: [
+      "Resolved bug tickets across HMBITS (Human Milk Bank Information Tracking System), an active healthcare platform managing the end-to-end lifecycle of donor milk from registration and serological clearance through pasteurization, barcode-labeled inventory, and neonatal dispensing, built on Blazor WebAssembly and ASP.NET Core 8 with CQRS/MediatR and dual-database EF Core support for both MySQL and SQL Server.",
+      "Navigated a multi-project healthcare codebase with compliance-grade audit trailing across both the Web API and Identity Server, multi-bank role-based access control enforced through custom policy handlers, and hardware integrations for ZPL barcode label printing to Zebra printers in a cloud environment.",
+      "Built and wired CMS content for the BF Website Revamp about page, working inside a Next.js 19 and TypeScript frontend connected to a Strapi 5 headless CMS via GraphQL with auto-generated TypeScript types through graphql-codegen, where page sections are managed as dynamic zones in Strapi allowing editors to reorder content blocks without touching code.",
+      "Gained hands-on exposure to a production GraphQL and Strapi codegen pipeline with draft and preview mode wired to Strapi's live editing signal, alongside a component architecture separating full page blocks from reusable element-level primitives across all site pages."
+    ],
+    images: ["/images/HMB.webp", "/images/BFWEB.webp"],
     link: null,
     isPrivate: true,
   },
