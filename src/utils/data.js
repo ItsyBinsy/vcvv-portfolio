@@ -105,7 +105,8 @@ export const skillsData = {
         { name: "GitHub Copilot", icon: "SiGithubcopilot", description: "Used as an AI pair programmer to accelerate boilerplate, explore APIs, and validate patterns without losing understanding of what gets generated." },
         { name: "Claude Code", icon: "MdOutlineTerminal", description: "Used Claude Code as an AI CLI for multi-file refactors, architecture decisions, and shipping this portfolio, treating it as a senior collaborator and not just autocomplete." },
         { name: "Vercel", icon: "SiVercel", description: "Deployed Saan Tayo Kakain on Vercel, covering serverless functions, automatic CI/CD from GitHub, and custom domain configuration." },
-        { name: "AWS", icon: "SiAmazonwebservices", description: "Migrated this portfolio to a full serverless AWS architecture: static hosting on S3, CDN and HTTPS via CloudFront, SSL certificate provisioned through ACM, and the AI chatbot running on Lambda behind API Gateway." },
+        { name: "AWS", icon: "SiAmazonwebservices", description: "Migrated this portfolio to a full serverless AWS architecture: static hosting on S3, CDN and HTTPS via CloudFront, SSL certificate provisioned through ACM, and the AI chatbot running on Lambda behind API Gateway. Wired a GitHub Actions CI/CD pipeline that builds, syncs to S3, and invalidates CloudFront automatically on every push." },
+        { name: "GitHub Actions", icon: "SiGithubactions", description: "Built a CI/CD pipeline for this portfolio that triggers on every push to main, runs the production build, syncs the output to S3, and creates a CloudFront cache invalidation automatically." },
       ],
     },
     {

@@ -102,7 +102,7 @@ Mobile: Flutter, Dart, Android Studio, Kotlin
 
 Database & CMS: MySQL, PostgreSQL, Supabase, Firebase, HeidiSQL, SQL Server, Strapi
 
-DevOps & Tools: Git, GitHub, Azure DevOps, Digital Ocean, Docker, Vercel, GitHub Copilot, Claude Code
+DevOps & Tools: Git, GitHub, GitHub Actions, Azure DevOps, Digital Ocean, Docker, Vercel, AWS (S3, CloudFront, Lambda, API Gateway, ACM), Redis, GitHub Copilot, Claude Code
 
 Design & QA: Figma, Adobe Photoshop, UI/UX Design, Manual Testing, Cross-browser Compatibility, UX Validation, Postman, Playwright, Bug Tracking, Python, Copywriting, Social Media Management
 
